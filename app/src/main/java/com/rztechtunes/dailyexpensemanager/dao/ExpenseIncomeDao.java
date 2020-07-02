@@ -1,6 +1,7 @@
 package com.rztechtunes.dailyexpensemanager.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -17,6 +18,8 @@ public interface ExpenseIncomeDao {
 
     @Update
     int updateValue(ExpenseIncomePojo dataPojo);
+    @Delete
+    int deleteExIncome(ExpenseIncomePojo expenseIncomePojo);
 
     @Query("Select * from expenseincometbl where e_id like:id")
     ExpenseIncomePojo getAllDatabyId(int id);
@@ -33,6 +36,7 @@ public interface ExpenseIncomeDao {
 
     @Query("Select * from expenseincometbl where e_month=:month and e_year=:year order by e_id desc")
     List<ExpenseIncomePojo> getDataByMonthYear(String month, String year);
+
 
 
 }

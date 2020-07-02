@@ -1,15 +1,22 @@
 package com.rztechtunes.dailyexpensemanager;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,31 +24,49 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ExpenseManagerFrag extends Fragment {
 
+    CollapsingToolbarLayout title;
     ExtendedFloatingActionButton addExpenseBtn;
     private String exCatagories;
     private String e_date;
     RecyclerView expenseRV;
     List<ExpenseIncomePojo> expenseIncomePojos;
 
-    TextView incomeTV, expenseTV, balanceTV, monthTV;
+    TextView incomeTV, expenseTV, balanceTV;
     double t_income, t_expense, t_balance;
-
+    ExpenseIncomeAdapter expenseIncomeAdapter;
 
     public ExpenseManagerFrag() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -54,16 +79,16 @@ public class ExpenseManagerFrag extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         addExpenseBtn = view.findViewById(R.id.addexpenseBtn);
         expenseRV = view.findViewById(R.id.expenseRV);
         incomeTV = view.findViewById(R.id.incomeTV);
         expenseTV = view.findViewById(R.id.expenesTV);
         balanceTV = view.findViewById(R.id.balanceTV);
-        monthTV = view.findViewById(R.id.monthTV);
+        title = view.findViewById(R.id.monthTitle);
 
-        monthTV.setText(Utils.getMonthName());
-
+        title.setTitle(Utils.getMonthName());
 
         //FloatingBtn Click Listener
         addExpenseBtn.setOnClickListener(new View.OnClickListener() {
@@ -101,12 +126,92 @@ public class ExpenseManagerFrag extends Fragment {
         balanceTV.setText(String.valueOf(t_balance));
 
 
-        ExpenseIncomeAdapter expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
+        expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         expenseRV.setLayoutManager(llm);
         expenseRV.setAdapter(expenseIncomeAdapter);
 
+        //Scrolling RV Floating button hide/Show
+        expenseRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_IDLE:
+                        addExpenseBtn.show();
+                        break;
+                    default:
+                        addExpenseBtn.hide();
+                        break;
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+
+        //Swipe To delete expenseRow
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                //Toast.makeText(getActivity(), "on Move", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure?")
+                        .setContentText("Won't be able to recover this file!")
+                        .setConfirmText("Yes,delete it!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                try {
+
+
+                                    try {
+
+                                        int position = viewHolder.getAdapterPosition();
+                                        // dairyPojos.remove(position);
+                                        ExpenseIncomePojo expenseIncomePojo = expenseIncomePojos.get(position);
+                                        ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().deleteExIncome(expenseIncomePojo);
+                                        expenseIncomeAdapter.notifyDataSetChanged();
+                                        featchData();
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                sDialog.dismissWithAnimation();
+
+
+                            }
+                        })
+                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                expenseIncomeAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .show();
+
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(expenseRV);
+
+
     }
+
 
     private void showExpenseDilog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -178,5 +283,70 @@ public class ExpenseManagerFrag extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_piechart:
+                showPieChartDialog();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+
+
+    }
+
+    private void showPieChartDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(" Add Expense");
+        builder.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
+        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.pie_chart_dialog, null);
+
+        builder.setView(view1);
+
+        PieChart pieChart = view1.findViewById(R.id.piechart_1);
+
+
+        pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(true);
+        pieChart.setExtraOffsets(5, 10, 5, 5);
+        pieChart.setDragDecelerationFrictionCoef(0.9f);
+        pieChart.setTransparentCircleRadius(61f);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.animateY(1000, Easing.EaseInBack);
+        ArrayList<PieEntry> yValues = new ArrayList<>();
+        yValues.add(new PieEntry(34f, "Ilala"));
+        yValues.add(new PieEntry(56f, "Temeke"));
+        yValues.add(new PieEntry(66f, "s"));
+        yValues.add(new PieEntry(45f, "Kigamboni"));
+        yValues.add(new PieEntry(45f, "y"));
+        yValues.add(new PieEntry(45f, "p"));
+        yValues.add(new PieEntry(45f, "j"));
+        yValues.add(new PieEntry(45f, "m"));
+        yValues.add(new PieEntry(0f, "test"));
+
+        PieDataSet dataSet = new PieDataSet(yValues, "Desease Per Regions");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData pieData = new PieData((dataSet));
+        pieData.setValueTextSize(10f);
+        pieData.setValueTextColor(Color.YELLOW);
+        pieChart.setData(pieData);
+
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_option, menu);
     }
 }

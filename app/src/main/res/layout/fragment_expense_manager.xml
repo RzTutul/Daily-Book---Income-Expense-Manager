@@ -3,8 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#EDDFDD"
     android:layout_height="match_parent"
     tools:context=".ExpenseManagerFrag">
+
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/monthTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="July"
+            app:collapsedTitleGravity="center"
+            app:expandedTitleGravity="bottom|center_horizontal"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/dashboad_image" />
+
+            <androidx.appcompat.widget.Toolbar
+                app:layout_collapseMode="pin"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -15,16 +54,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/monthTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="JUNE"
-                android:gravity="center"
-                android:textSize="30dp"
-                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,10 +66,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <androidx.cardview.widget.CardView
+                    <soup.neumorphism.NeumorphCardView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:layout_margin="3dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="3dp">
@@ -53,21 +81,25 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:textSize="17sp"
+                                android:textColor="#E91E63"
+                                android:fontFamily="sans-serif-smallcaps"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Income" />
 
                             <TextView
+                                android:fontFamily="sans-serif-smallcaps"
                                 android:id="@+id/incomeTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1000" />
+                                android:text="100000" />
 
 
                         </LinearLayout>
 
 
-                    </androidx.cardview.widget.CardView>
+                    </soup.neumorphism.NeumorphCardView>
 
                 </LinearLayout>
 
@@ -76,10 +108,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <androidx.cardview.widget.CardView
+                    <soup.neumorphism.NeumorphCardView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:layout_margin="3dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="3dp">
@@ -92,11 +123,14 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:textSize="17sp"
+                                android:textColor="@android:color/holo_blue_bright"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Expense" />
 
                             <TextView
+                                android:fontFamily="sans-serif-smallcaps"
                                 android:id="@+id/expenesTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -106,7 +140,7 @@
                         </LinearLayout>
 
 
-                    </androidx.cardview.widget.CardView>
+                    </soup.neumorphism.NeumorphCardView>
 
                 </LinearLayout>
 
@@ -115,10 +149,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <androidx.cardview.widget.CardView
+                    <soup.neumorphism.NeumorphCardView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:layout_margin="3dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="3dp">
@@ -131,11 +164,16 @@
                             android:orientation="vertical">
 
                             <TextView
+
+                                android:textColor="@android:color/holo_orange_dark"
+                                android:fontFamily="sans-serif-smallcaps"
+                                android:textSize="17sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Balance" />
 
                             <TextView
+                                android:fontFamily="sans-serif-smallcaps"
                                 android:id="@+id/balanceTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -144,7 +182,7 @@
 
                         </LinearLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </soup.neumorphism.NeumorphCardView>
 
                 </LinearLayout>
 
@@ -155,7 +193,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="55dp"
                 android:id="@+id/expenseRV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

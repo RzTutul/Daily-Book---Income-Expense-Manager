@@ -15,4 +15,24 @@
         android:name="com.rztechtunes.dailyexpensemanager.ExIncomeDashBoardFrag"
         android:label="fragment_ex_income_dash_board"
         tools:layout="@layout/fragment_ex_income_dash_board" />
+    <fragment
+        android:id="@+id/allCalculationFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.AllCalculationFragment"
+        android:label="fragment_all_calculation"
+        tools:layout="@layout/fragment_all_calculation" />
+    <fragment
+        android:id="@+id/dailyNoteFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.DailyNoteFragment"
+        android:label="fragment_daily_note"
+        tools:layout="@layout/fragment_daily_note" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/addDairyFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.AddDairyFragment"
+        android:label="fragment_add_dairy"
+        tools:layout="@layout/fragment_add_dairy" />
 </navigation>

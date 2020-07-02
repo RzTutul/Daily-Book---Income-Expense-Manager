@@ -24,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
         isStorageRequestAccepted();
 
         bottomNavigation = findViewById(R.id.bottomNav);
-        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_add_circle_outline_24));
-        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_add_circle_outline_24));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_add_circle_outline_24));
-
+        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_dashboard_24));
+        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.icons8_combo_chart_48px));
+        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.icons8_calculator_48px_1));
+        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.dairy_write_icon));
+        bottomNavigation.add(new MeowBottomNavigation.Model(5, R.drawable.ic_baseline_info_24));
 
         bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
@@ -41,9 +42,14 @@ public class MainActivity extends AppCompatActivity {
                         Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.exIncomeDashBoardFrag);
                         break;
                     case 3:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.expenseManagerFrag);
+                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.allCalculationFragment);
                         break;
-
+                    case 4:
+                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.dailyNoteFragment);
+                        break;
+                    case 5:
+                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.settingFragment);
+                        break;
 
                     default:
                         break;

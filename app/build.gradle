@@ -24,6 +24,7 @@ android {
 
 dependencies {
 
+    implementation 'com.airbnb.android:lottie:3.4.1'
     def room_version = "2.2.1"
 
     implementation "androidx.room:room-runtime:$room_version"
@@ -49,5 +50,6 @@ dependencies {
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+   
 
 }

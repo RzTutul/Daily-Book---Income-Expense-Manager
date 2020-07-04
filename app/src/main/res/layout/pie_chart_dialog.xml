@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/piechart_1"
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="300sp">
-    </com.github.mikephil.charting.charts.PieChart>
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Spin below PieCart"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawableLeft="@drawable/spinicon"
+                />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/piechart_1"
+                android:layout_width="match_parent"
+                android:layout_height="350dp">
+            </com.github.mikephil.charting.charts.PieChart>
+
+            <TextView
+                android:id="@+id/exIncomeBoardTV"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textSize="16sp"
+                android:textColor="@android:color/holo_blue_bright"
+
+                />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
 
 
 
-</LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

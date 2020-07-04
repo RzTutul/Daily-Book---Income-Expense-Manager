@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,9 +43,16 @@ import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static android.content.ContentValues.TAG;
 
 public class ExpenseManagerFrag extends Fragment {
 
@@ -226,7 +234,7 @@ public class ExpenseManagerFrag extends Fragment {
 
         final Button canelbtn = view1.findViewById(R.id.cancelBtn);
         final Button addexpenseBtn = view1.findViewById(R.id.addbtn);
-        String[] catagories = {"Select Catagories", "Income", "Food&Drink", "Bank", "Shopping", "Transport", "Hotel", "Other"};
+        String[] catagories = {"Select Categories", "Income", "Food&Drink", "Medicine", "Shopping", "Cell phone", "Rent", "Transport", "Hotel", "Other"};
 
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, catagories);
@@ -258,6 +266,13 @@ public class ExpenseManagerFrag extends Fragment {
                     expenseNameET.setError("Provide expense name!");
                 } else if (amount.isEmpty()) {
                     expenseAmoutET.setError("Provide expense amount!");
+                }
+                if (exCatagories.equals("Select Categories")) {
+                    TextView errorText = (TextView) expenseCatagoriesSP.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("Select Color");
+
                 } else {
                     ExpenseIncomePojo expensePojo = new ExpenseIncomePojo(ename, exCatagories, amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
 
@@ -300,6 +315,33 @@ public class ExpenseManagerFrag extends Fragment {
     }
 
     private void showPieChartDialog() {
+        List<String> categoriesList = new ArrayList<>();
+        expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(Utils.getMonthName(), Utils.getYear());
+        for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojos) {
+            String catagories = expenseIncomePojo.getE_catagories();
+            categoriesList.add(catagories);
+        }
+        //For Remove Duplicate Categories
+        Set<String> s = new LinkedHashSet<String>(categoriesList);
+        categoriesList.clear();
+        categoriesList.addAll(s);
+
+        //For calculation Separate categories amount
+        HashMap<String, Double> calcutateAmount = new HashMap<>();
+        for (String data : categoriesList) {
+            double value = 0.0;
+            for (ExpenseIncomePojo expenseIncomeCalcution : expenseIncomePojos) {
+                String cata = expenseIncomeCalcution.getE_catagories();
+                if (data.equals(cata)) {
+                    value = value + Double.parseDouble(expenseIncomeCalcution.getE_amount());
+                }
+            }
+
+            calcutateAmount.put(data, value);
+
+        }
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(" Add Expense");
         builder.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
@@ -308,6 +350,7 @@ public class ExpenseManagerFrag extends Fragment {
         builder.setView(view1);
 
         PieChart pieChart = view1.findViewById(R.id.piechart_1);
+        TextView exIncomeBoardTV = view1.findViewById(R.id.exIncomeBoardTV);
 
 
         pieChart.setUsePercentValues(true);
@@ -318,19 +361,21 @@ public class ExpenseManagerFrag extends Fragment {
         pieChart.setHoleColor(Color.WHITE);
         pieChart.animateY(1000, Easing.EaseInBack);
         ArrayList<PieEntry> yValues = new ArrayList<>();
-        yValues.add(new PieEntry(34f, "Ilala"));
-        yValues.add(new PieEntry(56f, "Temeke"));
-        yValues.add(new PieEntry(66f, "s"));
-        yValues.add(new PieEntry(45f, "Kigamboni"));
-        yValues.add(new PieEntry(45f, "y"));
-        yValues.add(new PieEntry(45f, "p"));
-        yValues.add(new PieEntry(45f, "j"));
-        yValues.add(new PieEntry(45f, "m"));
-        yValues.add(new PieEntry(0f, "test"));
+        String catagoryWiseCalcultaion = "";
+        for (Map.Entry specificData : calcutateAmount.entrySet()) {
+            String name = specificData.getKey().toString().trim();
+            String value = specificData.getValue().toString().trim();
 
-        PieDataSet dataSet = new PieDataSet(yValues, "Desease Per Regions");
+            yValues.add(new PieEntry(Float.valueOf(value), name));
+            catagoryWiseCalcultaion = catagoryWiseCalcultaion + name +": "+ value + "\n";
+
+        }
+
+        exIncomeBoardTV.setText(catagoryWiseCalcultaion);
+
+        PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
+        dataSet.setSelectionShift(10f);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         PieData pieData = new PieData((dataSet));
         pieData.setValueTextSize(10f);

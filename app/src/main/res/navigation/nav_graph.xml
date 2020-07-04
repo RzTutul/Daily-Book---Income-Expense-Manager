@@ -35,4 +35,19 @@
         android:name="com.rztechtunes.dailyexpensemanager.AddDairyFragment"
         android:label="fragment_add_dairy"
         tools:layout="@layout/fragment_add_dairy" />
+    <fragment
+        android:id="@+id/percentageFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.PercentageFragment"
+        android:label="fragment_percentage"
+        tools:layout="@layout/fragment_percentage" />
+    <fragment
+        android:id="@+id/tipsFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.TipsFragment"
+        android:label="fragment_tips"
+        tools:layout="@layout/fragment_tips" />
+    <fragment
+        android:id="@+id/currencyFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.CurrencyFragment"
+        android:label="fragment_currency"
+        tools:layout="@layout/fragment_currency" />
 </navigation>

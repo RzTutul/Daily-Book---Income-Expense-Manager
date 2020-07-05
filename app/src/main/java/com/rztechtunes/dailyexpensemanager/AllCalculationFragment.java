@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 public class AllCalculationFragment extends Fragment {
 
-CardView percentageCard,tipCard,currencyCard;
+CardView percentageCard,tipCard,currencyCard,bmiCard,perUnitCard,loanCard,interstCard;
     public AllCalculationFragment() {
         // Required empty public constructor
     }
@@ -34,6 +34,10 @@ CardView percentageCard,tipCard,currencyCard;
         percentageCard  = view.findViewById(R.id.percentageCard);
         tipCard  = view.findViewById(R.id.tipCard);
         currencyCard  = view.findViewById(R.id.currencyCard);
+        bmiCard  = view.findViewById(R.id.bmiCard);
+        perUnitCard  = view.findViewById(R.id.perUnitCard);
+        loanCard  = view.findViewById(R.id.loanCard);
+        interstCard  = view.findViewById(R.id.interstCard);
 
         percentageCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +58,35 @@ CardView percentageCard,tipCard,currencyCard;
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.currencyFragment);
+
+            }
+        });
+        bmiCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.calculateIBMFragment);
+
+            }
+        });
+        perUnitCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.perUnitFragment);
+
+            }
+        });
+
+        loanCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.loanFragment);
+
+            }
+        });
+        interstCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.interestFragment);
 
             }
         });

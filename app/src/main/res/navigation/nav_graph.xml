@@ -50,4 +50,24 @@
         android:name="com.rztechtunes.dailyexpensemanager.CurrencyFragment"
         android:label="fragment_currency"
         tools:layout="@layout/fragment_currency" />
+    <fragment
+        android:id="@+id/calculateIBMFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.CalculateIBMFragment"
+        android:label="fragment_calculate_i_b_m"
+        tools:layout="@layout/fragment_calculate_i_b_m" />
+    <fragment
+        android:id="@+id/perUnitFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.PerUnitFragment"
+        android:label="fragment_per_unit"
+        tools:layout="@layout/fragment_per_unit" />
+    <fragment
+        android:id="@+id/loanFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.LoanFragment"
+        android:label="fragment_loan"
+        tools:layout="@layout/fragment_loan" />
+    <fragment
+        android:id="@+id/interestFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.InterestFragment"
+        android:label="fragment_interest"
+        tools:layout="@layout/fragment_interest" />
 </navigation>

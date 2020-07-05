@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PercentageFragment">
+    tools:context=".InterestFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,7 +20,9 @@
             android:layout_height="?android:attr/actionBarSize"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            app:title="Percentage Calculation" />
+            app:subtitle="Simple"
+            app:subtitleTextColor="#fff"
+            app:title="Interest Calculation" />
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,38 +36,63 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="55dp"
             android:orientation="vertical">
 
             <soup.neumorphism.NeumorphCardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="210dp"
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#63E9FA">
+                app:neumorph_backgroundColor="#35658C">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="Amount"
+                        android:text="Final Amount"
+                        android:textColor="#fff"
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/amountTV"
+                        android:id="@+id/finalAmountTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
-                        android:textColor="@android:color/background_dark"
+                        android:textColor="@android:color/background_light"
                         android:textSize="30sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Interest"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/interstTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="0"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="30sp" />
+
+
 
 
                 </LinearLayout>
@@ -93,10 +120,10 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/amountET"
+                            android:id="@+id/initialET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Enter Amount"
+                            android:hint="Initial Amount"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,31 +133,64 @@
                         android:layout_marginTop="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                           android:id="@+id/percentageET"
+                            android:id="@+id/rateET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Enter Percent"
+                            android:hint="Rate %"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <LinearLayout
+                        android:weightSum="2"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_weight="1.5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/periodET"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Period"
+                                android:inputType="numberDecimal" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Spinner
+                            android:id="@+id/monthYearSp"
+                            android:layout_weight="0.5"
+                            android:layout_width="0dp"
+                            android:background="@drawable/spinnerbag"
+                            android:layout_height="match_parent"/>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
 
             </soup.neumorphism.NeumorphCardView>
+
             <Button
-                android:id="@+id/calculateBtn"
+                android:id="@+id/interstBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calculate"
                 android:layout_gravity="center"
-                />
+                android:text="Calculate" />
 
-<TextView
-    android:id="@+id/detilsTV"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
+            <TextView
+                android:id="@+id/detilsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:fontFamily="sans-serif-black"
+                android:textSize="15sp" />
 
         </LinearLayout>
 

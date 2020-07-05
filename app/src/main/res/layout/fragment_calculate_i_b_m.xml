@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalculateIBMFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorAccent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:title="BMI Calculator"
+            app:subtitle="Imperial"
+            app:subtitleTextColor="#fff"
+            app:titleTextColor="#fff" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Weight:"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <EditText
+                    android:background="@drawable/spinner_background"
+                    android:id="@+id/weightET"
+                    android:layout_width="0dp"
+                    android:layout_height="40sp"
+                    android:gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1.5"
+                    android:hint="Weight"
+                    android:inputType="number" />
+
+                <Spinner
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/spinnerbag"
+                    android:id="@+id/selectWeightSP"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.5"
+                android:text="Height:"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+
+                <EditText
+                    android:background="@drawable/spinner_background"
+                    android:id="@+id/feetET"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:hint="feet"
+                    android:inputType="number" />
+
+                <EditText
+                    android:background="@drawable/spinner_background"
+                    android:gravity="center"
+                    android:id="@+id/inchET"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
+                    android:hint="inches"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bmiCalculateBtn"
+                android:layout_margin="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calclate BMI"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                />
+
+
+            <com.github.anastr.speedviewlib.SpeedView
+                android:id="@+id/speedView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                app:sv_maxSpeed="48"
+                app:sv_speedTextColor="@color/colorAccent"
+                app:sv_speedTextSize="30sp"
+                app:sv_unit=" BMI"
+                app:sv_withTremble="false"
+                app:sv_unitTextSize="15sp" />
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/underweight" />
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/normal" />
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/overweight" />
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/obese" />
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="250dp"
+                        android:src="@drawable/extremelyobese" />
+
+
+                </LinearLayout>
+
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -213,6 +213,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/perUnitCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"
@@ -264,6 +265,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/loanCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"
@@ -304,6 +306,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/interstCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"
@@ -355,6 +358,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/bmiCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"

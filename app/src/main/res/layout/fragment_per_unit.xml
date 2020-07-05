@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PercentageFragment">
+    tools:context=".PerUnitFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,7 +20,7 @@
             android:layout_height="?android:attr/actionBarSize"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            app:title="Percentage Calculation" />
+            app:title="Per Unit Calculation" />
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -32,6 +32,7 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
+            android:layout_marginBottom="55dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -42,7 +43,7 @@
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#63E9FA">
+                app:neumorph_backgroundColor="#35658C">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,16 +56,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="Amount"
+                        android:text="Per Unit"
+                        android:textColor="#fff"
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/amountTV"
+                        android:id="@+id/perUnitTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
-                        android:textColor="@android:color/background_dark"
+                        android:textColor="@android:color/background_light"
                         android:textSize="30sp" />
 
 
@@ -93,10 +95,10 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/amountET"
+                            android:id="@+id/totalPriceET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Enter Amount"
+                            android:hint="Total Price"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,10 +108,10 @@
                         android:layout_marginTop="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                           android:id="@+id/percentageET"
+                            android:id="@+id/totalQytET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Enter Percent"
+                            android:hint="Total Qunatity"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,18 +121,21 @@
 
             </soup.neumorphism.NeumorphCardView>
             <Button
-                android:id="@+id/calculateBtn"
+                android:id="@+id/perUnitBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calculate"
                 android:layout_gravity="center"
                 />
 
-<TextView
-    android:id="@+id/detilsTV"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif-black"
+                android:id="@+id/detilsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
 

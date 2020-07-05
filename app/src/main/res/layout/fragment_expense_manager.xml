@@ -67,6 +67,7 @@
                     android:layout_weight="1">
 
                     <soup.neumorphism.NeumorphCardView
+                        android:padding="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
@@ -109,6 +110,7 @@
                     android:layout_weight="1">
 
                     <soup.neumorphism.NeumorphCardView
+                        android:padding="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
@@ -150,6 +152,7 @@
                     android:layout_weight="1">
 
                     <soup.neumorphism.NeumorphCardView
+                        android:padding="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
@@ -209,7 +212,7 @@
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="55dp"
         android:layout_marginRight="10dp"
         android:id="@+id/addexpenseBtn"
         android:layout_width="wrap_content"

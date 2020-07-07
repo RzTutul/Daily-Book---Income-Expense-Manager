@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
@@ -35,7 +37,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ExIncomeDashBoardFrag extends Fragment {
 
-    TextView monthNameTV, totalIncomeTV, totalExpenesTV, totalBalanceTV;
+   TickerView totalIncomeTV, totalExpenesTV, totalBalanceTV;
+    TextView monthNameTV;
     Spinner monthSP, yearSP;
     String select_month, select_year;
     RecyclerView expenseIncomeRV;
@@ -66,6 +69,12 @@ public class ExIncomeDashBoardFrag extends Fragment {
         yearSP = view.findViewById(R.id.selectYearSP);
         expenseIncomeRV = view.findViewById(R.id.expenseIncomeRV);
         searchBtn = view.findViewById(R.id.searchBtn);
+
+        //For TextViewCountAnimation
+
+        totalIncomeTV.setCharacterLists(TickerUtils.provideNumberList());
+        totalBalanceTV.setCharacterLists(TickerUtils.provideNumberList());
+        totalExpenesTV.setCharacterLists(TickerUtils.provideNumberList());
 
         Button save = view.findViewById(R.id.save);
 

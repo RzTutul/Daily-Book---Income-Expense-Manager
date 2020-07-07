@@ -37,6 +37,8 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
@@ -63,7 +65,7 @@ public class ExpenseManagerFrag extends Fragment {
     RecyclerView expenseRV;
     List<ExpenseIncomePojo> expenseIncomePojos;
 
-    TextView incomeTV, expenseTV, balanceTV;
+    TickerView incomeTV, expenseTV, balanceTV;
     double t_income, t_expense, t_balance;
     ExpenseIncomeAdapter expenseIncomeAdapter;
 
@@ -95,6 +97,12 @@ public class ExpenseManagerFrag extends Fragment {
         expenseTV = view.findViewById(R.id.expenesTV);
         balanceTV = view.findViewById(R.id.balanceTV);
         title = view.findViewById(R.id.monthTitle);
+
+        //For TextViewCountAnimation
+        incomeTV.setCharacterLists(TickerUtils.provideNumberList());
+        expenseTV.setCharacterLists(TickerUtils.provideNumberList());
+        balanceTV.setCharacterLists(TickerUtils.provideNumberList());
+
 
         title.setTitle(Utils.getMonthName());
 

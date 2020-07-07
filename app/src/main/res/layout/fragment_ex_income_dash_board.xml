@@ -157,13 +157,12 @@
                             android:text="Income:"
                             android:textSize="13sp" />
 
-                        <TextView
+                        <com.robinhood.ticker.TickerView
                             android:id="@+id/totalIncomeTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
-                            android:fontFamily="sans-serif-smallcaps"
-                            android:text="1200000"
+                            android:text="0"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -181,14 +180,14 @@
                             android:text="Expense:"
                             android:textSize="13sp" />
 
-                        <TextView
+                        <com.robinhood.ticker.TickerView
                             android:id="@+id/totalExpenseTV"
                             android:layout_width="wrap_content"
 
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
                             android:fontFamily="sans-serif-smallcaps"
-                            android:text="12000000"
+                            android:text="0"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -205,13 +204,13 @@
                             android:text="Balance:"
                             android:textSize="13sp" />
 
-                        <TextView
+                        <com.robinhood.ticker.TickerView
                             android:id="@+id/totalBalanceTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3dp"
                             android:fontFamily="sans-serif-smallcaps"
-                            android:text="12000000"
+                            android:text="0"
                             android:textSize="14dp" />
 
                     </LinearLayout>

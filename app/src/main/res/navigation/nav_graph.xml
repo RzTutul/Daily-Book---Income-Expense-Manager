@@ -70,4 +70,24 @@
         android:name="com.rztechtunes.dailyexpensemanager.InterestFragment"
         android:label="fragment_interest"
         tools:layout="@layout/fragment_interest" />
+    <fragment
+        android:id="@+id/smokingCostFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.SmokingCostFragment"
+        android:label="fragment_smoking_cost"
+        tools:layout="@layout/fragment_smoking_cost" />
+    <fragment
+        android:id="@+id/ageCalculationFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.AgeCalculationFragment"
+        android:label="fragment_age_calculation"
+        tools:layout="@layout/fragment_age_calculation" />
+    <fragment
+        android:id="@+id/dateDifferentFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.DateDifferentFragment"
+        android:label="fragment_date_different"
+        tools:layout="@layout/fragment_date_different" />
+    <fragment
+        android:id="@+id/timeDifferenceFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.TimeDifferenceFragment"
+        android:label="fragment_time_difference"
+        tools:layout="@layout/fragment_time_difference" />
 </navigation>

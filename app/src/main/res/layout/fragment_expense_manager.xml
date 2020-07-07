@@ -89,12 +89,12 @@
                                 android:layout_height="wrap_content"
                                 android:text="Income" />
 
-                            <TextView
-                                android:fontFamily="sans-serif-smallcaps"
+                            <com.robinhood.ticker.TickerView
+                                app:ticker_animationDuration="1000"
                                 android:id="@+id/incomeTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="100000" />
+                                android:text="0" />
 
 
                         </LinearLayout>
@@ -131,12 +131,12 @@
                                 android:layout_height="wrap_content"
                                 android:text="Expense" />
 
-                            <TextView
-                                android:fontFamily="sans-serif-smallcaps"
+                            <com.robinhood.ticker.TickerView
+                                app:ticker_animationDuration="1000"
                                 android:id="@+id/expenesTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1000" />
+                                android:text="0" />
 
 
                         </LinearLayout>
@@ -175,12 +175,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="Balance" />
 
-                            <TextView
+                            <com.robinhood.ticker.TickerView
+                                app:ticker_animationDuration="1000"
+
                                 android:fontFamily="sans-serif-smallcaps"
                                 android:id="@+id/balanceTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1000" />
+                                android:text="0" />
 
 
                         </LinearLayout>

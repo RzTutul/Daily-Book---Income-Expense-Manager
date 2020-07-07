@@ -48,22 +48,12 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
+            android:background="#DFD6D6"
+            android:layout_marginBottom="60dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                app:cardBackgroundColor="#F3EAEA"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="3dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -79,6 +69,7 @@
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/percentageCard"
+                                android:layout_margin="3dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:clickable="true"
@@ -120,6 +111,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:layout_margin="3dp"
                                 android:id="@+id/tipCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -399,6 +391,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/smokedCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"
@@ -450,6 +443,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/ageCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"
@@ -490,6 +484,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/dateCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"
@@ -527,6 +522,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginBottom="55dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -541,6 +537,7 @@
                             android:layout_weight="1">
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/timeCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 app:cardCornerRadius="6dp"
@@ -618,10 +615,7 @@
                     </LinearLayout>
 
 
-                </LinearLayout>
 
-
-            </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>

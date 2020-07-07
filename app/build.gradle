@@ -51,7 +51,11 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    //BMISpeedMetter //add classpath also
     implementation 'com.github.anastr:speedviewlib:1.5.2'
+
+    //TextViewAnimation
+    implementation 'com.robinhood.ticker:ticker:2.0.2'
 
 
 }

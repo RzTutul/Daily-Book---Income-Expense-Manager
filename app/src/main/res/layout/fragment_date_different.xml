@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DateDifferentFragment">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="Date Difference" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="55dp"
+            android:orientation="vertical">
+
+            <soup.neumorphism.NeumorphCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                app:cardCornerRadius="4dp"
+                app:neumorph_backgroundColor="#35658C">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="Difference"
+                        android:textColor="#FF5722"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_marginBottom="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Years"
+                                android:textColor="#fff"
+                                />
+
+                            <com.robinhood.ticker.TickerView
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:background="@drawable/circle_shape"
+                                android:id="@+id/yearTV"
+                                android:layout_width="70dp"
+                                android:text="0"
+                                android:textColor="#fff"
+                                android:textSize="20sp"
+                                android:layout_height="70dp" />
+
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Months"
+                                android:textColor="#fff"
+                                />
+
+                            <com.robinhood.ticker.TickerView
+                                android:id="@+id/monthsTV"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/circle_shape"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="@android:color/background_light"
+                                android:textSize="20sp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Days"
+                                android:textColor="#fff"
+                                />
+
+                            <com.robinhood.ticker.TickerView
+                                android:id="@+id/dayTV"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/circle_shape"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="@android:color/background_light"
+                                android:textSize="20sp" />
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+            </soup.neumorphism.NeumorphCardView>
+
+            <soup.neumorphism.NeumorphCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:padding="3dp"
+                app:cardCornerRadius="4dp"
+                app:neumorph_backgroundColor="#fff">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:gravity="center"
+                        android:text="Start Date"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="17sp" />
+
+                    <DatePicker
+                        android:id="@+id/startpiker"
+                        style="@style/datePickerTextSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="spinner" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:gravity="center"
+                        android:text="End date"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="17sp" />
+
+                    <DatePicker
+                        android:id="@+id/endPicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="spinner" />
+
+
+                </LinearLayout>
+
+
+            </soup.neumorphism.NeumorphCardView>
+
+            <Button
+                android:id="@+id/dfBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Calculate" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

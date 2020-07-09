@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 public class AllCalculationFragment extends Fragment {
 
     CardView percentageCard, tipCard, currencyCard, bmiCard, perUnitCard, loanCard, interstCard, smokedCard;
-    CardView ageCard,dateCard,timeCard;
+    CardView ageCard,dateCard,timeCard,wagesCard;
 
     public AllCalculationFragment() {
         // Required empty public constructor
@@ -44,6 +44,7 @@ public class AllCalculationFragment extends Fragment {
         ageCard = view.findViewById(R.id.ageCard);
         dateCard = view.findViewById(R.id.dateCard);
         timeCard = view.findViewById(R.id.timeCard);
+        wagesCard = view.findViewById(R.id.wagesCard);
 
         percentageCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +121,13 @@ public class AllCalculationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.timeDifferenceFragment);
+
+            }
+        });
+        wagesCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.wagesCalculationFragment);
 
             }
         });

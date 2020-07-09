@@ -90,4 +90,9 @@
         android:name="com.rztechtunes.dailyexpensemanager.TimeDifferenceFragment"
         android:label="fragment_time_difference"
         tools:layout="@layout/fragment_time_difference" />
+    <fragment
+        android:id="@+id/wagesCalculationFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.WagesCalculationFragment"
+        android:label="fragment_wages_calculation"
+        tools:layout="@layout/fragment_wages_calculation" />
 </navigation>

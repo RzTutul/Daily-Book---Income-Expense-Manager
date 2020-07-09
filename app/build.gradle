@@ -57,5 +57,8 @@ dependencies {
     //TextViewAnimation
     implementation 'com.robinhood.ticker:ticker:2.0.2'
 
+    implementation 'com.andrognito.patternlockview:patternlockview:1.0.0'
+
+
 
 }

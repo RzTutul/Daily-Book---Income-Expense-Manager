@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,12 +31,12 @@ public class PatternLockActivity extends AppCompatActivity implements PatternLoc
 
     PatternLockView mpatternLockView;
     boolean isLuch;
-    String finalKey, firstPatternKey, storeName;
+    String finalKey, storeName;
     UserActivityStorePref userActivityStorePref;
     Button savePatnBatn;
     TextView patternTV, forgetPattBtn;
     TextInputEditText personET;
-
+    String firstPatternKey="543543210";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,11 +83,20 @@ public class PatternLockActivity extends AppCompatActivity implements PatternLoc
                         gotoMainActivity();
                     } else {
                         if (storeName.equals(personName)) {
-                            userActivityStorePref.setPatterKey(firstPatternKey);
-                            userActivityStorePref.setPatterActivity(true);
-                            userActivityStorePref.setPersonName(personName);
-                            Toast.makeText(PatternLockActivity.this, "Pattern Saved", Toast.LENGTH_SHORT).show();
-                            gotoMainActivity();
+                            if (firstPatternKey.equals("543543210"))
+                            {
+                                Snackbar.make(v, "Set New Pattern", Snackbar.LENGTH_LONG).show();
+                                patternTV.setTextColor(Color.RED);
+                            }
+                            else
+                            {
+                                userActivityStorePref.setPatterKey(firstPatternKey);
+                                userActivityStorePref.setPatterActivity(true);
+                                userActivityStorePref.setPersonName(personName);
+                                Toast.makeText(PatternLockActivity.this, "Pattern Saved", Toast.LENGTH_SHORT).show();
+                                gotoMainActivity();
+                            }
+
                         } else {
                             Snackbar.make(v, "Favorite Person name didn't matched!", Snackbar.LENGTH_LONG).show();
                         }
@@ -114,6 +124,7 @@ public class PatternLockActivity extends AppCompatActivity implements PatternLoc
                                 savePatnBatn.setVisibility(View.VISIBLE);
                                 userActivityStorePref.setPatterKey("543543210");
                                 finalKey = userActivityStorePref.getPatternKey();
+
                                 sDialog.dismissWithAnimation();
                                 //   Navigation.findNavController(holder.itemView).navigate(R.id.expenseManagerFrag);
 
@@ -161,7 +172,8 @@ public class PatternLockActivity extends AppCompatActivity implements PatternLoc
             if (finalKey.equalsIgnoreCase(currentPattern)) {
                 mpatternLockView.setViewMode(PatternLockView.PatternViewMode.CORRECT);
                 gotoMainActivity();
-            } else {
+            }
+            else {
                 mpatternLockView.setViewMode(PatternLockView.PatternViewMode.WRONG);
                 Toast.makeText(this, "Incorrect Pattern!", Toast.LENGTH_SHORT).show();
             }

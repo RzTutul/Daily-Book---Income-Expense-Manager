@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +42,7 @@ import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
+import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 
@@ -58,12 +60,14 @@ import static android.content.ContentValues.TAG;
 
 public class ExpenseManagerFrag extends Fragment {
 
+    CardView emptyCV;
     CollapsingToolbarLayout title;
     ExtendedFloatingActionButton addExpenseBtn;
     private String exCatagories;
     private String e_date;
     RecyclerView expenseRV;
-    List<ExpenseIncomePojo> expenseIncomePojos;
+    List<ExpenseIncomePojo> expenseIncomePojos = new ArrayList<>();
+    List<String> categoriesPojoList = new ArrayList<>();
 
     TickerView incomeTV, expenseTV, balanceTV;
     double t_income, t_expense, t_balance;
@@ -97,6 +101,7 @@ public class ExpenseManagerFrag extends Fragment {
         expenseTV = view.findViewById(R.id.expenesTV);
         balanceTV = view.findViewById(R.id.balanceTV);
         title = view.findViewById(R.id.monthTitle);
+        emptyCV = view.findViewById(R.id.emptyCardView);
 
         //For TextViewCountAnimation
         incomeTV.setCharacterLists(TickerUtils.provideNumberList());
@@ -115,6 +120,26 @@ public class ExpenseManagerFrag extends Fragment {
             }
         });
 
+        emptyCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showExpenseDilog();
+            }
+        });
+
+
+        ///featch Categories Data if it's empty then insert.
+        categoriesPojoList = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().getAllCatagories();
+
+        if (categoriesPojoList.isEmpty()) {
+            final String[] catagories = {"Select Categories", "Income", "Food&Drink", "Medicine", "Shopping", "Cell phone", "Rent", "Transport", "Hotel", "Other"};
+
+            for (int i = 0; i < catagories.length; i++) {
+                CategoriesPojo categoriesPojo = new CategoriesPojo(catagories[i]);
+                ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().InsertCatagoires(categoriesPojo);
+            }
+
+        }
 
         //Method for query all expense Data and show RV
         featchData();
@@ -126,104 +151,122 @@ public class ExpenseManagerFrag extends Fragment {
 
 
         expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(Utils.getMonthName(), Utils.getYear());
-        for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojos) {
-            String catagories = expenseIncomePojo.getE_catagories();
-            if (catagories.equals("Income")) {
-                t_income = t_income + Double.valueOf(expenseIncomePojo.getE_amount());
-            } else {
-                t_expense = t_expense + Double.valueOf(expenseIncomePojo.getE_amount());
-            }
 
+        if (expenseIncomePojos.size()==0)
+        {
+            emptyCV.setVisibility(View.VISIBLE);
+
+            expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+            expenseRV.setLayoutManager(llm);
+            expenseRV.setAdapter(expenseIncomeAdapter);
         }
-        t_balance = t_income - t_expense;
+        else
+        {
 
-        incomeTV.setText(String.valueOf(t_income));
-        expenseTV.setText(String.valueOf(t_expense));
-        balanceTV.setText(String.valueOf(t_balance));
-
-
-        expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        expenseRV.setLayoutManager(llm);
-        expenseRV.setAdapter(expenseIncomeAdapter);
-
-        //Scrolling RV Floating button hide/Show
-        expenseRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-
-                switch (newState) {
-                    case RecyclerView.SCROLL_STATE_IDLE:
-                        addExpenseBtn.show();
-                        break;
-                    default:
-                        addExpenseBtn.hide();
-                        break;
+            Toast.makeText(getActivity(), "test"+expenseIncomePojos.size(), Toast.LENGTH_SHORT).show();
+            emptyCV.setVisibility(View.GONE);
+            for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojos) {
+                String catagories = expenseIncomePojo.getE_catagories();
+                if (catagories.equals("Income")) {
+                    t_income = t_income + Double.valueOf(expenseIncomePojo.getE_amount());
+                } else {
+                    t_expense = t_expense + Double.valueOf(expenseIncomePojo.getE_amount());
                 }
-                super.onScrollStateChanged(recyclerView, newState);
+
             }
-        });
+            t_balance = t_income - t_expense;
+
+            incomeTV.setText(String.valueOf(t_income));
+            expenseTV.setText(String.valueOf(t_expense));
+            balanceTV.setText(String.valueOf(t_balance));
 
 
-        //Swipe To delete expenseRow
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
+            expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+            expenseRV.setLayoutManager(llm);
+            expenseRV.setAdapter(expenseIncomeAdapter);
 
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                //Toast.makeText(getActivity(), "on Move", Toast.LENGTH_SHORT).show();
-                return false;
-            }
+            //Scrolling RV Floating button hide/Show
+            expenseRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
 
-            @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                    switch (newState) {
+                        case RecyclerView.SCROLL_STATE_IDLE:
+                            addExpenseBtn.show();
+                            break;
+                        default:
+                            addExpenseBtn.hide();
+                            break;
+                    }
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+            });
 
-                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Are you sure?")
-                        .setContentText("Won't be able to recover this file!")
-                        .setConfirmText("Yes,delete it!")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                try {
 
+            //Swipe To delete expenseRow
+            ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {
 
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    //Toast.makeText(getActivity(), "on Move", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Are you sure?")
+                            .setContentText("Won't be able to recover this file!")
+                            .setConfirmText("Yes,delete it!")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
                                     try {
 
-                                        int position = viewHolder.getAdapterPosition();
-                                        // dairyPojos.remove(position);
-                                        ExpenseIncomePojo expenseIncomePojo = expenseIncomePojos.get(position);
-                                        ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().deleteExIncome(expenseIncomePojo);
-                                        expenseIncomeAdapter.notifyDataSetChanged();
-                                        featchData();
+
+                                        try {
+
+                                            int position = viewHolder.getAdapterPosition();
+                                            // dairyPojos.remove(position);
+                                            ExpenseIncomePojo expenseIncomePojo = expenseIncomePojos.get(position);
+                                            ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().deleteExIncome(expenseIncomePojo);
+                                            expenseIncomeAdapter.notifyDataSetChanged();
+                                            featchData();
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
 
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
 
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+
+                                    sDialog.dismissWithAnimation();
+
+
                                 }
+                            })
+                            .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+                                    expenseIncomeAdapter.notifyDataSetChanged();
+                                }
+                            })
+                            .show();
+
+                }
+            };
+
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(expenseRV);
 
 
-                                sDialog.dismissWithAnimation();
-
-
-                            }
-                        })
-                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.dismissWithAnimation();
-                                expenseIncomeAdapter.notifyDataSetChanged();
-                            }
-                        })
-                        .show();
-
-            }
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(expenseRV);
+        }
 
 
     }
@@ -242,8 +285,7 @@ public class ExpenseManagerFrag extends Fragment {
 
         final Button canelbtn = view1.findViewById(R.id.cancelBtn);
         final Button addexpenseBtn = view1.findViewById(R.id.addbtn);
-        String[] catagories = {"Select Categories", "Income", "Food&Drink", "Medicine", "Shopping", "Cell phone", "Rent", "Transport", "Hotel", "Other"};
-
+        List<String> catagories = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().getAllCatagories();
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, catagories);
         expenseCatagoriesSP.setAdapter(arrayAdapter);
@@ -279,7 +321,7 @@ public class ExpenseManagerFrag extends Fragment {
                     TextView errorText = (TextView) expenseCatagoriesSP.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                    errorText.setText("Select Color");
+                    errorText.setText("Select Categories");
 
                 } else {
                     ExpenseIncomePojo expensePojo = new ExpenseIncomePojo(ename, exCatagories, amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
@@ -351,7 +393,7 @@ public class ExpenseManagerFrag extends Fragment {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(" Add Expense");
+        builder.setTitle(" Add Expense/Income");
         builder.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
         View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.pie_chart_dialog, null);
 
@@ -375,7 +417,7 @@ public class ExpenseManagerFrag extends Fragment {
             String value = specificData.getValue().toString().trim();
 
             yValues.add(new PieEntry(Float.valueOf(value), name));
-            catagoryWiseCalcultaion = catagoryWiseCalcultaion + name +": "+ value + "\n";
+            catagoryWiseCalcultaion = catagoryWiseCalcultaion + name + ": " + value + "\n";
 
         }
 

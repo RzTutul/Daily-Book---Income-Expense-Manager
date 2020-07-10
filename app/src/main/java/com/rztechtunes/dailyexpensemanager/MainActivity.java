@@ -1,21 +1,45 @@
 package com.rztechtunes.dailyexpensemanager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+import com.rztechtunes.dailyexpensemanager.helper.NotificationWorker;
+import com.rztechtunes.dailyexpensemanager.pref.UserActivityStorePref;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private static final int STORAGE_REQUEST_CODE = 123;
-    public MeowBottomNavigation bottomNavigation;
-
+    private static final String TAG = MainActivity.class.getSimpleName();
+    BottomNavigationView bottomNav;
+    NavController navController;
+    boolean isExit=false,isBack=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,62 +47,104 @@ public class MainActivity extends AppCompatActivity {
 
         isStorageRequestAccepted();
 
-        bottomNavigation = findViewById(R.id.bottomNav);
-        bottomNavigation.add(new MeowBottomNavigation.Model(1, R.drawable.ic_baseline_dashboard_24));
-        bottomNavigation.add(new MeowBottomNavigation.Model(2, R.drawable.icons8_combo_chart_48px));
-        bottomNavigation.add(new MeowBottomNavigation.Model(3, R.drawable.icons8_calculator_48px_1));
-        bottomNavigation.add(new MeowBottomNavigation.Model(4, R.drawable.dairy_write_icon));
-        bottomNavigation.add(new MeowBottomNavigation.Model(5, R.drawable.ic_baseline_info_24));
+        //For Bottom Nevigation
+        bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        bottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
+        navController = Navigation.findNavController(this,R.id.nav_host_fragment);
+
+        ///Send Notification
+
+        Constraints constraints =
+                new Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build();
+
+        PeriodicWorkRequest periodicWorkRequest =
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                        .setConstraints(constraints).build();
+        WorkManager.getInstance(this)
+                .enqueue(periodicWorkRequest);
+
+        UserActivityStorePref userActivityStorePref = new UserActivityStorePref(this);
+        boolean notificationStatus = userActivityStorePref.getNotification();
+
+        if (notificationStatus) {
+            WorkManager.getInstance().cancelAllWorkByTag("notification");
+
+        }
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
-            public void onClickItem(MeowBottomNavigation.Model item) {
-                // your codes
-                switch (item.getId()) {
-                    case 1:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.expenseManagerFrag);
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                switch (destination.getId())
+                {
+                    case R.id.splashScreenFragment:
+                        bottomNav.setVisibility(View.GONE);
                         break;
-                    case 2:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.exIncomeDashBoardFrag);
+                    case R.id.expenseManagerFrag:
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                bottomNav.setVisibility(View.VISIBLE);
+
+                            }
+                        });
+                        isExit = true;
                         break;
-                    case 3:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.allCalculationFragment);
+                    case R.id.dailyNoteFragment:
+                        isBack = true;
+                        isExit = false;
                         break;
-                    case 4:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.dailyNoteFragment);
-                        break;
-                    case 5:
-                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.settingFragment);
+                    case R.id.allCalculationFragment:
+                        isBack = true;
+                        isExit = false;
                         break;
 
                     default:
+                        isExit = false;
+                        isBack = false;
                         break;
-
                 }
             }
         });
 
-        bottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
-            @Override
-            public void onShowItem(MeowBottomNavigation.Model item) {
-
-            }
-        });
-
-        bottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
-            @Override
-            public void onReselectItem(MeowBottomNavigation.Model item) {
-                // your codes
-            }
-        });
-
-        bottomNavigation.show(1, true);
-
-
-        bottomNavigation.setCount(2, "History");
-
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+        if (isExit) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            MainActivity.this.finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        else if (isBack) {
+            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.expenseManagerFrag);
+        }
+    /*    else if (isDairyFrg) {
+            final Bundle bundle = new Bundle();
+            bundle.putString("id", eventID);
+            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragmnet).navigate(R.id.eventDairyListFragment,bundle);
+        }
+*/
+        else {
+            super.onBackPressed();
+        }
+    }
 
     private boolean isStorageRequestAccepted() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -115,5 +181,37 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.home_menu:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.expenseManagerFrag);
+
+                            break;
+                        case R.id.dashBoard_menu:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.exIncomeDashBoardFrag);
+                            break;
+                        case R.id.calculate_menu:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.allCalculationFragment);
+                            break;
+                        case R.id.dairy_menu:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.dailyNoteFragment);
+                            break;
+                        case R.id.setting_menu:
+                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.settingFragment);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    return true;
+                }
+            };
+
 
 }

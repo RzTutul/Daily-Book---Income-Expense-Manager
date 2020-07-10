@@ -13,10 +13,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
+
+import java.text.DecimalFormat;
 
 public class PercentageFragment extends Fragment {
 
-    TextView amountTV,detilsTV;
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    TickerView amountTV;
+    TextView detilsTV;
     TextInputEditText amountET, pecentageET;
     Button calculateBtn;
 
@@ -41,6 +47,8 @@ public class PercentageFragment extends Fragment {
         calculateBtn = view.findViewById(R.id.calculateBtn);
         detilsTV = view.findViewById(R.id.detilsTV);
 
+        amountTV.setCharacterLists(TickerUtils.provideNumberList());
+
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,8 +64,8 @@ public class PercentageFragment extends Fragment {
                 else {
                     double finalAmount = ((Double.valueOf(amount) / 100) * (Double.valueOf(percentage)/100)) * 100;
 
-                    amountTV.setText(String.valueOf(finalAmount));
-                    detilsTV.setText(percentage+" percent of "+amount+" is "+String.valueOf(finalAmount));
+                    amountTV.setText(decimalFormat.format(finalAmount));
+                    detilsTV.setText(percentage+" percent of "+amount+" is "+decimalFormat.format(finalAmount));
                 }
             }
         });

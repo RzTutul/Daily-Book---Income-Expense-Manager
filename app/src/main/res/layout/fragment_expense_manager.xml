@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#EDDFDD"
     android:layout_height="match_parent"
+    android:background="#EDDFDD"
     tools:context=".ExpenseManagerFrag">
-
-
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,12 +18,11 @@
             android:id="@+id/monthTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="July"
             app:collapsedTitleGravity="center"
+            app:contentScrim="@color/colorPrimary"
             app:expandedTitleGravity="bottom|center_horizontal"
-            >
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="July">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -34,10 +31,10 @@
                 android:src="@drawable/dashboad_image" />
 
             <androidx.appcompat.widget.Toolbar
-                app:layout_collapseMode="pin"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -51,14 +48,14 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginTop="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:layout_weight="3"
                 android:orientation="horizontal">
 
@@ -68,9 +65,9 @@
                     android:layout_weight="1">
 
                     <soup.neumorphism.NeumorphCardView
-                        android:padding="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
+                        android:padding="6dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="3dp">
@@ -83,19 +80,19 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:textSize="17sp"
-                                android:textColor="#E91E63"
-                                android:fontFamily="sans-serif-smallcaps"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Income" />
+                                android:fontFamily="sans-serif-smallcaps"
+                                android:text="Income"
+                                android:textColor="#E91E63"
+                                android:textSize="17sp" />
 
                             <com.robinhood.ticker.TickerView
-                                app:ticker_animationDuration="1000"
                                 android:id="@+id/incomeTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:text="0"
+                                app:ticker_animationDuration="1000" />
 
 
                         </LinearLayout>
@@ -111,9 +108,9 @@
                     android:layout_weight="1">
 
                     <soup.neumorphism.NeumorphCardView
-                        android:padding="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
+                        android:padding="6dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="3dp">
@@ -126,18 +123,18 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:textSize="17sp"
-                                android:textColor="@android:color/holo_blue_bright"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Expense" />
+                                android:text="Expense"
+                                android:textColor="@android:color/holo_blue_bright"
+                                android:textSize="17sp" />
 
                             <com.robinhood.ticker.TickerView
-                                app:ticker_animationDuration="1000"
                                 android:id="@+id/expenesTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:text="0"
+                                app:ticker_animationDuration="1000" />
 
 
                         </LinearLayout>
@@ -153,9 +150,9 @@
                     android:layout_weight="1">
 
                     <soup.neumorphism.NeumorphCardView
-                        android:padding="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
+                        android:padding="6dp"
                         app:cardBackgroundColor="@android:color/holo_blue_light"
                         app:cardCornerRadius="3dp"
                         app:cardElevation="3dp">
@@ -169,21 +166,21 @@
 
                             <TextView
 
-                                android:textColor="@android:color/holo_orange_dark"
-                                android:fontFamily="sans-serif-smallcaps"
-                                android:textSize="17sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Balance" />
+                                android:fontFamily="sans-serif-smallcaps"
+                                android:text="Balance"
+                                android:textColor="@android:color/holo_orange_dark"
+                                android:textSize="17sp" />
 
                             <com.robinhood.ticker.TickerView
-                                app:ticker_animationDuration="1000"
-
-                                android:fontFamily="sans-serif-smallcaps"
                                 android:id="@+id/balanceTV"
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:fontFamily="sans-serif-smallcaps"
+                                android:text="0"
+                                app:ticker_animationDuration="1000" />
 
 
                         </LinearLayout>
@@ -191,21 +188,55 @@
                     </soup.neumorphism.NeumorphCardView>
 
                 </LinearLayout>
-
-
 
 
             </LinearLayout>
 
+            <androidx.cardview.widget.CardView
+                android:visibility="gone"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#B8D5E3"
+                android:id="@+id/emptyCardView"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:textColor="@android:color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text="Empty Data"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:textColor="@android:color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text="Tap+ to Create one" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginBottom="55dp"
                 android:id="@+id/expenseRV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
-
-
+                android:layout_marginBottom="55dp" />
 
 
         </LinearLayout>
@@ -215,15 +246,14 @@
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:layout_marginBottom="55dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/addexpenseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="60dp"
         android:text="Add"
-        app:icon="@drawable/ic_baseline_add_circle_outline_24"/>
-
+        app:icon="@drawable/ic_baseline_add_circle_outline_24" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

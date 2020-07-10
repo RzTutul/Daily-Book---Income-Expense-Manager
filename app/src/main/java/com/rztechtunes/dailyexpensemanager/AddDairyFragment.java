@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -22,7 +23,7 @@ import com.rztechtunes.dailyexpensemanager.entites.DairyPojo;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 
 public class AddDairyFragment extends Fragment {
-
+    NestedScrollView nestedScrollView;
     TextView dateTV;
     EditText titleET;
     EditText dairyNoteET;
@@ -64,8 +65,18 @@ public class AddDairyFragment extends Fragment {
         dairyNoteET = view.findViewById(R.id.d_noteET);
         saveBtn = view.findViewById(R.id.d_savebtn);
         updateBtn = view.findViewById(R.id.d_updatebtn);
+        nestedScrollView = view.findViewById(R.id.nestedView);
 
 
+
+        dairyNoteET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nestedScrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+
+        //For Scrolling up text in EditBox
         dairyNoteET.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -93,12 +104,10 @@ public class AddDairyFragment extends Fragment {
         }
 
         if (dairyID > 0) {
-
             DairyPojo dairyPojo = ExpenseIncomeDatabase.getInstance(getContext()).getDairyDao().getDairyByID(dairyID);
             dateTV.setText(dairyPojo.getDate());
             titleET.setText(dairyPojo.getTitle());
             dairyNoteET.setText(dairyPojo.getNote());
-
         }
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +116,6 @@ public class AddDairyFragment extends Fragment {
                 String date = dateTV.getText().toString();
                 String title = titleET.getText().toString();
                 String note = dairyNoteET.getText().toString();
-
 
                 if (title.equals("")) {
                     titleET.setError("Give Title");

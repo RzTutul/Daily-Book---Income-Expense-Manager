@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mainContinent"
+    android:background="#EAF1F6"
     tools:context=".SettingFragment">
 
 
@@ -75,11 +76,13 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="#011119"
+
                     android:layout_weight="1.3"
                     android:drawableLeft="@drawable/lockicon"
                     android:gravity="center_vertical"
                     android:text=" Pattern Lock"
-                    android:textColor="@color/colorAccent"
                     android:textSize="17sp" />
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -117,13 +120,14 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:fontFamily="sans-serif-condensed"
+                            android:textColor="#011119"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/personicon"
                             android:gravity="center_vertical"
                             android:text=" Favorite Person"
-                            android:textColor="@color/colorAccent"
                             android:textSize="17sp" />
 
                         <TextView
@@ -183,6 +187,41 @@
                 android:background="#F4EDED"
                 />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.3"
+                    android:drawableLeft="@drawable/icons8_notification_30px"
+                    android:gravity="center_vertical"
+                    android:text=" Notification"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="#011119"
+                    android:textSize="17sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/splashOnOff"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="0.7"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textSize="20sp"
+                    android:thumb="@drawable/custom_thumb_splash"
+                    app:showText="true"
+                    app:track="@drawable/custom_track_splash" />
+
+            </LinearLayout>
+
+
             <androidx.cardview.widget.CardView
                 app:cardElevation="0dp"
                 android:layout_width="match_parent"
@@ -209,7 +248,8 @@
                             android:drawableLeft="@drawable/addicon"
                             android:gravity="center_vertical"
                             android:text=" Add Categories"
-                            android:textColor="@color/colorAccent"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textColor="#011119"
                             android:textSize="17sp" />
 
                         <TextView
@@ -287,7 +327,8 @@
                             android:drawableLeft="@drawable/icons8_about_30px"
                             android:gravity="center_vertical"
                             android:text="  About "
-                            android:textColor="@color/colorAccent"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textColor="#011119"
                             android:textSize="17sp" />
 
                         <TextView

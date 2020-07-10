@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_menu"
+        android:icon="@drawable/ic_baseline_dashboard_24"
+        android:title="Home"
+
+        />
+    <item
+        android:id="@+id/dashBoard_menu"
+        android:icon="@drawable/icons8_combo_chart_48px"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/calculate_menu"
+        android:icon="@drawable/icons8_calculator_48px_1"
+        android:title="Calculation" />
+    <item
+        android:id="@+id/dairy_menu"
+        android:icon="@drawable/dairy_write_icon"
+        android:title="DairyNote" />
+    <item
+        android:id="@+id/setting_menu"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="Setting" />
+
+</menu>

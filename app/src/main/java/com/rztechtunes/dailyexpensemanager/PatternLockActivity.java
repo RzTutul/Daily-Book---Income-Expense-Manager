@@ -63,8 +63,12 @@ public class PatternLockActivity extends AppCompatActivity implements PatternLoc
                 patternTV.setText("Set Your Pattern & Security");
             }
         } else {
-            gotoMainActivity();
+
+                gotoMainActivity();
+
+
         }
+
 
 
         savePatnBatn.setOnClickListener(new View.OnClickListener() {

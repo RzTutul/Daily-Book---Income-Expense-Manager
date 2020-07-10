@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -27,6 +28,7 @@ import static com.airbnb.lottie.L.TAG;
 public class CalculateIBMFragment extends Fragment {
 
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    NestedScrollView nestedScrollView;
     EditText weightET, feetET, inchET;
     Spinner weightSP;
     SpeedView speedometer;
@@ -58,10 +60,11 @@ public class CalculateIBMFragment extends Fragment {
         inchET = view.findViewById(R.id.inchET);
         calculateBtn = view.findViewById(R.id.bmiCalculateBtn);
         weightSP = view.findViewById(R.id.selectWeightSP);
+        nestedScrollView = view.findViewById(R.id.nestedView);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_dropdown_item,Weight);
-
         weightSP.setAdapter(adapter);
+
 
         weightSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -80,6 +83,8 @@ public class CalculateIBMFragment extends Fragment {
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nestedScrollView.fullScroll(View.FOCUS_DOWN);
+
                 bmiResult =0.0;
                 String weight = weightET.getText().toString().trim();
                 String feet = feetET.getText().toString().trim();

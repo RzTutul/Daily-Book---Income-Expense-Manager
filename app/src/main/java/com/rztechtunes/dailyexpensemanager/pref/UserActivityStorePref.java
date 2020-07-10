@@ -49,4 +49,13 @@ public class UserActivityStorePref {
         return sharedPreferences.getBoolean("status", false);
     }
 
+    public void setNotfication(boolean switchstatus) {
+        editor.putBoolean("notificaiton", switchstatus);
+        editor.commit();
+    }
+
+    public boolean getNotification() {
+        return sharedPreferences.getBoolean("notificaiton",false);
+    }
+
 }

@@ -22,14 +22,16 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
+import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
 import com.rztechtunes.dailyexpensemanager.pref.UserActivityStorePref;
 
 public class SettingFragment extends Fragment {
 
-    SwitchCompat patternOnOfSW;
+    SwitchCompat patternOnOfSW,splashOnOfSW;
     LinearLayout addCatagoriesLL,addCataBOxLL,addPersonLL,addPersonBoxLL,inforLL,infoBoxLL;
     Button saveCataBtn,savePersonBtn;
-    EditText addCataET,personET;
+    EditText personET,categoiresET;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -48,10 +50,11 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         patternOnOfSW = view.findViewById(R.id.swOnOff);
+        splashOnOfSW = view.findViewById(R.id.splashOnOff);
         addCatagoriesLL = view.findViewById(R.id.addCatagoreisLL);
-        saveCataBtn = view.findViewById(R.id.saveCategoriesBtn);
-        addCataET = view.findViewById(R.id.categoiresET);
         addCataBOxLL = view.findViewById(R.id.addCataBOxLL);
+        categoiresET = view.findViewById(R.id.categoiresET);
+        saveCataBtn = view.findViewById(R.id.saveCategoriesBtn);
         addPersonLL = view.findViewById(R.id.addPersonLL);
         addPersonBoxLL = view.findViewById(R.id.addPersonBOxLL);
         personET = view.findViewById(R.id.personET);
@@ -71,6 +74,31 @@ public class SettingFragment extends Fragment {
                 else
                 {
                    addCataBOxLL.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        saveCataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cataName = categoiresET.getText().toString();
+                if (cataName.equals(""))
+                {
+                    categoiresET.setError("Add New Categories");
+                }
+                else
+                {
+                    CategoriesPojo categoriesPojo = new CategoriesPojo(cataName);
+                    long insert = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().InsertCatagoires(categoriesPojo);
+                    if (insert>0)
+                    {
+                        Toast.makeText(getActivity(), "Added Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             }
         });
@@ -112,8 +140,10 @@ public class SettingFragment extends Fragment {
                 }
                 else
                 {
-                    userActivityStorePref.setPatterKey(name);
-                    Snackbar.make(v,"Saved Successfully ",Snackbar.LENGTH_SHORT).show();
+                    userActivityStorePref.setPersonName(name);
+                    Snackbar snackbar  =  Snackbar.make(view,"Saved Successfully",Snackbar.LENGTH_SHORT);
+                    snackbar.setAnchorView(splashOnOfSW);
+                    snackbar.show();
 
                 }
             }
@@ -135,19 +165,29 @@ public class SettingFragment extends Fragment {
         }});
 
 
-
-        saveCataBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String catagories = addCataET.getText().toString();
-                Toast.makeText(getActivity(), ""+catagories, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        userActivityStorePref = new UserActivityStorePref(getContext());
+       userActivityStorePref = new UserActivityStorePref(getContext());
         boolean switchStatus = userActivityStorePref.getPatterSwithStatus();
         if (switchStatus) {
             patternOnOfSW.setChecked(true);
+        }
+        else
+        {
+            patternOnOfSW.setChecked(false);
+
+        }
+
+
+        //FirstTime Turn ON Splash Screen
+       boolean splashStatus = userActivityStorePref.getNotification();
+        if (splashStatus)
+        {
+            splashOnOfSW.setChecked(false);
+
+        }
+        else
+        {
+            splashOnOfSW.setChecked(true);
+
         }
 
         patternOnOfSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -165,6 +205,27 @@ public class SettingFragment extends Fragment {
                     userActivityStorePref.setPatterActivity(false);
                     userActivityStorePref.setPatternSwithStatus(false);
                     Toast.makeText(getContext(), "Pattern Lock is OFF", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+
+        splashOnOfSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (splashOnOfSW.isChecked())
+                {
+                    splashOnOfSW.setChecked(true);
+                    userActivityStorePref.setNotfication(false);
+
+                }
+                else
+                {
+                    splashOnOfSW.setChecked(false);
+                    userActivityStorePref.setNotfication(true);
+                    Toast.makeText(getActivity(), "Turn Off Notification", Toast.LENGTH_SHORT).show();
 
                 }
             }

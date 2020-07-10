@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/expenseManagerFrag">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/expenseManagerFrag"
@@ -95,4 +95,9 @@
         android:name="com.rztechtunes.dailyexpensemanager.WagesCalculationFragment"
         android:label="fragment_wages_calculation"
         tools:layout="@layout/fragment_wages_calculation" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" />
 </navigation>

@@ -24,9 +24,11 @@ import android.widget.Toast;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
+import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeDashBoardAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 import com.rztechtunes.dailyexpensemanager.helper.CSVWriter;
+import com.rztechtunes.dailyexpensemanager.helper.Utils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -75,6 +77,10 @@ public class ExIncomeDashBoardFrag extends Fragment {
         totalIncomeTV.setCharacterLists(TickerUtils.provideNumberList());
         totalBalanceTV.setCharacterLists(TickerUtils.provideNumberList());
         totalExpenesTV.setCharacterLists(TickerUtils.provideNumberList());
+
+        select_month = Utils.getMonthName();
+        select_year = Utils.getYear();
+
 
         Button save = view.findViewById(R.id.save);
 
@@ -152,6 +158,8 @@ public class ExIncomeDashBoardFrag extends Fragment {
             }
         });
 
+
+
         //Call Method for featchDatavia month & year
         featchData();
 
@@ -189,7 +197,7 @@ public class ExIncomeDashBoardFrag extends Fragment {
         totalExpenesTV.setText(String.valueOf(total_expense));
         totalBalanceTV.setText(String.valueOf(total_balance));
 
-        ExpenseIncomeAdapter expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojoList);
+        ExpenseIncomeDashBoardAdapter expenseIncomeAdapter = new ExpenseIncomeDashBoardAdapter(getActivity(), expenseIncomePojoList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         expenseIncomeRV.setLayoutManager(llm);
         expenseIncomeRV.setAdapter(expenseIncomeAdapter);

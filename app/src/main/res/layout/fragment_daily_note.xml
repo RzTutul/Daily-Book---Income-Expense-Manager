@@ -48,11 +48,69 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dairyRV"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+
+            <androidx.cardview.widget.CardView
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="#B8D5E3"
+                android:visibility="gone"
+                android:id="@+id/emptyCardView"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:textColor="@android:color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text="Empty Data"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:textColor="@android:color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text="Tap+ to Create one" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dairyRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/dairy_write_icon"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+
+
 
     </androidx.core.widget.NestedScrollView>
 
@@ -61,7 +119,7 @@
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="60dp"
         android:layout_marginRight="10dp"
         android:id="@+id/addDairyBtn"
         android:layout_width="wrap_content"

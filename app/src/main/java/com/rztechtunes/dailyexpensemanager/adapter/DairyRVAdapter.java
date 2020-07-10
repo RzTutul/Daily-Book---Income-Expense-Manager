@@ -15,9 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.rztechtunes.dailyexpensemanager.R;
+import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.DairyPojo;
+import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyViewHolder> {
 
@@ -69,6 +73,38 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
                 shareIntent.putExtra(Intent.EXTRA_TEXT, title + "\n" + note);
                 context.startActivity(Intent.createChooser(shareIntent, "Share Dairy"));
 
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure?")
+                        .setContentText("Won't be able to recover this file!")
+                        .setConfirmText("Yes,delete it!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+
+                                DairyPojo dairyPojo = dairyPojoList.get(position);
+                                ExpenseIncomeDatabase.getInstance(context).getDairyDao().deleteDairy(dairyPojo);
+                                Navigation.findNavController(holder.itemView).navigate(R.id.dailyNoteFragment);
+                                sDialog.dismissWithAnimation();
+                                //   Navigation.findNavController(holder.itemView).navigate(R.id.expenseManagerFrag);
+
+                            }
+                        })
+                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
+
+
+                return false;
             }
         });
 

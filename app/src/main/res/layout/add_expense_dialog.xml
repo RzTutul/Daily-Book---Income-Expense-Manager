@@ -9,29 +9,31 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp">
+        android:layout_marginTop="26dp"
+        app:boxBackgroundMode="none"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/expenseNameET"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/spinner_background"
-            android:hint="Expense name"
-            android:inputType="textPersonName" />
+            android:layout_height="60dp"
+            android:background="@drawable/boder_edittext"
+            android:hint="    Expense/Income name"
+            android:inputType="textVisiblePassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundMode="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/expenseAmountET"
             android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/spinner_background"
-            android:hint="Amount"
+            android:background="@drawable/boder_edittext"
+            android:hint="   Amount"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="7dp"
-        android:background="@drawable/spinner_background"
+        android:background="@drawable/spinnerbag"
 
         />
 

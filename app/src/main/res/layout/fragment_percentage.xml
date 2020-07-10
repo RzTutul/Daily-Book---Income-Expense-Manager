@@ -27,6 +27,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#EAF1F6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -42,7 +43,7 @@
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#63E9FA">
+                app:neumorph_backgroundColor="#65474947">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -58,7 +59,7 @@
                         android:text="Amount"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/amountTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -83,7 +84,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
 
                     >
@@ -118,15 +119,23 @@
 
 
             </soup.neumorphism.NeumorphCardView>
-            <Button
+            <com.google.android.material.button.MaterialButton
+                app:cornerRadius="10dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/calculateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Calculate"
+                android:backgroundTint="#252424"
                 android:layout_gravity="center"
                 />
 
 <TextView
+    android:gravity="center"
+    tools:text="Hello"
+    android:textSize="18sp"
+    android:textColor="@android:color/black"
+    android:fontFamily="sans-serif-condensed-light"
     android:id="@+id/detilsTV"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

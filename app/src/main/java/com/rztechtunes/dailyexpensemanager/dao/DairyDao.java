@@ -20,6 +20,8 @@ public interface DairyDao {
     @Update
     int updateDairy(DairyPojo dairyPojo);
 
+    @Delete
+    int deleteDairy(DairyPojo dairyPojo);
 
     @Query("Select * from dairyTbl order by dairyid desc ")
     List<DairyPojo> getAllDairyList();

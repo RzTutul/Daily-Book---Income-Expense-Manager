@@ -86,7 +86,6 @@ public class CurrencyFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 SelctedfromCounty = fromCountrylist.get(position).getCountyName();
-                Toast.makeText(getActivity(), "" + fromCountrylist.get(position).getCountyName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -98,7 +97,6 @@ public class CurrencyFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SelectedToCountry = toCountrylist.get(position).getCountyName();
-                Toast.makeText(getActivity(), "" + toCountrylist.get(position).getCountyName(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -113,64 +111,73 @@ public class CurrencyFragment extends Fragment {
                 convertValue =0.0;
                 String amount = currencyET.getText().toString();
 
-                if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("BDT")) {
-                    convertValue = Double.parseDouble(amount) * 84.9250;
-                    currencyResultTV.setText("≈ " + (df2.format(convertValue)) + " BDT");
-                    currencyTV.setText("1 USD to ≈84.9250 BDT");
+                if (amount.equals(""))
+                {
+                    currencyET.setError("Enter Amount");
                 }
-                else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("PKR")) {
-                    convertValue = Double.parseDouble(amount) * 166.938;
-                    currencyResultTV.setText("≈ " + (df2.format(convertValue))  + " PKR");
-                    currencyTV.setText("1 USD to ≈166.938 PKR");
-                }
-                   else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("INR")) {
-                    convertValue = Double.parseDouble(amount) * 74.6562;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " INR");
-                    currencyTV.setText("1 USD to ≈74.6562 INR");
-                }
-                   else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("SGD")) {
-                    convertValue = Double.parseDouble(amount) * 1.39500;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " SGD");
-                    currencyTV.setText("1 USD to ≈1.39500 SGD");
-                }  else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("MYR")) {
-                    convertValue = Double.parseDouble(amount) * 4.28670;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " MYR");
-                    currencyTV.setText("1 USD to ≈4.28670 MYR");
-                } else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("CNY")) {
-                    convertValue = Double.parseDouble(amount) *7.06617;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " CNY");
-                    currencyTV.setText("1 USD to ≈7.06617 CNY");
+                else
+                {
+                    if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("BDT")) {
+                        convertValue = Double.parseDouble(amount) * 84.9250;
+                        currencyResultTV.setText("≈ " + (df2.format(convertValue)) + " BDT");
+                        currencyTV.setText("1 USD to ≈84.9250 BDT");
+                    }
+                    else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("PKR")) {
+                        convertValue = Double.parseDouble(amount) * 166.938;
+                        currencyResultTV.setText("≈ " + (df2.format(convertValue))  + " PKR");
+                        currencyTV.setText("1 USD to ≈166.938 PKR");
+                    }
+                    else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("INR")) {
+                        convertValue = Double.parseDouble(amount) * 74.6562;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " INR");
+                        currencyTV.setText("1 USD to ≈74.6562 INR");
+                    }
+                    else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("SGD")) {
+                        convertValue = Double.parseDouble(amount) * 1.39500;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " SGD");
+                        currencyTV.setText("1 USD to ≈1.39500 SGD");
+                    }  else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("MYR")) {
+                        convertValue = Double.parseDouble(amount) * 4.28670;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " MYR");
+                        currencyTV.setText("1 USD to ≈4.28670 MYR");
+                    } else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("CNY")) {
+                        convertValue = Double.parseDouble(amount) *7.06617;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " CNY");
+                        currencyTV.setText("1 USD to ≈7.06617 CNY");
+                    }
+
+                    //EURO
+                    else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("BDT")) {
+                        convertValue = Double.parseDouble(amount) * 95.5166;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " BDT");
+                        currencyTV.setText("1 EUR to ≈95.5166 BDT");
+                    }
+                    else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("PKR")) {
+                        convertValue = Double.parseDouble(amount) * 187.758;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " PKR");
+                        currencyTV.setText("1 EUR to ≈166.938 PKR");
+                    }
+                    else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("INR")) {
+                        convertValue = Double.parseDouble(amount) * 83.9577;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " INR");
+                        currencyTV.setText("1 EUR to ≈83.9577 INR");
+                    }
+                    else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("SGD")) {
+                        convertValue = Double.parseDouble(amount) * 1.56897;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " SGD");
+                        currencyTV.setText("1 EUR to ≈1.56897 SGD");
+                    }  else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("MYR")) {
+                        convertValue = Double.parseDouble(amount) * 4.82131;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " MYR");
+                        currencyTV.setText("1 EUR to ≈4.82131 MYR");
+                    } else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("CNY")) {
+                        convertValue = Double.parseDouble(amount) *7.94736;
+                        currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " CNY");
+                        currencyTV.setText("1 USD to ≈7.94736 CNY");
+                    }
                 }
 
-                   //EURO
-               else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("BDT")) {
-                    convertValue = Double.parseDouble(amount) * 95.5166;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " BDT");
-                    currencyTV.setText("1 EUR to ≈95.5166 BDT");
-                }
-                else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("PKR")) {
-                    convertValue = Double.parseDouble(amount) * 187.758;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " PKR");
-                    currencyTV.setText("1 EUR to ≈166.938 PKR");
-                }
-                   else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("INR")) {
-                    convertValue = Double.parseDouble(amount) * 83.9577;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " INR");
-                    currencyTV.setText("1 EUR to ≈83.9577 INR");
-                }
-                   else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("SGD")) {
-                    convertValue = Double.parseDouble(amount) * 1.56897;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " SGD");
-                    currencyTV.setText("1 EUR to ≈1.56897 SGD");
-                }  else if (SelctedfromCounty.equals("EUR") & SelectedToCountry.equals("MYR")) {
-                    convertValue = Double.parseDouble(amount) * 4.82131;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " MYR");
-                    currencyTV.setText("1 EUR to ≈4.82131 MYR");
-                } else if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("CNY")) {
-                    convertValue = Double.parseDouble(amount) *7.94736;
-                    currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " CNY");
-                    currencyTV.setText("1 USD to ≈7.94736 CNY");
-                }
+
 
 
             }

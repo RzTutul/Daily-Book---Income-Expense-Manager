@@ -16,10 +16,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/expenseNameET"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/boder_edittext"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
             android:hint="    Expense/Income name"
-            android:inputType="textVisiblePassword" />
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -28,13 +28,14 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+
             android:id="@+id/expenseAmountET"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:background="@drawable/boder_edittext"
+            android:background="@drawable/spinner_background"
             android:hint="   Amount"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -63,6 +64,7 @@
             app:cornerRadius="5dp" />
 
         <com.google.android.material.button.MaterialButton
+            app:icon="@drawable/icons8_checkmark_30px"
             android:id="@+id/addbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

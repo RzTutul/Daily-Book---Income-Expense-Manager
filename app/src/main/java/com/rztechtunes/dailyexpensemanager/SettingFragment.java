@@ -9,12 +9,18 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -24,7 +30,10 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
+import com.rztechtunes.dailyexpensemanager.helper.NotificationWorker;
 import com.rztechtunes.dailyexpensemanager.pref.UserActivityStorePref;
+
+import java.util.concurrent.TimeUnit;
 
 public class SettingFragment extends Fragment {
 
@@ -63,6 +72,29 @@ public class SettingFragment extends Fragment {
         infoBoxLL = view.findViewById(R.id.infoBoxLL);
 
 
+
+        ///Send Notification
+
+        Constraints constraints =
+                new Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build();
+
+        PeriodicWorkRequest periodicWorkRequest =
+                new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                        .setConstraints(constraints).build();
+        WorkManager.getInstance(getActivity())
+                .enqueue(periodicWorkRequest);
+
+         userActivityStorePref = new UserActivityStorePref(getActivity());
+        boolean notificationStatus = userActivityStorePref.getNotification();
+
+        if (notificationStatus) {
+            WorkManager.getInstance().cancelAllWorkByTag("notification");
+
+        }
+
+
         addCatagoriesLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +106,8 @@ public class SettingFragment extends Fragment {
                 else
                 {
                    addCataBOxLL.setVisibility(View.VISIBLE);
+                    Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.layout_animation);
+                    addCataBOxLL.startAnimation(animation);
                 }
             }
         });
@@ -99,6 +133,7 @@ public class SettingFragment extends Fragment {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
 
                     }
+                    categoiresET.setText("");
                 }
             }
         });
@@ -123,7 +158,8 @@ public class SettingFragment extends Fragment {
                    else
                    {
                        addPersonBoxLL.setVisibility(View.VISIBLE);
-
+                       Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.layout_animation);
+                       addPersonBoxLL.startAnimation(animation);
                    }
                }
             }
@@ -160,6 +196,8 @@ public class SettingFragment extends Fragment {
                     else
                     {
                         infoBoxLL.setVisibility(View.VISIBLE);
+                        Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.layout_animation);
+                        infoBoxLL.startAnimation(animation);
 
                     }
         }});

@@ -155,15 +155,18 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.5"
                             android:gravity="center_vertical"
-                            android:hint="Change Favorite Person Name" />
+                            android:hint="Change Name" />
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/savePersonBtn"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="0.5"
-                            android:text="Save" />
+                            android:text="Save"
+                            android:backgroundTint="#858080"
+                            app:cornerRadius="20dp"
+                            />
 
                     </LinearLayout>
 
@@ -277,9 +280,11 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.5"
                             android:gravity="center_vertical"
-                            android:hint="Add Categories Name" />
+                            android:hint="Categories Name" />
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
+                            app:cornerRadius="20dp"
+                            android:backgroundTint="#858080"
                             android:id="@+id/saveCategoriesBtn"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -354,7 +359,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:fontFamily="sans-serif-condensed-light"
-                            android:text="The Daily Book "
+                            android:text="DailyBook"
                             android:textColor="@color/colorAccent"
                             android:textSize="20sp" />
 
@@ -362,8 +367,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:fontFamily="sans-serif-condensed-light"
+                            android:text="Expense/Income,Diary,Calculation"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:fontFamily="sans-serif"
-                            android:text="verson-1.0"
+                            android:text="version-1.0"
                             android:textColor="@color/colorAccent"
                             android:textSize="15sp" />
 

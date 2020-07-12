@@ -17,12 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 
 import java.text.DecimalFormat;
 
 public class InterestFragment extends Fragment {
 
-    TextView finalAmountTV, interestTV;
+    TickerView finalAmountTV, interestTV;
     TextInputEditText initialAmountET, rateET, periodET;
     Button calculateBtn;
     Spinner periodSP;
@@ -54,6 +56,8 @@ public class InterestFragment extends Fragment {
         periodSP = view.findViewById(R.id.monthYearSp);
         calculateBtn = view.findViewById(R.id.interstBtn);
 
+        finalAmountTV.setCharacterLists(TickerUtils.provideNumberList());
+        interestTV.setCharacterLists(TickerUtils.provideNumberList());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, period);
         periodSP.setAdapter(adapter);
@@ -80,7 +84,7 @@ public class InterestFragment extends Fragment {
                 String period = periodET.getText().toString();
 
                 if (initial.equals("")) {
-                    initialAmountET.setError("Enter Loan");
+                    initialAmountET.setError("Enter Amount");
                 } else if (rate.equals("")) {
                     rateET.setError("Enter rate");
                 } else if (period.equals("")) {

@@ -32,7 +32,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class DailyNoteFragment extends Fragment {
 
-    ImageView imageView;
     CardView emptyCV;
     RecyclerView dairyRV;
     ExtendedFloatingActionButton addDairyBtn;
@@ -57,9 +56,7 @@ public class DailyNoteFragment extends Fragment {
         dairyRV = view.findViewById(R.id.dairyRV);
         addDairyBtn = view.findViewById(R.id.addDairyBtn);
         emptyCV = view.findViewById(R.id.emptyCardView);
-        imageView = view.findViewById(R.id.imageView);
 
-        imageView.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_to_up));
 
         emptyCV.setOnClickListener(new View.OnClickListener() {
             @Override

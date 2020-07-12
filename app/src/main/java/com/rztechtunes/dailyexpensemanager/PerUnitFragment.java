@@ -13,13 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PerUnitFragment extends Fragment {
     EditText priceET, qytET;
-    TextView perUnitTV, detailsTV;
+    TickerView perUnitTV;
+    TextView detailsTV;
     Button calculateBtn;
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
     List<String> detailsList = new ArrayList<>();
@@ -46,7 +50,7 @@ public class PerUnitFragment extends Fragment {
         perUnitTV = view.findViewById(R.id.perUnitTV);
         calculateBtn = view.findViewById(R.id.perUnitBtn);
         detailsTV = view.findViewById(R.id.detilsTV);
-
+        perUnitTV.setCharacterLists(TickerUtils.provideNumberList());
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

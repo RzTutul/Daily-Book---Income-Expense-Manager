@@ -13,11 +13,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
+
+import java.text.DecimalFormat;
 
 
 public class TipsFragment extends Fragment {
 
-    TextView amountTV,detilsTV,PerPersonTV;
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    TickerView amountTV,PerPersonTV;
     TextInputEditText amountET, pecentageET,peopleET;
     Button calculateBtn;
 
@@ -40,9 +45,11 @@ public class TipsFragment extends Fragment {
         amountET = view.findViewById(R.id.amountET);
         pecentageET = view.findViewById(R.id.percentageET);
         calculateBtn = view.findViewById(R.id.calculateBtn);
-        detilsTV = view.findViewById(R.id.detilsTV);
         PerPersonTV = view.findViewById(R.id.perPersonTV);
         peopleET = view.findViewById(R.id.personET);
+
+        amountTV.setCharacterLists(TickerUtils.provideNumberList());
+        PerPersonTV.setCharacterLists(TickerUtils.provideNumberList());
 
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,16 +61,16 @@ public class TipsFragment extends Fragment {
                 if (amount.equals("")) {
                     amountET.setError("Input Amount.");
                 } else if (percentage.equals("")) {
-                    amountET.setError("Input percentage.");
+                    pecentageET.setError("Input percentage.");
                 }  else if (people.equals("")) {
                     peopleET.setError("Total Person.");
                 }
                 else {
                     double finalAmount = ((Double.valueOf(amount) / 100) * (Double.valueOf(percentage)/100)) * 100;
 
-                    PerPersonTV.setText(String.valueOf(finalAmount));
+                    PerPersonTV.setText(decimalFormat.format(finalAmount));
                     double totalAmount = finalAmount*Double.valueOf(people);
-                    amountTV.setText(String.valueOf(totalAmount));
+                    amountTV.setText(decimalFormat.format(totalAmount));
                 }
             }
         });

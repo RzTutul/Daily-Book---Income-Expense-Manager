@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
@@ -75,6 +76,7 @@
                         android:src="@drawable/dairy_title_icon" />
 
                     <EditText
+
                         android:background="@android:color/transparent"
                         android:textColor="#009688"
                         android:id="@+id/d_titleET"
@@ -82,11 +84,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="17dp"
-                        android:hint="   What a fun day i had! "
+                        android:hint="  Title:"
                         android:maxLength="40"
                         android:maxLines="1"
+                        android:fontFamily="sans-serif-condensed-medium"
                         android:singleLine="true"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
 
 
                 </RelativeLayout>
@@ -122,7 +125,7 @@
         app:boxStrokeWidthFocused="0dp"
 
         app:counterEnabled="true"
-        app:counterMaxLength="500">
+        app:counterMaxLength="1000">
 
 
             <EditText
@@ -132,17 +135,19 @@
                 android:scrollbars="vertical"
                 android:id="@+id/d_noteET"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="5dp"
                 android:background="@android:color/transparent"
-                android:hint=" Dear Dairy,"
+                android:hint=" Dear Diary,"
                 android:gravity="start"
                 android:isScrollContainer="true"
                 android:maxHeight="300dp"
-                android:maxLength="500"
-                android:minHeight="100dp"
-                android:textSize="15sp" />
+                android:maxLength="1000"
+                android:minHeight="150dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-condensed"
+                />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,15 +160,20 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/colorAccent"
+                app:cornerRadius="20sp"
+                app:elevation="5dp"
                 android:id="@+id/d_savebtn"
                 android:layout_width="200dp"
+                app:icon="@drawable/icons8_checkmark_30px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="9dp"
                 android:text="Save" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                app:icon="@drawable/icons8_checkmark_30px"
                 android:id="@+id/d_updatebtn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"

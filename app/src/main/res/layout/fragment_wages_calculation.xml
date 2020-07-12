@@ -17,7 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="match_parent"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
             app:title="Wages Calculation" />
@@ -27,6 +27,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#EFE0E0"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -42,7 +43,7 @@
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#63E9FA">
+                app:neumorph_backgroundColor="#F4E7E7">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,18 +55,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="Your Wages"
+                        android:text="Your Salary"
                         android:textSize="20sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#DA7C7C"
                         android:orientation="horizontal"
                         android:weightSum="2">
 
                         <LinearLayout
-
+                            android:background="@color/colorAccent"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -91,6 +91,8 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:background="@android:color/darker_gray"
+
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -124,12 +126,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:background="#DA7C7C"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
                         <LinearLayout
+                            android:background="@android:color/holo_blue_bright"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -155,6 +157,8 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:background="@android:color/holo_purple"
+
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -180,6 +184,8 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:background="@android:color/holo_orange_light"
+
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -277,7 +283,8 @@
 
             </soup.neumorphism.NeumorphCardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                app:icon="@drawable/icons8_equal_sign_30px"
                 android:id="@+id/wagesBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

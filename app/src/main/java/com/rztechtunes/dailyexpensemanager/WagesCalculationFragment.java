@@ -30,7 +30,7 @@ public class WagesCalculationFragment extends Fragment {
     Button calculateBtn;
     String select_salaryOffer;
 
-    String salaryOffer[] = {"Monthly","Hourly", "Daily"};
+    String salaryOffer[] = {"Monthly", "Hourly", "Daily"};
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     public WagesCalculationFragment() {
@@ -95,11 +95,9 @@ public class WagesCalculationFragment extends Fragment {
                     salaryET.setError("Enter your salary!");
                 } else if (dayofWeek.equals("")) {
                     weekET.setError("Days of Week !");
-                }
-                if (hour.equals("")) {
+                } else if (hour.equals("")) {
                     hourET.setError("Total hour PerDay!");
-                }
-                else {
+                } else {
 
                     double salaryValue = Double.parseDouble(salary);
                     double weekValue = Double.parseDouble(dayofWeek);
@@ -119,25 +117,22 @@ public class WagesCalculationFragment extends Fragment {
                         dailyTV.setText(decimalFormat.format(perday));
                         weekTV.setText(decimalFormat.format(weekly));
                         hourlyTV.setText(decimalFormat.format(hourly));
-                    }
-                    else if (select_salaryOffer.equals("Daily")) {
+                    } else if (select_salaryOffer.equals("Daily")) {
                         dailyTV.setText(String.valueOf(salaryValue));
-                        monthly = (salaryValue * ((weekValue * 4)+2));
-                        yearly = salaryValue * (((weekValue * 4)+2) * 12);
+                        monthly = (salaryValue * ((weekValue * 4) + 2));
+                        yearly = salaryValue * (((weekValue * 4) + 2) * 12);
                         weekly = salaryValue * weekValue;
                         hourly = (salaryValue / hourValue);
                         yearTV.setText(decimalFormat.format(yearly));
                         weekTV.setText(decimalFormat.format(weekly));
                         hourlyTV.setText(decimalFormat.format(hourly));
                         monthTV.setText(decimalFormat.format(monthly));
-                    }
-
-                    else if (select_salaryOffer.equals("Hourly")) {
+                    } else if (select_salaryOffer.equals("Hourly")) {
                         hourlyTV.setText(String.valueOf(salaryValue));
-                        perday = hourValue*salaryValue;
-                        weekly = salaryValue *(weekValue*hourValue);
-                        monthly = (salaryValue * (((weekValue * 4)+2)*hourValue));
-                        yearly = salaryValue * ((((weekValue*4)+2) * hourValue)*12);
+                        perday = hourValue * salaryValue;
+                        weekly = salaryValue * (weekValue * hourValue);
+                        monthly = (salaryValue * (((weekValue * 4) + 2) * hourValue));
+                        yearly = salaryValue * ((((weekValue * 4) + 2) * hourValue) * 12);
 
                         dailyTV.setText(decimalFormat.format(perday));
                         yearTV.setText(decimalFormat.format(yearly));

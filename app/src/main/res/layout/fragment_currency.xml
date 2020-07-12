@@ -28,11 +28,13 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#F4EFEF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
+            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -85,6 +87,7 @@
                 android:text="Calculate" />
 
             <TextView
+                android:fontFamily="sans-serif-condensed-light"
                 android:id="@+id/resultTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +97,7 @@
                 android:textColor="@android:color/holo_blue_bright" />
 
             <TextView
+                android:fontFamily="sans-serif-condensed-light"
                 android:id="@+id/currencyTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

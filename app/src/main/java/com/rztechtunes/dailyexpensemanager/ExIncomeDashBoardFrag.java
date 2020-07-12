@@ -1,10 +1,14 @@
 package com.rztechtunes.dailyexpensemanager;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +43,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ExIncomeDashBoardFrag extends Fragment {
 
+    CardView emptyCV;
    TickerView totalIncomeTV, totalExpenesTV, totalBalanceTV;
     TextView monthNameTV;
     Spinner monthSP, yearSP;
@@ -71,9 +76,9 @@ public class ExIncomeDashBoardFrag extends Fragment {
         yearSP = view.findViewById(R.id.selectYearSP);
         expenseIncomeRV = view.findViewById(R.id.expenseIncomeRV);
         searchBtn = view.findViewById(R.id.searchBtn);
+        emptyCV = view.findViewById(R.id.emptyCardView);
 
         //For TextViewCountAnimation
-
         totalIncomeTV.setCharacterLists(TickerUtils.provideNumberList());
         totalBalanceTV.setCharacterLists(TickerUtils.provideNumberList());
         totalExpenesTV.setCharacterLists(TickerUtils.provideNumberList());
@@ -87,40 +92,13 @@ public class ExIncomeDashBoardFrag extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isStorageRequestAccepted())
+                {
 
-                File exportDir = new File(Environment.getExternalStorageDirectory(), "ExpenseIncomeManager");
-                if (!exportDir.exists()) {
-                    exportDir.mkdirs();
+                    saveCSVfile();
                 }
 
-                File file = new File(exportDir, "expenseIncome" + ".csv");
-                try {
-                    file.createNewFile();
-                    CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
-                    ExpenseIncomeDatabase db = ExpenseIncomeDatabase.getInstance(getContext());
-                    Cursor curCSV = db.query("SELECT * FROM " + "ExpenseIncomeTbl", null);
-                    csvWrite.writeNext(curCSV.getColumnNames());
-                    while (curCSV.moveToNext()) {
-                        //Which column you want to exprort
-                        String arrStr[] = new String[curCSV.getColumnCount()];
-                        for (int i = 0; i < curCSV.getColumnCount(); i++)
-                            arrStr[i] = curCSV.getString(i);
-                        csvWrite.writeNext(arrStr);
-                    }
-                    csvWrite.close();
-                    curCSV.close();
-                    Toast.makeText(getActivity(), "Exported", Toast.LENGTH_SHORT).show();
 
-                    // 1. Success message
-                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("CSV file generated!")
-                            .setContentText("Path: Internal Storage/ExpenseIncomeManager/expenseIncome.csv")
-                            .show();
-
-
-                } catch (Exception sqlEx) {
-                    Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
-                }
             }
         });
 
@@ -177,29 +155,111 @@ public class ExIncomeDashBoardFrag extends Fragment {
 
     }
 
+    private void saveCSVfile() {
+
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "DailyBook");
+        if (!exportDir.exists()) {
+            exportDir.mkdirs();
+        }
+
+        File file = new File(exportDir, "expenseIncome" + ".csv");
+        try {
+            file.createNewFile();
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            ExpenseIncomeDatabase db = ExpenseIncomeDatabase.getInstance(getContext());
+            Cursor curCSV = db.query("SELECT * FROM " + "ExpenseIncomeTbl", null);
+            csvWrite.writeNext(curCSV.getColumnNames());
+            while (curCSV.moveToNext()) {
+                //Which column you want to exprort
+                String arrStr[] = new String[curCSV.getColumnCount()];
+                for (int i = 0; i < curCSV.getColumnCount(); i++)
+                    arrStr[i] = curCSV.getString(i);
+                csvWrite.writeNext(arrStr);
+            }
+            csvWrite.close();
+            curCSV.close();
+            Toast.makeText(getActivity(), "Exported", Toast.LENGTH_SHORT).show();
+
+            // 1. Success message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("CSV file generated!")
+                    .setContentText("Path: Internal Storage/DailyBook/expenseIncome.csv")
+                    .show();
+
+
+        } catch (Exception sqlEx) {
+            Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
+        }
+    }
+
+    private boolean isStorageRequestAccepted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String[] permissionList = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(permissionList, 123);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+
+
+            case 123: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                  saveCSVfile();
+
+                } else {
+                    Toast.makeText(getActivity(), "Permission deny", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+        }
+    }
+
+
 
     private void featchData() {
 
         List<ExpenseIncomePojo> expenseIncomePojoList = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(select_month, select_year);
-        for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojoList) {
-            String catagories = expenseIncomePojo.getE_catagories();
-            if (catagories.equals("Income")) {
-                total_income = total_income + Double.valueOf(expenseIncomePojo.getE_amount());
 
-            } else {
-                total_expense = total_expense + Double.valueOf(expenseIncomePojo.getE_amount());
-            }
-
+        if (expenseIncomePojoList.size()==0)
+        {
+            emptyCV.setVisibility(View.VISIBLE);
         }
-        total_balance = total_income - total_expense;
+        else
+        {
 
-        totalIncomeTV.setText(String.valueOf(total_income));
-        totalExpenesTV.setText(String.valueOf(total_expense));
-        totalBalanceTV.setText(String.valueOf(total_balance));
+            for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojoList) {
+                String catagories = expenseIncomePojo.getE_catagories();
+                if (catagories.equals("Income")) {
+                    total_income = total_income + Double.valueOf(expenseIncomePojo.getE_amount());
 
-        ExpenseIncomeDashBoardAdapter expenseIncomeAdapter = new ExpenseIncomeDashBoardAdapter(getActivity(), expenseIncomePojoList);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        expenseIncomeRV.setLayoutManager(llm);
-        expenseIncomeRV.setAdapter(expenseIncomeAdapter);
+                } else {
+                    total_expense = total_expense + Double.valueOf(expenseIncomePojo.getE_amount());
+                }
+
+            }
+            total_balance = total_income - total_expense;
+
+            totalIncomeTV.setText(String.valueOf(total_income));
+            totalExpenesTV.setText(String.valueOf(total_expense));
+            totalBalanceTV.setText(String.valueOf(total_balance));
+
+            ExpenseIncomeDashBoardAdapter expenseIncomeAdapter = new ExpenseIncomeDashBoardAdapter(getActivity(), expenseIncomePojoList);
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+            expenseIncomeRV.setLayoutManager(llm);
+            expenseIncomeRV.setAdapter(expenseIncomeAdapter);
+        }
+
     }
 }

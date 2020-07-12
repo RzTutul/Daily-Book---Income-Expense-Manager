@@ -27,6 +27,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#E2D8F4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -141,7 +142,7 @@
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#fff">
+                app:neumorph_backgroundColor="#E3C69B">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,7 +157,7 @@
                         android:fontFamily="sans-serif-smallcaps"
                         android:gravity="center"
                         android:text="Start Time"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="17sp" />
 
                     <TimePicker
@@ -172,7 +173,7 @@
                         android:fontFamily="sans-serif-smallcaps"
                         android:gravity="center"
                         android:text="End Time"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="17sp" />
 
                     <TimePicker

@@ -60,7 +60,7 @@
                         android:textColor="#fff"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/perUnitTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                             android:id="@+id/totalQytET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Total Qunatity"
+                            android:hint="Total Quantity"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +120,9 @@
 
 
             </soup.neumorphism.NeumorphCardView>
-            <Button
+            <com.google.android.material.button.MaterialButton
+
+                app:icon="@drawable/icons8_equal_sign_30px"
                 android:id="@+id/perUnitBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

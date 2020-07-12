@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,14 +48,15 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
         View view = inflater.inflate(R.layout.expense_row, parent, false);
 
-
         return new ExpenseViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ExpenseViewHolder holder, final int position) {
-        final ExpenseIncomePojo expensePojo = expensePojos.get(position);
+        Animation shake = AnimationUtils.loadAnimation(context, R.anim.layout_animation);
+        holder.itemView.startAnimation(shake);
 
+        final ExpenseIncomePojo expensePojo = expensePojos.get(position);
         String eCata = expensePojo.getE_catagories();
         String day[] = (expensePojo.getE_date()).split("-");
         String month = expensePojo.getE_month();
@@ -64,10 +67,10 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
             holder.expenseCatagories.setTextColor(Color.RED);
             holder.dayTV.setTextColor(Color.RED);
-            holder.expenseAmount.setText("+৳ " + String.valueOf(expensePojos.get(position).getE_amount()));
+            holder.expenseAmount.setText("+ " + expensePojos.get(position).getE_amount()+" /=");
 
         } else {
-            holder.expenseAmount.setText("-৳ " + String.valueOf(expensePojos.get(position).getE_amount()));
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount()+" /=");
         }
         holder.expenseName.setText(expensePojos.get(position).getE_name());
         holder.expenseCatagories.setText(expensePojos.get(position).getE_catagories());
@@ -88,7 +91,7 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
                 new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Are you sure?")
-                        .setContentText("Won't be able to recover this file!")
+                        .setContentText("Won't be able to recover this!")
                         .setConfirmText("Yes,delete it!")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
@@ -144,7 +147,8 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
     private void showUpdateAllertDialog(final ExpenseViewHolder holder, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Update Expense");
+        builder.setTitle("Update Data");
+        builder.setIcon(R.drawable.icons8_checkmark_30px);
         final View view1 = LayoutInflater.from(context).inflate(R.layout.add_expense_dialog, null);
 
         builder.setView(view1);
@@ -158,10 +162,10 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
         exCatagories = expensePojos.get(position).getE_catagories();
 
-        String catagories[] = {"Select Catagories", "Income", "Food&Drink", "Bank", "Shopping", "Transport", "Hotel", "Other"};
+        List<String> catagories = ExpenseIncomeDatabase.getInstance(context).getCataDao().getAllCatagories();
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, catagories);
         expenseCatagoriesSp.setAdapter(arrayAdapter);
-        Toast.makeText(context, "" + exCatagories, Toast.LENGTH_SHORT).show();
         int spinnerPosition = arrayAdapter.getPosition(exCatagories);
         expenseCatagoriesSp.setSelection(spinnerPosition);
 
@@ -174,7 +178,6 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 Catagories = parent.getItemAtPosition(position).toString();
-                Toast.makeText(context, "" + Catagories, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -194,19 +197,39 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
                 String ename = expenseNameET.getText().toString();
                 String amount = expenseAmoutET.getText().toString();
 
-                ExpenseIncomePojo expenseIncomePojo = new ExpenseIncomePojo(expensePojos.get(position).getE_id(), ename, Catagories,amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
-                int update = ExpenseIncomeDatabase.getInstance(context).getExpenseIncomeDao().updateValue(expenseIncomePojo);
+               if (ename.equals(""))
+               {
+                   expenseNameET.setError("Empty Name");
+               }
+               else if (amount.equals(""))
+               {
+                   expenseAmoutET.setError("Empty Amount");
+               }
+               else if (Catagories.equals("Select Categories"))
+               {
+                   TextView errorText = (TextView) expenseCatagoriesSp.getSelectedView();
+                   errorText.setError("");
+                   errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                   errorText.setText("Select Valid Categories");
+               }
+               else
+               {
 
-                if (update > 0) {
-                    Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(holder.itemView).navigate(R.id.expenseManagerFrag);
+                   ExpenseIncomePojo expenseIncomePojo = new ExpenseIncomePojo(expensePojos.get(position).getE_id(), ename, Catagories,amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
+                   int update = ExpenseIncomeDatabase.getInstance(context).getExpenseIncomeDao().updateValue(expenseIncomePojo);
+
+                   if (update > 0) {
+                       Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
+                       Navigation.findNavController(holder.itemView).navigate(R.id.expenseManagerFrag);
 
 
-                } else {
-                    Toast.makeText(context, "Updated fail", Toast.LENGTH_SHORT).show();
+                   } else {
+                       Toast.makeText(context, "Updated fail", Toast.LENGTH_SHORT).show();
 
-                }
-                dialog.dismiss();
+                   }
+                   dialog.dismiss();
+               }
+
             }
         });
         cancelbtn.setOnClickListener(new View.OnClickListener() {

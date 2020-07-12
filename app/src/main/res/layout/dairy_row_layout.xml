@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:layout_margin="2dp"
     android:orientation="horizontal"
     app:cardCornerRadius="5dp"
@@ -41,9 +41,12 @@
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="Tex"
                 android:textColor="@android:color/holo_blue_light"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
             <TextView
+                android:textStyle="italic"
+                android:textSize="17sp"
+                android:textColor="#F164CE"
                 android:id="@+id/noteTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

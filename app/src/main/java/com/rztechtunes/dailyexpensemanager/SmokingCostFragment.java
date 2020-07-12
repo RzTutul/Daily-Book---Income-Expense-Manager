@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
+
 public class SmokingCostFragment extends Fragment {
 
-    TextView monthCostTV, yearCostTV;
+    TickerView weekCostTV, monthCostTV, yearCostTV;
     EditText perDayET, perCostET;
     Button calculateBtn;
 
@@ -35,9 +38,14 @@ public class SmokingCostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         monthCostTV = view.findViewById(R.id.perMonthTV);
         yearCostTV = view.findViewById(R.id.perYearCost);
+        weekCostTV = view.findViewById(R.id.perWeekTV);
         perDayET = view.findViewById(R.id.smokedPerET);
         perCostET = view.findViewById(R.id.costET);
         calculateBtn = view.findViewById(R.id.smokedBtn);
+
+        monthCostTV.setCharacterLists(TickerUtils.provideNumberList());
+        yearCostTV.setCharacterLists(TickerUtils.provideNumberList());
+        weekCostTV.setCharacterLists(TickerUtils.provideNumberList());
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,9 +61,11 @@ public class SmokingCostFragment extends Fragment {
                 } else {
                     double perMonthCost = (Double.parseDouble(perDay) * Double.parseDouble(perCost)) * 30;
                     double perYearCost = (Double.parseDouble(perDay) * Double.parseDouble(perCost)) * 365;
+                    double perWeekCost = (Double.parseDouble(perDay) * Double.parseDouble(perCost)) * 7;
 
                     monthCostTV.setText(String.valueOf(perMonthCost));
                     yearCostTV.setText(String.valueOf(perYearCost));
+                    weekCostTV.setText(String.valueOf(perWeekCost));
                 }
             }
         });

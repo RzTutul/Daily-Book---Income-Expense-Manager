@@ -27,6 +27,8 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#DEE9EA"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -42,7 +44,7 @@
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#63E9FA">
+                app:neumorph_backgroundColor="@android:color/holo_blue_dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,13 +54,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:textColor="#fff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Tip Amount"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/amountTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -75,13 +78,14 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textColor="#fff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-smallcaps"
                             android:text="Per Person"
                             android:textSize="20sp" />
 
-                        <TextView
+                        <com.robinhood.ticker.TickerView
                             android:id="@+id/perPersonTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -136,7 +140,7 @@
                             android:id="@+id/percentageET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Tip Percentage"
+                            android:hint="Tip Percentage%"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -159,7 +163,9 @@
 
             </soup.neumorphism.NeumorphCardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="#000"
+                app:icon="@drawable/icons8_equal_sign_30px"
                 android:id="@+id/calculateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

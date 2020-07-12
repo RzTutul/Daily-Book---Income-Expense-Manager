@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -59,7 +61,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import static android.content.ContentValues.TAG;
 
 public class ExpenseManagerFrag extends Fragment {
-
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    LinearLayout pieCharBtnLL;
     CardView emptyCV;
     CollapsingToolbarLayout title;
     ExtendedFloatingActionButton addExpenseBtn;
@@ -70,7 +73,6 @@ public class ExpenseManagerFrag extends Fragment {
     List<String> categoriesPojoList = new ArrayList<>();
 
     TickerView incomeTV, expenseTV, balanceTV;
-    double t_income, t_expense, t_balance;
     ExpenseIncomeAdapter expenseIncomeAdapter;
 
     public ExpenseManagerFrag() {
@@ -102,6 +104,8 @@ public class ExpenseManagerFrag extends Fragment {
         balanceTV = view.findViewById(R.id.balanceTV);
         title = view.findViewById(R.id.monthTitle);
         emptyCV = view.findViewById(R.id.emptyCardView);
+        pieCharBtnLL = view.findViewById(R.id.pieCharBtnLL);
+
 
         //For TextViewCountAnimation
         incomeTV.setCharacterLists(TickerUtils.provideNumberList());
@@ -127,6 +131,13 @@ public class ExpenseManagerFrag extends Fragment {
             }
         });
 
+        pieCharBtnLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPieChartDialog();
+            }
+        });
+
 
         ///featch Categories Data if it's empty then insert.
         categoriesPojoList = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().getAllCatagories();
@@ -148,23 +159,25 @@ public class ExpenseManagerFrag extends Fragment {
     }
 
     private void featchData() {
-
+        double t_income = 0.0, t_expense = 0.0, t_balance = 0.0;
 
         expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(Utils.getMonthName(), Utils.getYear());
 
-        if (expenseIncomePojos.size()==0)
-        {
+        if (expenseIncomePojos.size() == 0) {
             emptyCV.setVisibility(View.VISIBLE);
 
             expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
             LinearLayoutManager llm = new LinearLayoutManager(getActivity());
             expenseRV.setLayoutManager(llm);
             expenseRV.setAdapter(expenseIncomeAdapter);
-        }
-        else
-        {
 
-            Toast.makeText(getActivity(), "test"+expenseIncomePojos.size(), Toast.LENGTH_SHORT).show();
+            incomeTV.setText(decimalFormat.format(t_income));
+            expenseTV.setText(decimalFormat.format(t_expense));
+            balanceTV.setText(decimalFormat.format(t_balance));
+
+
+        } else {
+
             emptyCV.setVisibility(View.GONE);
             for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojos) {
                 String catagories = expenseIncomePojo.getE_catagories();
@@ -177,9 +190,9 @@ public class ExpenseManagerFrag extends Fragment {
             }
             t_balance = t_income - t_expense;
 
-            incomeTV.setText(String.valueOf(t_income));
-            expenseTV.setText(String.valueOf(t_expense));
-            balanceTV.setText(String.valueOf(t_balance));
+            incomeTV.setText(decimalFormat.format(t_income));
+            expenseTV.setText(decimalFormat.format(t_expense));
+            balanceTV.setText(decimalFormat.format(t_balance));
 
 
             expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
@@ -219,7 +232,7 @@ public class ExpenseManagerFrag extends Fragment {
 
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Are you sure?")
-                            .setContentText("Won't be able to recover this file!")
+                            .setContentText("Won't be able to recover this!")
                             .setConfirmText("Yes,delete it!")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
@@ -274,7 +287,7 @@ public class ExpenseManagerFrag extends Fragment {
 
     private void showExpenseDilog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(" Add Expense");
+        builder.setTitle(" Add Income/Expense");
         builder.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
         View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.add_expense_dialog, null);
 
@@ -313,11 +326,11 @@ public class ExpenseManagerFrag extends Fragment {
                 String amount = expenseAmoutET.getText().toString();
 
                 if (ename.isEmpty()) {
-                    expenseNameET.setError("Provide expense name!");
+                    expenseNameET.setError("Provide name!");
                 } else if (amount.isEmpty()) {
-                    expenseAmoutET.setError("Provide expense amount!");
+                    expenseAmoutET.setError("Provide amount!");
                 }
-                if (exCatagories.equals("Select Categories")) {
+                else if (exCatagories.equals("Select Categories")) {
                     TextView errorText = (TextView) expenseCatagoriesSP.getSelectedView();
                     errorText.setError("");
                     errorText.setTextColor(Color.RED);//just to highlight that this is an error
@@ -365,8 +378,14 @@ public class ExpenseManagerFrag extends Fragment {
     }
 
     private void showPieChartDialog() {
+        String statusText = " Spin below PieCart";
         List<String> categoriesList = new ArrayList<>();
         expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(Utils.getMonthName(), Utils.getYear());
+
+        if (expenseIncomePojos.size() == 0) {
+            statusText = "Empty data insert income/expense";
+        }
+
         for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojos) {
             String catagories = expenseIncomePojo.getE_catagories();
             categoriesList.add(catagories);
@@ -393,15 +412,17 @@ public class ExpenseManagerFrag extends Fragment {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(" Add Expense/Income");
-        builder.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
+        builder.setTitle("Expense-Income");
+        builder.setIcon(R.drawable.icons8_combo_chart_48px);
         View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.pie_chart_dialog, null);
 
         builder.setView(view1);
 
         PieChart pieChart = view1.findViewById(R.id.piechart_1);
         TextView exIncomeBoardTV = view1.findViewById(R.id.exIncomeBoardTV);
+        TextView statusTV = view1.findViewById(R.id.statusTV);
 
+        statusTV.setText(statusText);
 
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(true);
@@ -409,6 +430,7 @@ public class ExpenseManagerFrag extends Fragment {
         pieChart.setDragDecelerationFrictionCoef(0.9f);
         pieChart.setTransparentCircleRadius(61f);
         pieChart.setHoleColor(Color.WHITE);
+
         pieChart.animateY(1000, Easing.EaseInBack);
         ArrayList<PieEntry> yValues = new ArrayList<>();
         String catagoryWiseCalcultaion = "";
@@ -424,17 +446,19 @@ public class ExpenseManagerFrag extends Fragment {
         exIncomeBoardTV.setText(catagoryWiseCalcultaion);
 
         PieDataSet dataSet = new PieDataSet(yValues, "");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(10f);
+        dataSet.setSliceSpace(2f);
+        dataSet.setSelectionShift(5f);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         PieData pieData = new PieData((dataSet));
         pieData.setValueTextSize(10f);
-        pieData.setValueTextColor(Color.YELLOW);
+        pieData.setValueTextColor(Color.WHITE);
+
         pieChart.setData(pieData);
 
         AlertDialog dialog = builder.create();
 
         dialog.show();
+
 
     }
 

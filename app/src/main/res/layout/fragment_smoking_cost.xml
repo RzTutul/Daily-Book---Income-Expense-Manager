@@ -20,13 +20,14 @@
             android:layout_height="?android:attr/actionBarSize"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            app:title="Per Unit Calculation" />
+            app:title="Smoke Cost Calculation" />
 
 
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#CBB9EA"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -39,7 +40,7 @@
 
             <soup.neumorphism.NeumorphCardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="230dp"
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
@@ -56,18 +57,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
+                        android:text="Per Week Cost"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
+
+                    <com.robinhood.ticker.TickerView
+                        android:id="@+id/perWeekTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text="0"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-smallcaps"
                         android:text="Per Month Cost"
                         android:textColor="#fff"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/perMonthTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
                         android:textColor="@android:color/background_light"
-                        android:textSize="30sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -77,14 +95,14 @@
                         android:textColor="#fff"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/perYearCost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
                         android:textColor="@android:color/background_light"
-                        android:textSize="30sp" />
+                        android:textSize="25sp" />
 
 
                 </LinearLayout>
@@ -132,7 +150,19 @@
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-
+                    <TextView
+                        android:drawableLeft="@drawable/nosmokking"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="17sp"
+                        android:text=" Smoking is injurious to health"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:id="@+id/detilsTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
                 </LinearLayout>
 
 
@@ -145,14 +175,7 @@
                 android:layout_gravity="center"
                 />
 
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:textSize="15sp"
-                android:fontFamily="sans-serif-black"
-                android:id="@+id/detilsTV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+
 
         </LinearLayout>
 

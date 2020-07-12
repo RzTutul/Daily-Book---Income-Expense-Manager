@@ -27,6 +27,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#C9B5ED"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -169,7 +170,7 @@
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#fff">
+                app:neumorph_backgroundColor="#E3C69B">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -184,12 +185,11 @@
                         android:fontFamily="sans-serif-smallcaps"
                         android:gravity="center"
                         android:text="Start Date"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="17sp" />
 
                     <DatePicker
                         android:id="@+id/startpiker"
-                        style="@style/datePickerTextSize"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:calendarViewShown="false"
@@ -201,7 +201,7 @@
                         android:fontFamily="sans-serif-smallcaps"
                         android:gravity="center"
                         android:text="End date"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="17sp" />
 
                     <DatePicker

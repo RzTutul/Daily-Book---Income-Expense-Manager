@@ -24,6 +24,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:background="#F9EBFA"
         android:id="@+id/nestedView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -112,7 +113,10 @@
                     android:inputType="number" />
             </LinearLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/colorAccent"
+                app:cornerRadius="10dp"
+                android:textColor="#FFFFFF"
                 android:id="@+id/bmiCalculateBtn"
                 android:layout_margin="4dp"
                 android:layout_width="wrap_content"

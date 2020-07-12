@@ -29,56 +29,39 @@ import android.widget.Toast;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
+import com.rztechtunes.dailyexpensemanager.entites.DairyPojo;
 import com.rztechtunes.dailyexpensemanager.helper.NotificationWorker;
 import com.rztechtunes.dailyexpensemanager.pref.UserActivityStorePref;
 
 import java.util.concurrent.TimeUnit;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class MainActivity extends AppCompatActivity {
-    private static final int STORAGE_REQUEST_CODE = 123;
     private static final String TAG = MainActivity.class.getSimpleName();
     BottomNavigationView bottomNav;
     NavController navController;
-    boolean isExit=false,isBack=false;
+    boolean isExit = false, isBack = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        isStorageRequestAccepted();
 
         //For Bottom Nevigation
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        navController = Navigation.findNavController(this,R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        ///Send Notification
 
-        Constraints constraints =
-                new Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build();
-
-        PeriodicWorkRequest periodicWorkRequest =
-                new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
-                        .setConstraints(constraints).build();
-        WorkManager.getInstance(this)
-                .enqueue(periodicWorkRequest);
-
-        UserActivityStorePref userActivityStorePref = new UserActivityStorePref(this);
-        boolean notificationStatus = userActivityStorePref.getNotification();
-
-        if (notificationStatus) {
-            WorkManager.getInstance().cancelAllWorkByTag("notification");
-
-        }
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                switch (destination.getId())
-                {
+                switch (destination.getId()) {
                     case R.id.splashScreenFragment:
                         bottomNav.setVisibility(View.GONE);
                         break;
@@ -87,16 +70,19 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 bottomNav.setVisibility(View.VISIBLE);
+                                bottomNav.getMenu().findItem(R.id.home_menu).setChecked(true);
 
                             }
                         });
                         isExit = true;
                         break;
                     case R.id.dailyNoteFragment:
+                        bottomNav.getMenu().findItem(R.id.dairy_menu).setChecked(true);
                         isBack = true;
                         isExit = false;
                         break;
                     case R.id.allCalculationFragment:
+                        bottomNav.getMenu().findItem(R.id.calculate_menu).setChecked(true);
                         isBack = true;
                         isExit = false;
                         break;
@@ -116,23 +102,29 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         if (isExit) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure you want to exit?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+            new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Are you sure?")
+                    .setContentText("Want To Exit?")
+                    .setConfirmText("Yes")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+
                             MainActivity.this.finish();
+                            sDialog.dismissWithAnimation();
+
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
+                    .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
                         }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-        else if (isBack) {
+                    })
+                    .show();
+
+
+        } else if (isBack) {
             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.expenseManagerFrag);
         }
     /*    else if (isDairyFrg) {
@@ -146,42 +138,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isStorageRequestAccepted() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            String[] permissionList = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(permissionList, STORAGE_REQUEST_CODE);
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-
-
-            case STORAGE_REQUEST_CODE: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Stronge", Toast.LENGTH_SHORT).show();
-                    //  getFromSdcard();
-                    // getCaptureScreenShot();
-
-                } else {
-                    Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-
-        }
-    }
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -190,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.home_menu:
                             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.expenseManagerFrag);
-
                             break;
                         case R.id.dashBoard_menu:
                             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.exIncomeDashBoardFrag);

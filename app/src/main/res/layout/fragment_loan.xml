@@ -29,6 +29,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#F3EFEF"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
@@ -42,8 +43,8 @@
                 android:layout_height="240dp"
                 android:layout_margin="3dp"
                 android:padding="3dp"
-                app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#35658C">
+                app:neumorph_backgroundColor="#F8774F"
+                app:cardCornerRadius="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -51,23 +52,24 @@
                     android:orientation="vertical">
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="4dp"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Monthly Pay"
-                        android:textColor="#fff"
+                        android:textColor="#333131"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/monthlyTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
-                        android:textColor="@android:color/background_light"
+                        android:textColor="#000"
                         android:textSize="30sp" />
 
                     <TextView
@@ -76,17 +78,16 @@
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Total Pay"
-                        android:textColor="#fff"
+                        android:textColor="#100F0F"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/totalPayTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
-                        android:textColor="@android:color/background_light"
+                        android:textColor="#000"
                         android:textSize="30sp" />
 
                     <TextView
@@ -95,17 +96,17 @@
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Interest"
-                        android:textColor="#fff"
+                        android:textColor="#1B1A1A"
                         android:textSize="20sp" />
 
-                    <TextView
+                    <com.robinhood.ticker.TickerView
                         android:id="@+id/interestTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
-                        android:textColor="@android:color/background_light"
+                        android:textColor="#000"
                         android:textSize="30sp" />
 
 
@@ -137,7 +138,7 @@
                             android:id="@+id/loanET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Loan"
+                            android:hint="Loan amount"
                             android:inputType="numberDecimal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,33 +156,32 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
-                        android:weightSum="2"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_weight="1.5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp">
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1.5">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/periodET"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Period"
+                                android:hint="Total Time/ Period"
                                 android:inputType="numberDecimal" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Spinner
                             android:id="@+id/monthYearSp"
-                            android:layout_weight="0.5"
                             android:layout_width="0dp"
-                            android:background="@drawable/spinnerbag"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/spinnerbag" />
 
 
                     </LinearLayout>
@@ -191,12 +191,14 @@
 
             </soup.neumorphism.NeumorphCardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/loanbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Calculate" />
+                android:backgroundTint="#4CE4D6"
+                android:text="Calculate"
+                app:icon="@drawable/icons8_equal_sign_30px" />
 
             <TextView
                 android:id="@+id/detilsTV"

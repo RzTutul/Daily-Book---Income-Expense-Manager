@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,7 +43,8 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
         LayoutInflater inflatere = LayoutInflater.from(context);
 
         View view = inflatere.inflate(R.layout.dairy_row_layout, parent, false);
-
+        Animation animation = AnimationUtils.loadAnimation(context,R.anim.layout_animation);
+        view.startAnimation(animation);
         return new DairyViewHolder(view);
     }
 

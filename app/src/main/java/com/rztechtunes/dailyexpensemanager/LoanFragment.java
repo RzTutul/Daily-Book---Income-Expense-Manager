@@ -17,12 +17,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 
 import java.text.DecimalFormat;
 
 public class LoanFragment extends Fragment {
-
-    TextView monthlyTV, totalPayTV, interestTV;
+    TickerView monthlyTV, totalPayTV, interestTV;
     TextInputEditText loanET, rateET, periodET;
     Button calculateBtn;
     Spinner periodSP;
@@ -55,6 +56,10 @@ public class LoanFragment extends Fragment {
         periodET = view.findViewById(R.id.periodET);
         calculateBtn = view.findViewById(R.id.loanbtn);
         periodSP = view.findViewById(R.id.monthYearSp);
+
+        monthlyTV.setCharacterLists(TickerUtils.provideNumberList());
+        totalPayTV.setCharacterLists(TickerUtils.provideNumberList());
+        interestTV.setCharacterLists(TickerUtils.provideNumberList());
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, period);
@@ -110,9 +115,9 @@ public class LoanFragment extends Fragment {
                         double totalPay = monthlyPay * (12 * periodValue);
                         double totalInterest = percentage * (12 * periodValue);
 
-                        monthlyTV.setText(String.valueOf(decimalFormat.format(monthlyPay)));
-                        totalPayTV.setText(String.valueOf(decimalFormat.format(totalPay)));
-                        interestTV.setText(String.valueOf(decimalFormat.format(totalInterest)));
+                        monthlyTV.setText(decimalFormat.format(monthlyPay));
+                        totalPayTV.setText(decimalFormat.format(totalPay));
+                        interestTV.setText(decimalFormat.format(totalInterest));
 
                     }
 

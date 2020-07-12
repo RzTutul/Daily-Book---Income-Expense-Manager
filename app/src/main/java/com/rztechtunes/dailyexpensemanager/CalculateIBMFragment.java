@@ -83,7 +83,6 @@ public class CalculateIBMFragment extends Fragment {
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nestedScrollView.fullScroll(View.FOCUS_DOWN);
 
                 bmiResult =0.0;
                 String weight = weightET.getText().toString().trim();
@@ -99,6 +98,7 @@ public class CalculateIBMFragment extends Fragment {
                 }
                 else
                 {
+                    nestedScrollView.fullScroll(View.FOCUS_DOWN);
 
                     if (selectWeight.equals("Kg"))
                     {

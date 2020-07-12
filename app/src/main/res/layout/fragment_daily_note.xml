@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="My Dairy ❤"
+            app:title="My Diary ❤"
             app:collapsedTitleGravity="center"
             app:expandedTitleGravity="bottom|center_horizontal"
             >
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-light"
-                        android:text="Empty Data"
+                        android:text="Empty Diary 🥺"
                         android:textSize="25sp" />
 
                     <TextView
@@ -95,16 +95,10 @@
 
             </androidx.cardview.widget.CardView>
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginBottom="60dp"
                 android:id="@+id/dairyRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/dairy_write_icon"
-                android:layout_gravity="center"
                 />
 
         </LinearLayout>

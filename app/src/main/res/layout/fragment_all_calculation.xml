@@ -10,7 +10,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="180dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
@@ -154,8 +154,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -169,7 +168,9 @@
                         android:id="@+id/currencyCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="2dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -210,7 +211,9 @@
                         android:id="@+id/perUnitCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="2dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -247,8 +250,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -262,7 +263,9 @@
                         android:id="@+id/loanCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -303,7 +306,9 @@
                         android:id="@+id/interstCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -340,8 +345,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -355,7 +359,9 @@
                         android:id="@+id/bmiCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -386,6 +392,9 @@
 
                 </LinearLayout>
 
+
+
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="90dp"
@@ -393,12 +402,13 @@
                     android:layout_weight="1">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/smokedCard"
+                        android:id="@+id/wagesCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -409,14 +419,14 @@
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/smokingicon" />
+                                android:src="@drawable/icons8_paper_money_48px" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="sans-serif-black"
-                                android:text="Smoking Cost"
+                                android:text="Wages"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -428,13 +438,13 @@
                 </LinearLayout>
 
 
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -448,7 +458,9 @@
                         android:id="@+id/ageCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -489,9 +501,10 @@
                         android:id="@+id/dateCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -526,8 +539,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+
                 android:layout_marginBottom="55dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -542,7 +554,9 @@
                         android:id="@+id/timeCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -572,7 +586,6 @@
 
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="90dp"
@@ -580,10 +593,12 @@
                     android:layout_weight="1">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/wagesCard"
+                        android:id="@+id/smokedCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:cardCornerRadius="6dp"
+                        android:layout_margin="3dp"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -596,14 +611,14 @@
                             <ImageView
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/icons8_calculator_48px_1" />
+                                android:src="@drawable/smokingicon" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="sans-serif-black"
-                                android:text="Wages"
+                                android:text="Smoking Cost"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -613,6 +628,8 @@
 
 
                 </LinearLayout>
+
+
 
 
             </LinearLayout>

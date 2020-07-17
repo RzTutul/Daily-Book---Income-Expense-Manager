@@ -16,7 +16,9 @@ import androidx.work.WorkManager;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -102,22 +104,29 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         if (isExit) {
-            new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                    .setTitleText("Are you sure?")
-                    .setContentText("Want To Exit?")
-                    .setConfirmText("Yes")
+            new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("Rate this app?")
+                    .setCustomImage(R.drawable.ratingimage)
+                    .setContentText("if you enjoy this app,would you mind taking a moment to rate it? it won't take more than a minute.Thank you!")
+                    .setConfirmText("Rate Now")
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
 
-                            MainActivity.this.finish();
+                            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
                             sDialog.dismissWithAnimation();
 
                         }
                     })
-                    .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                    .setCancelButton("Later", new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
+                            MainActivity.this.finish();
                             sDialog.dismissWithAnimation();
                         }
                     })

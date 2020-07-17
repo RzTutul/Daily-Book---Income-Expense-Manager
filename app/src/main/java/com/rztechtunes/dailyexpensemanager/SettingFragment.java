@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -41,6 +42,7 @@ public class SettingFragment extends Fragment {
     LinearLayout addCatagoriesLL,addCataBOxLL,addPersonLL,addPersonBoxLL,inforLL,infoBoxLL;
     Button saveCataBtn,savePersonBtn;
     EditText personET,categoiresET;
+    CardView shareCV;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -70,6 +72,26 @@ public class SettingFragment extends Fragment {
         savePersonBtn = view.findViewById(R.id.savePersonBtn);
         inforLL = view.findViewById(R.id.infoLL);
         infoBoxLL = view.findViewById(R.id.infoBoxLL);
+        shareCV = view.findViewById(R.id.shareCV);
+
+
+        shareCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "DailyBook");
+                    String shareMessage= "\nDailyBook\nInstall this cool App.\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
+            }
+        });
+
 
 
 

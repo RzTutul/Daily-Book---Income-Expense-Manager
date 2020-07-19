@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.rztechtunes.dailyexpensemanager.adapter.CustomSpinnerAdapter;
 import com.rztechtunes.dailyexpensemanager.pojo.CounrtySPPojo;
 
@@ -25,6 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CurrencyFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
+
+
     private static DecimalFormat df2 = new DecimalFormat("#.####");
     EditText currencyET;
     TextView currencyResultTV, currencyTV;
@@ -65,6 +72,13 @@ public class CurrencyFragment extends Fragment {
         toSP = view.findViewById(R.id.toCountrySP);
         calcuateBtn = view.findViewById(R.id.currencyCalcuateBtn);
         currencyTV = view.findViewById(R.id.currencyTV);
+
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
         for (int i = 0; i < fromCountyName.length; i++) {
@@ -117,6 +131,8 @@ public class CurrencyFragment extends Fragment {
                 }
                 else
                 {
+
+
                     if (SelctedfromCounty.equals("USD") & SelectedToCountry.equals("BDT")) {
                         convertValue = Double.parseDouble(amount) * 84.9250;
                         currencyResultTV.setText("≈ " + (df2.format(convertValue)) + " BDT");
@@ -175,6 +191,13 @@ public class CurrencyFragment extends Fragment {
                         currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " CNY");
                         currencyTV.setText("1 USD to ≈7.94736 CNY");
                     }
+
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+
                 }
 
 

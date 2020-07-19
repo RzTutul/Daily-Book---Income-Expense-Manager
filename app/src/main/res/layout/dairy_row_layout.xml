@@ -17,72 +17,102 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0">
+            android:layout_weight="0"
+            android:orientation="vertical">
 
+            <TextView
+                android:fontFamily="@font/marlboro"
+                android:id="@+id/dateTV"
+                android:gravity="center"
+                android:background="@drawable/circle_shape"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="31"
+                android:textColor="@android:color/black"
+                android:textSize="27sp" />
             <ImageView
+                android:layout_marginTop="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:scaleType="center"
                 android:src="@drawable/dairy_write_icon" />
+
+
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2.7"
-            android:orientation="vertical">
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:padding="3dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="17sp"
+                    android:textColor="#000"
+                    android:fontFamily="@font/little_lord_fontleroy"
+                    android:id="@+id/dayNameTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="on SaturDay" />
+
+                <TextView
+                    android:id="@+id/sharebtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:drawableLeft="@drawable/ic_baseline_share_24" />
+
+
+            </RelativeLayout>
+
 
             <TextView
+                android:textSize="17sp"
+                android:textColor="#000"
+                android:id="@+id/monthYearNameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/little_lord_fontleroy"
+                android:text="In July 2020." />
+
+            <TextView
+                android:fontFamily="@font/marlboro"
                 android:id="@+id/titleTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:fontFamily="sans-serif-smallcaps"
                 android:text="Tex"
                 android:textColor="@android:color/holo_blue_light"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
-                android:textStyle="italic"
-                android:textSize="17sp"
-                android:textColor="#F164CE"
+                android:textColor="#392E2E"
                 android:id="@+id/noteTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:fontFamily="sans-serif-condensed-light"
-                android:maxLines="2"
-                android:text="Tex" />
-
-            <TextView
-                android:id="@+id/dateTV"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="sans-serif-thin"
-                android:gravity="bottom"
+                android:fontFamily="@font/marlboro"
+                android:maxLines="4"
                 android:text="Tex"
-                android:textColor="@android:color/holo_orange_light"
-                android:textSize="12sp" />
+                android:textSize="17sp"
+               />
+
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:background="#fff">
-
-
-            <TextView
-                android:id="@+id/sharebtn"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:drawableLeft="@drawable/ic_baseline_share_24" />
-
-        </RelativeLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

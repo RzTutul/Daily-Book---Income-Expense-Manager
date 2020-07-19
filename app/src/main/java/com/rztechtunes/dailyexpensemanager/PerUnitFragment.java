@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
@@ -21,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PerUnitFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
+
     EditText priceET, qytET;
     TickerView perUnitTV;
     TextView detailsTV;
@@ -51,6 +57,14 @@ public class PerUnitFragment extends Fragment {
         calculateBtn = view.findViewById(R.id.perUnitBtn);
         detailsTV = view.findViewById(R.id.detilsTV);
         perUnitTV.setCharacterLists(TickerUtils.provideNumberList());
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +75,7 @@ public class PerUnitFragment extends Fragment {
                 } else if (qyt.equals("")) {
                     qytET.setError("Enter Qyt");
                 } else {
+
                     double perUnitPrice = Double.parseDouble(price) / Double.parseDouble(qyt);
                     perUnitTV.setText(decimalFormat.format(perUnitPrice));
                     detailsList.add("Price: " + price + " QYT: " + qyt + " PerUnit: " + decimalFormat.format(perUnitPrice) + "\n");
@@ -70,6 +85,16 @@ public class PerUnitFragment extends Fragment {
                 history = history + detailsList.get(detailsList.size() - 1);
 
                 detailsTV.setText(history);
+
+
+
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+
+
             }
         });
 

@@ -100,4 +100,9 @@
         android:name="com.rztechtunes.dailyexpensemanager.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" />
+    <fragment
+        android:id="@+id/adMobFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.AdMobFragment"
+        android:label="fragment_ad_mob"
+        tools:layout="@layout/fragment_ad_mob" />
 </navigation>

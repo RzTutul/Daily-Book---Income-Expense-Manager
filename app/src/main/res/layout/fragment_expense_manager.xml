@@ -43,10 +43,10 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:background="#F3DBDB"
-
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
+        android:background="#F3DBDB"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
@@ -71,8 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:padding="3dp"
-                        app:neumorph_shadowElevation="3dp"
-                        >
+                        app:neumorph_shadowElevation="3dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -113,8 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:padding="3dp"
-                        app:neumorph_shadowElevation="2dp"
-                        >
+                        app:neumorph_shadowElevation="2dp">
 
                         <LinearLayout
 
@@ -155,8 +153,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:padding="3dp"
-                        app:neumorph_shadowElevation="2dp"
-                        >
+                        app:neumorph_shadowElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -194,14 +191,14 @@
             </LinearLayout>
 
             <androidx.cardview.widget.CardView
-                android:visibility="gone"
-                app:cardElevation="10dp"
-                app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="#B8D5E3"
                 android:id="@+id/emptyCardView"
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#B8D5E3"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -211,20 +208,20 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:textColor="@android:color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-light"
                         android:text="Empty Data 🥺"
+                        android:textColor="@android:color/black"
                         android:textSize="25sp" />
 
                     <TextView
-                        android:textColor="@android:color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-condensed-light"
-                        android:text="Tap+ to Create one" />
+                        android:text="Tap+ to Create one"
+                        android:textColor="@android:color/black" />
 
 
                 </LinearLayout>
@@ -236,8 +233,21 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/expenseRV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="55dp" />
+                android:layout_height="wrap_content"
+                />
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-5271939163637049/1821977938">
+            </com.google.android.gms.ads.AdView>
+
 
 
         </LinearLayout>

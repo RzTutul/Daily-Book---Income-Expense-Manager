@@ -76,7 +76,6 @@
                         android:src="@drawable/dairy_title_icon" />
 
                     <EditText
-
                         android:background="@android:color/transparent"
                         android:textColor="#009688"
                         android:id="@+id/d_titleET"
@@ -85,7 +84,7 @@
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="17dp"
                         android:hint="  Title:"
-                        android:maxLength="40"
+                        android:maxLength="45"
                         android:maxLines="1"
                         android:fontFamily="sans-serif-condensed-medium"
                         android:singleLine="true"
@@ -180,6 +179,20 @@
                 android:layout_gravity="center"
                 android:text="Update"
                 android:visibility="gone" />
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-5271939163637049/3952499010">
+            </com.google.android.gms.ads.AdView>
+
+
 
 
         </LinearLayout>

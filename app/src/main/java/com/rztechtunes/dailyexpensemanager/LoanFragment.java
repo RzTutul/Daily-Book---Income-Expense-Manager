@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.textfield.TextInputEditText;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
@@ -23,6 +27,8 @@ import com.robinhood.ticker.TickerView;
 import java.text.DecimalFormat;
 
 public class LoanFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
+
     TickerView monthlyTV, totalPayTV, interestTV;
     TextInputEditText loanET, rateET, periodET;
     Button calculateBtn;
@@ -62,6 +68,16 @@ public class LoanFragment extends Fragment {
         interestTV.setCharacterLists(TickerUtils.provideNumberList());
 
 
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, period);
         periodSP.setAdapter(adapter);
 
@@ -92,6 +108,7 @@ public class LoanFragment extends Fragment {
                 } else if (period.equals("")) {
                     periodET.setError("Enter period");
                 } else {
+
                     double loanValue = 0.0;
                     double rateValue = 0.0;
                     double periodValue = 0.0;
@@ -120,6 +137,16 @@ public class LoanFragment extends Fragment {
                         interestTV.setText(decimalFormat.format(totalInterest));
 
                     }
+
+
+                    //Add Load
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+
+
 
                 }
 

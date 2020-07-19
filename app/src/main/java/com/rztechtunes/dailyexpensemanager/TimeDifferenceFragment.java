@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TimePicker;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
@@ -25,6 +28,7 @@ import static com.airbnb.lottie.L.TAG;
 
 
 public class TimeDifferenceFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
 
     TickerView minutesTV, hoursTV;
     TimePicker startTP, endTP;
@@ -62,6 +66,14 @@ public class TimeDifferenceFragment extends Fragment {
         //For TextViewAnimation
         minutesTV.setCharacterLists(TickerUtils.provideNumberList());
         hoursTV.setCharacterLists(TickerUtils.provideNumberList());
+
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +123,16 @@ public class TimeDifferenceFragment extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+
+
+
+                //Add Load
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+
             }
         });
 

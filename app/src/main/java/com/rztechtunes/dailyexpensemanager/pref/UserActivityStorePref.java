@@ -58,4 +58,17 @@ public class UserActivityStorePref {
         return sharedPreferences.getBoolean("notificaiton",false);
     }
 
+
+      public void setOnTimeNotificaiton(boolean notfication) {
+        editor.putBoolean("notify", notfication);
+        editor.commit();
+    }
+
+    public boolean getNotificationStatus() {
+        return sharedPreferences.getBoolean("notify",false);
+    }
+
+
+
+
 }

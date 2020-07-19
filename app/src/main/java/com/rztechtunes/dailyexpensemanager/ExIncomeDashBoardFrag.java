@@ -25,6 +25,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
@@ -42,6 +45,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class ExIncomeDashBoardFrag extends Fragment {
+    private InterstitialAd mInterstitialAd;
 
     CardView emptyCV;
    TickerView totalIncomeTV, totalExpenesTV, totalBalanceTV;
@@ -85,6 +89,15 @@ public class ExIncomeDashBoardFrag extends Fragment {
 
         select_month = Utils.getMonthName();
         select_year = Utils.getYear();
+
+
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.searchUnitID));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
 
         Button save = view.findViewById(R.id.save);
@@ -145,6 +158,16 @@ public class ExIncomeDashBoardFrag extends Fragment {
             @Override
             public void onClick(View v) {
 
+
+                //Add Load
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+
+
+
                 total_balance = 0.0;
                 total_income = 0.0;
                 total_expense = 0.0;
@@ -185,6 +208,16 @@ public class ExIncomeDashBoardFrag extends Fragment {
                     .setTitleText("CSV file generated!")
                     .setContentText("Path: Internal Storage/DailyBook/expenseIncome.csv")
                     .show();
+
+
+            //Add Load
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
+
+
 
 
         } catch (Exception sqlEx) {

@@ -16,6 +16,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.helper.DateCalculator;
@@ -32,6 +35,8 @@ import java.util.Locale;
 import static com.airbnb.lottie.L.TAG;
 
 public class AgeCalculationFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
+
 
     TickerView monthTV,dayTV,b_monthTV,b_dayTV;
     TickerView yearTV;
@@ -69,6 +74,15 @@ public class AgeCalculationFragment extends Fragment {
         dayTV.setCharacterLists(TickerUtils.provideNumberList());
         b_dayTV.setCharacterLists(TickerUtils.provideNumberList());
         b_monthTV.setCharacterLists(TickerUtils.provideNumberList());
+
+
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +127,17 @@ public class AgeCalculationFragment extends Fragment {
                 b_monthTV.setText(""+monthLeft);
                 b_dayTV.setText(""+birthDayLeft);
 
+
+
+                //Add Load
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
                 }
+
+
+            }
 
 
         });

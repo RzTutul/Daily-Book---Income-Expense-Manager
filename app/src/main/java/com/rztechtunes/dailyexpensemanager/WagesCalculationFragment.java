@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
@@ -23,7 +27,7 @@ import java.text.DecimalFormat;
 
 
 public class WagesCalculationFragment extends Fragment {
-
+    private InterstitialAd mInterstitialAd;
     TickerView yearTV, monthTV, weekTV, dailyTV, hourlyTV;
     EditText salaryET, weekET, hourET;
     Spinner salaryofferSp;
@@ -65,6 +69,13 @@ public class WagesCalculationFragment extends Fragment {
         weekTV.setCharacterLists(TickerUtils.provideNumberList());
         dailyTV.setCharacterLists(TickerUtils.provideNumberList());
         hourlyTV.setCharacterLists(TickerUtils.provideNumberList());
+
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, salaryOffer);
@@ -139,6 +150,15 @@ public class WagesCalculationFragment extends Fragment {
                         weekTV.setText(decimalFormat.format(weekly));
                         monthTV.setText(decimalFormat.format(monthly));
                     }
+
+
+                    //Add Load
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+
 
 
                 }

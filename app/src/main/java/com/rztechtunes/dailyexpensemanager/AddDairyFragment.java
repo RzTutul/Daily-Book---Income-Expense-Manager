@@ -17,6 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.DairyPojo;
@@ -32,6 +37,7 @@ public class AddDairyFragment extends Fragment {
     String eventID;
     String date;
     long dairyID;
+    private AdView mAdView;
 
 
     public AddDairyFragment() {
@@ -67,6 +73,15 @@ public class AddDairyFragment extends Fragment {
         updateBtn = view.findViewById(R.id.d_updatebtn);
         nestedScrollView = view.findViewById(R.id.nestedView);
 
+        //Banner Add
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         dairyNoteET.setOnClickListener(new View.OnClickListener() {

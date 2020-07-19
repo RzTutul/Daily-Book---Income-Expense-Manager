@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
 public class SmokingCostFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
 
     TickerView weekCostTV, monthCostTV, yearCostTV;
     EditText perDayET, perCostET;
@@ -47,6 +52,13 @@ public class SmokingCostFragment extends Fragment {
         yearCostTV.setCharacterLists(TickerUtils.provideNumberList());
         weekCostTV.setCharacterLists(TickerUtils.provideNumberList());
 
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +78,17 @@ public class SmokingCostFragment extends Fragment {
                     monthCostTV.setText(String.valueOf(perMonthCost));
                     yearCostTV.setText(String.valueOf(perYearCost));
                     weekCostTV.setText(String.valueOf(perWeekCost));
+
+
+
+
+                    //Add Load
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+
                 }
             }
         });

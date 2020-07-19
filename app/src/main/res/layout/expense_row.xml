@@ -84,7 +84,7 @@
                     android:layout_weight="1.0">
 
                     <TextView
-                        android:fontFamily="sans-serif-condensed"
+                        android:fontFamily="@font/marlboro"
                         android:id="@+id/row_expenseName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                         android:textSize="15sp"
                         android:drawableLeft="@drawable/ic_baseline_adjust_24"
                         android:text=" Expense name  "
-                        android:textColor="#454343" />
+                        android:textColor="#656363" />
 
                 </LinearLayout>
 

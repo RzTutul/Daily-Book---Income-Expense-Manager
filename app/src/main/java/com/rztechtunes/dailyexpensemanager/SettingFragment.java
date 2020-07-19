@@ -91,25 +91,32 @@ public class SettingFragment extends Fragment {
                 }
             }
         });
-
-
-
-
-        ///Send Notification
-
-        Constraints constraints =
-                new Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build();
-
-        PeriodicWorkRequest periodicWorkRequest =
-                new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
-                        .setConstraints(constraints).build();
-        WorkManager.getInstance(getActivity())
-                .enqueue(periodicWorkRequest);
-
-         userActivityStorePref = new UserActivityStorePref(getActivity());
+        userActivityStorePref = new UserActivityStorePref(getActivity());
         boolean notificationStatus = userActivityStorePref.getNotification();
+        boolean runNotificaiotn = userActivityStorePref.getNotificationStatus();
+
+
+
+        if (runNotificaiotn)
+        {
+
+        }
+        else
+        {
+            ///Send Notification
+            Constraints constraints =
+                    new Constraints.Builder()
+                            .setRequiredNetworkType(NetworkType.CONNECTED)
+                            .build();
+
+            PeriodicWorkRequest periodicWorkRequest =
+                    new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                            .setConstraints(constraints).build();
+            WorkManager.getInstance(getActivity())
+                    .enqueue(periodicWorkRequest);
+            userActivityStorePref.setOnTimeNotificaiton(true);
+        }
+
 
         if (notificationStatus) {
             WorkManager.getInstance().cancelAllWorkByTag("notification");

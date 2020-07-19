@@ -6,12 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.textfield.TextInputEditText;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
@@ -20,6 +24,7 @@ import java.text.DecimalFormat;
 
 
 public class TipsFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
 
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
     TickerView amountTV,PerPersonTV;
@@ -52,6 +57,14 @@ public class TipsFragment extends Fragment {
         PerPersonTV.setCharacterLists(TickerUtils.provideNumberList());
 
 
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +79,14 @@ public class TipsFragment extends Fragment {
                     peopleET.setError("Total Person.");
                 }
                 else {
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+
+
+
                     double finalAmount = ((Double.valueOf(amount) / 100) * (Double.valueOf(percentage)/100)) * 100;
 
                     PerPersonTV.setText(decimalFormat.format(finalAmount));

@@ -3,6 +3,7 @@ package com.rztechtunes.dailyexpensemanager.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.airbnb.lottie.L.TAG;
 
 public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyViewHolder> {
 
@@ -50,11 +53,15 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
 
     @Override
     public void onBindViewHolder(@NonNull final DairyViewHolder holder, final int position) {
+        String date = dairyPojoList.get(position).getDate();
+        String dateSplit[] = date.split("\\.",4);
+
 
         holder.titleTV.setText(dairyPojoList.get(position).getTitle());
         holder.noteTV.setText(dairyPojoList.get(position).getNote());
-        holder.dateTV.setText(dairyPojoList.get(position).getDate());
-
+       holder.dayTV.setText("On "+dateSplit[0]);
+        holder.dateTV.setText(dateSplit[1]);
+        holder.monthYearTV.setText("In "+dateSplit[2]+" "+dateSplit[3]);
         final Bundle bundle = new Bundle();
         bundle.putLong("dairyID", dairyPojoList.get(position).getDairyid());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +133,7 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
 
     public class DairyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titleTV, noteTV, dateTV;
+        TextView titleTV, noteTV,dateTV, dayTV,monthYearTV;
         TextView sharebtn;
 
         public DairyViewHolder(@NonNull View itemView) {
@@ -134,7 +141,9 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
 
             titleTV = itemView.findViewById(R.id.titleTV);
             noteTV = itemView.findViewById(R.id.noteTV);
+            dayTV = itemView.findViewById(R.id.dayNameTV);
             dateTV = itemView.findViewById(R.id.dateTV);
+            monthYearTV = itemView.findViewById(R.id.monthYearNameTV);
             sharebtn = itemView.findViewById(R.id.sharebtn);
         }
     }

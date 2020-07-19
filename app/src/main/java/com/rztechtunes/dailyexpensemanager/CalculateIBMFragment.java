@@ -19,6 +19,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.github.anastr.speedviewlib.SpeedView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 import java.text.DecimalFormat;
 
@@ -26,6 +29,7 @@ import static com.airbnb.lottie.L.TAG;
 
 
 public class CalculateIBMFragment extends Fragment {
+    private InterstitialAd mInterstitialAd;
 
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
     NestedScrollView nestedScrollView;
@@ -61,6 +65,16 @@ public class CalculateIBMFragment extends Fragment {
         calculateBtn = view.findViewById(R.id.bmiCalculateBtn);
         weightSP = view.findViewById(R.id.selectWeightSP);
         nestedScrollView = view.findViewById(R.id.nestedView);
+
+
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.bmiUnitID));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_spinner_dropdown_item,Weight);
         weightSP.setAdapter(adapter);
@@ -131,6 +145,13 @@ public class CalculateIBMFragment extends Fragment {
                         speedometer.setMaxSpeed(48);
                         bmiResult = Double.parseDouble(decimalFormat.format(bmiResult));
                         speedometer.speedTo((float) bmiResult);
+                    }
+
+                    //Add Load
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
                     }
 
 

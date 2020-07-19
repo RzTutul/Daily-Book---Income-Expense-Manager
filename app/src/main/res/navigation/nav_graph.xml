@@ -101,8 +101,9 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" />
     <fragment
-        android:id="@+id/adMobFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.AdMobFragment"
-        android:label="fragment_ad_mob"
-        tools:layout="@layout/fragment_ad_mob" />
+        android:id="@+id/expensePieChartFrag"
+        android:name="com.rztechtunes.dailyexpensemanager.ExpensePieChartFrag"
+        android:label="fragment_expense_pie_chart"
+        tools:layout="@layout/fragment_expense_pie_chart" />
+
 </navigation>

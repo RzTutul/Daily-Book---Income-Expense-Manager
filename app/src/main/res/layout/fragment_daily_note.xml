@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="My Diary ❤"
+            app:title="My Diary"
             app:collapsedTitleGravity="center"
             app:expandedTitleGravity="bottom|center_horizontal"
             >

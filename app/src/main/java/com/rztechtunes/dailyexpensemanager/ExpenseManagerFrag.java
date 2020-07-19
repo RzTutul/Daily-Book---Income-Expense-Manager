@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -152,7 +153,7 @@ public class ExpenseManagerFrag extends Fragment {
         pieCharBtnLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPieChartDialog();
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.expensePieChartFrag);
             }
         });
 
@@ -305,7 +306,7 @@ public class ExpenseManagerFrag extends Fragment {
 
     private void showExpenseDilog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(" Add Income/Expense");
+        builder.setTitle(" Add Your Income/Expense");
         builder.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
         View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.add_expense_dialog, null);
 
@@ -386,7 +387,7 @@ public class ExpenseManagerFrag extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.menu_piechart:
-                showPieChartDialog();
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.expensePieChartFrag);
                 break;
 
         }
@@ -395,90 +396,6 @@ public class ExpenseManagerFrag extends Fragment {
 
     }
 
-    private void showPieChartDialog() {
-        String statusText = " Spin below PieCart";
-        List<String> categoriesList = new ArrayList<>();
-        expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(Utils.getMonthName(), Utils.getYear());
-
-        if (expenseIncomePojos.size() == 0) {
-            statusText = "Empty data insert income/expense";
-        }
-
-        for (ExpenseIncomePojo expenseIncomePojo : expenseIncomePojos) {
-            String catagories = expenseIncomePojo.getE_catagories();
-            categoriesList.add(catagories);
-        }
-        //For Remove Duplicate Categories
-        Set<String> s = new LinkedHashSet<String>(categoriesList);
-        categoriesList.clear();
-        categoriesList.addAll(s);
-
-        //For calculation Separate categories amount
-        HashMap<String, Double> calcutateAmount = new HashMap<>();
-        for (String data : categoriesList) {
-            double value = 0.0;
-            for (ExpenseIncomePojo expenseIncomeCalcution : expenseIncomePojos) {
-                String cata = expenseIncomeCalcution.getE_catagories();
-                if (data.equals(cata)) {
-                    value = value + Double.parseDouble(expenseIncomeCalcution.getE_amount());
-                }
-            }
-
-            calcutateAmount.put(data, value);
-
-        }
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Expense-Income");
-        builder.setIcon(R.drawable.icons8_combo_chart_48px);
-        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.pie_chart_dialog, null);
-
-        builder.setView(view1);
-
-        PieChart pieChart = view1.findViewById(R.id.piechart_1);
-        TextView exIncomeBoardTV = view1.findViewById(R.id.exIncomeBoardTV);
-        TextView statusTV = view1.findViewById(R.id.statusTV);
-
-        statusTV.setText(statusText);
-
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(true);
-        pieChart.setExtraOffsets(5, 10, 5, 5);
-        pieChart.setDragDecelerationFrictionCoef(0.9f);
-        pieChart.setTransparentCircleRadius(61f);
-        pieChart.setHoleColor(Color.WHITE);
-
-        pieChart.animateY(1000, Easing.EaseInBack);
-        ArrayList<PieEntry> yValues = new ArrayList<>();
-        String catagoryWiseCalcultaion = "";
-        for (Map.Entry specificData : calcutateAmount.entrySet()) {
-            String name = specificData.getKey().toString().trim();
-            String value = specificData.getValue().toString().trim();
-
-            yValues.add(new PieEntry(Float.valueOf(value), name));
-            catagoryWiseCalcultaion = catagoryWiseCalcultaion + name + ": " + value + "\n";
-
-        }
-
-        exIncomeBoardTV.setText(catagoryWiseCalcultaion);
-
-        PieDataSet dataSet = new PieDataSet(yValues, "");
-        dataSet.setSliceSpace(2f);
-        dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        PieData pieData = new PieData((dataSet));
-        pieData.setValueTextSize(10f);
-        pieData.setValueTextColor(Color.WHITE);
-
-        pieChart.setData(pieData);
-
-        AlertDialog dialog = builder.create();
-
-        dialog.show();
-
-
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

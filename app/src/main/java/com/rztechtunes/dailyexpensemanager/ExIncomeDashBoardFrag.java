@@ -56,6 +56,8 @@ public class ExIncomeDashBoardFrag extends Fragment {
     Button searchBtn;
     double total_income = 0.0, total_expense = 0.0, total_balance = 0.0;
 
+    List<String> monthName;
+    List<String> year;
     public ExIncomeDashBoardFrag() {
         // Required empty public constructor
     }
@@ -116,8 +118,8 @@ public class ExIncomeDashBoardFrag extends Fragment {
         });
 
 
-        List<String> monthName = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDistinctMonthName();
-        List<String> year = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDistanctYear();
+         monthName = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDistinctMonthName();
+       year = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDistanctYear();
 
         ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, monthName);
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, year);
@@ -158,20 +160,28 @@ public class ExIncomeDashBoardFrag extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if (monthName.size()==0)
+                {
+                    // 1. Success message
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Empty Data")
+                            .setContentText("Firstly, Insert your expense or Income!")
+                            .show();                }
+                else
+                {
+                    //Add Load
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
 
-                //Add Load
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                } else {
-                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    total_balance = 0.0;
+                    total_income = 0.0;
+                    total_expense = 0.0;
+                    featchData();
                 }
 
-
-
-                total_balance = 0.0;
-                total_income = 0.0;
-                total_expense = 0.0;
-                featchData();
             }
         });
 

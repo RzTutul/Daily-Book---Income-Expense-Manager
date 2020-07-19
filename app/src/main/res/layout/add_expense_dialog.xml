@@ -7,29 +7,48 @@
     android:padding="10dp">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/nikoshlight"
+        android:text="Expense/Income Name:"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
     <EditText
-        android:gravity="center"
-        android:background="@drawable/boder_edittext"
         android:id="@+id/expenseNameET"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="16sp"
-        android:textColor="#000"
-        android:inputType="textPersonName"
-        android:hint="Expense/Income Name"
-        />
-  <EditText
-      android:layout_marginTop="10dp"
-        android:gravity="center"
+        android:layout_marginTop="5dp"
         android:background="@drawable/boder_edittext"
-      android:id="@+id/expenseAmountET"
+        android:gravity="center"
+        android:hint="eg. Coffe,Ticket/Salary"
+        android:inputType="textPersonName"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/nikoshlight"
+        android:text="Amount"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/expenseAmountET"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="16sp"
-      android:inputType="numberDecimal"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/boder_edittext"
+        android:gravity="center"
+        android:hint="eg. 1000"
+        android:inputType="numberDecimal"
         android:textColor="#000"
-        android:hint="Amount"
-        />
+        android:textSize="16sp" />
 
     <Spinner
         android:id="@+id/expenseCatagories"
@@ -56,14 +75,14 @@
             app:cornerRadius="5dp" />
 
         <com.google.android.material.button.MaterialButton
-            app:icon="@drawable/icons8_checkmark_30px"
             android:id="@+id/addbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:text="Add"
             android:textColor="#fff"
-            app:cornerRadius="5dp" />
+            app:cornerRadius="5dp"
+            app:icon="@drawable/icons8_checkmark_30px" />
     </LinearLayout>
 
 

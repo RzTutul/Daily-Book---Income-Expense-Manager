@@ -8,15 +8,16 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/currencyicon"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
             app:subtitle="offline"
@@ -34,18 +35,51 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
-            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="10dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Amount"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+
+                />
+
+            <TextView
+                android:fontFamily="sans-serif-condensed-light"
+                android:id="@+id/resultTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textSize="30sp"
+                android:text="00"
+                android:textColor="#A67EEC" />
+
+            <TextView
+                android:id="@+id/currencyTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+
             <EditText
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
                 android:inputType="number"
                 android:id="@+id/currencyAmount"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/spinner_background"
+                android:background="@drawable/boder_edittext_color"
                 android:gravity="center"
                 android:hint="Amount" />
 
@@ -61,8 +95,8 @@
             <Spinner
                 android:id="@+id/fromCountySP"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/spinnerbag" />
+                android:layout_height="53dp"
+                android:background="@drawable/spinnerbag_loan" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,34 +110,16 @@
             <Spinner
                 android:id="@+id/toCountrySP"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/spinnerbag" />
+                android:layout_height="53dp"
+                android:background="@drawable/spinnerbag_loan" />
 
             <Button
+                android:layout_marginTop="10dp"
                 android:id="@+id/currencyCalcuateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Calculate" />
-
-            <TextView
-                android:fontFamily="sans-serif-condensed-light"
-                android:id="@+id/resultTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:textSize="25sp"
-                android:textColor="@android:color/holo_blue_bright" />
-
-            <TextView
-                android:fontFamily="sans-serif-condensed-light"
-                android:id="@+id/currencyTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="18sp"
-                android:textColor="@android:color/holo_blue_bright" />
 
 
         </LinearLayout>

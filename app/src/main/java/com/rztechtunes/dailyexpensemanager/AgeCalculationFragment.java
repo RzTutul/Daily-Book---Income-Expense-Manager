@@ -38,9 +38,9 @@ public class AgeCalculationFragment extends Fragment {
     private InterstitialAd mInterstitialAd;
 
 
-    TickerView monthTV,dayTV,b_monthTV,b_dayTV;
+    TickerView monthTV, dayTV, b_monthTV, b_dayTV;
     TickerView yearTV;
-    DatePicker dobDP,currentDP;
+    DatePicker dobDP, currentDP;
     Button calculateBtn;
 
 
@@ -76,20 +76,18 @@ public class AgeCalculationFragment extends Fragment {
         b_monthTV.setCharacterLists(TickerUtils.provideNumberList());
 
 
-
         //Interstitial Add Run
-        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        MobileAds.initialize(getActivity(), getString(R.string.appid));
         mInterstitialAd = new InterstitialAd(getActivity());
         mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
 
 
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DateCalculator calculateAge=DateCalculator.calculateAge(dobDP.getDayOfMonth(),dobDP.getMonth()+1,dobDP.getYear(),currentDP.getDayOfMonth(),currentDP.getMonth()+1,currentDP.getYear());
+                DateCalculator calculateAge = DateCalculator.calculateAge(dobDP.getDayOfMonth(), dobDP.getMonth() + 1, dobDP.getYear(), currentDP.getDayOfMonth(), currentDP.getMonth() + 1, currentDP.getYear());
 
                 int b_day = dobDP.getDayOfMonth();
                 int b_month = dobDP.getMonth();
@@ -99,34 +97,44 @@ public class AgeCalculationFragment extends Fragment {
                 int current_month = currentDP.getMonth();
                 int current_year = currentDP.getYear();
 
-                int birthDayLeft=0,monthLeft=0;
-                if (b_day<current_day)
-                {
-                    b_day = b_day+30;
-                    birthDayLeft = b_day-current_day;
+                int birthDayLeft = 0, monthLeft = 0;
+                if (b_day < current_day) {
+                    b_day = b_day + 30;
+                    birthDayLeft = b_day - current_day;
+
+                    if (b_month == current_month) {
+                        monthLeft = monthLeft + 11;
+                    } else {
+
+                        if (b_month < current_month) {
+                            b_month = (b_month - 1) + 12;
+                            monthLeft = b_month - current_month;
+                        }
+                    }
+
+                } else {
+                    birthDayLeft = b_day - current_day;
 
                     if (b_month<current_month)
                     {
-                        b_month = (b_month-1)+12;
-                        monthLeft = b_month-current_month;
+                        b_month = (b_month ) + 12;
+                        monthLeft = b_month - current_month;
+
+                    }
+                    else
+                    {
+                        monthLeft = b_month - current_month;
 
                     }
 
                 }
-                else
-                {
-                    birthDayLeft = b_day-current_day;
-                    monthLeft = b_month-current_month;
 
-                }
+                yearTV.setText("" + calculateAge.getYear());
+                monthTV.setText("" + calculateAge.getMonth());
+                dayTV.setText("" + calculateAge.getDay());
 
-                yearTV.setText(""+calculateAge.getYear());
-                monthTV.setText(""+calculateAge.getMonth());
-                dayTV.setText(""+calculateAge.getDay());
-
-                b_monthTV.setText(""+monthLeft);
-                b_dayTV.setText(""+birthDayLeft);
-
+                b_monthTV.setText("" + monthLeft);
+                b_dayTV.setText("" + birthDayLeft);
 
 
                 //Add Load
@@ -143,7 +151,6 @@ public class AgeCalculationFragment extends Fragment {
         });
 
     }
-
 
 
 }

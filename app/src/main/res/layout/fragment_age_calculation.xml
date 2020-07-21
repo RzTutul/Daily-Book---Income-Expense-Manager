@@ -9,12 +9,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/ageicon"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
@@ -43,20 +44,21 @@
                 android:layout_height="wrap_content"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#35658C">
+                app:neumorph_backgroundColor="#5D70DA"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
+N
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Your Age"
-                        android:textColor="#FF5722"
+                        android:textColor="#FFC107"
                         android:textSize="20sp" />
 
                     <LinearLayout

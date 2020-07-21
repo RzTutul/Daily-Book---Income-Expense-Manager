@@ -53,7 +53,7 @@
 
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp"
-            android:background="#DFD6D6"
+            android:background="#D6C7F1"
             android:orientation="vertical">
 
 

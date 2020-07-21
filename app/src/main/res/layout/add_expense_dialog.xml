@@ -17,6 +17,7 @@
         android:textSize="15sp" />
 
     <EditText
+        android:maxLength="15"
         android:id="@+id/expenseNameET"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -39,6 +40,7 @@
         android:textSize="15sp" />
 
     <EditText
+        android:maxLength="9"
         android:id="@+id/expenseAmountET"
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -9,12 +9,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/smokingicon"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
@@ -27,7 +28,6 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:background="#CBB9EA"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -38,13 +38,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <soup.neumorphism.NeumorphCardView
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:layout_margin="3dp"
-                android:padding="3dp"
-                app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#35658C">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,42 +51,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="Per Week Cost"
-                        android:textColor="#fff"
-                        android:textSize="20sp" />
-
-                    <com.robinhood.ticker.TickerView
-                        android:id="@+id/perWeekTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="0"
-                        android:textColor="@android:color/background_light"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Per Month Cost"
-                        android:textColor="#fff"
-                        android:textSize="20sp" />
-
-                    <com.robinhood.ticker.TickerView
-                        android:id="@+id/perMonthTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="0"
-                        android:textColor="@android:color/background_light"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-smallcaps"
                         android:text="Per Year Cost"
-                        android:textColor="#fff"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="20sp" />
 
                     <com.robinhood.ticker.TickerView
@@ -101,24 +61,84 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="0"
-                        android:textColor="@android:color/background_light"
+                        android:textColor="#B08EEC"
                         android:textSize="25sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        >
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Per Week Cost"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15sp" />
+
+                            <com.robinhood.ticker.TickerView
+                                android:id="@+id/perWeekTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-smallcaps"
+                                android:text="0"
+                                android:textColor="#B898F1"
+                                android:textSize="25sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Per Month Cost"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15sp" />
+
+                            <com.robinhood.ticker.TickerView
+                                android:id="@+id/perMonthTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-smallcaps"
+                                android:text="0"
+                                android:textColor="#AB85EF"
+                                android:textSize="25sp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+
+
 
 
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
 
-            <soup.neumorphism.NeumorphCardView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="3dp"
-                android:padding="3dp"
-                app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#fff">
+
 
                 <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -127,6 +147,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -134,11 +155,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Cigarettes Smoked per day"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/boder_edittext_color"
+                            android:gravity="center"
+                            android:textColorHint="#D4C3F3"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp">
 
@@ -147,13 +176,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Cost Per Cigarettes"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/boder_edittext_color"
+                            android:gravity="center"
+                            android:textColorHint="#D4C3F3"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:drawableLeft="@drawable/nosmokking"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center"
+                        android:textColor="@color/colorPrimary"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"
                         android:textSize="17sp"
@@ -166,7 +203,6 @@
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
             <Button
                 android:id="@+id/smokedBtn"
                 android:layout_width="wrap_content"

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -126,6 +127,8 @@ public class InterestFragment extends Fragment {
 
                     }
 
+                    finalAmountTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
+                    interestTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
                     //Add Load
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();

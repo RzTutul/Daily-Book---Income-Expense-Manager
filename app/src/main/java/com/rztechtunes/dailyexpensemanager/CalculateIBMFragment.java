@@ -99,6 +99,7 @@ public class CalculateIBMFragment extends Fragment {
             public void onClick(View v) {
 
                 bmiResult =0.0;
+                speedometer.setMaxSpeed(48);
                 String weight = weightET.getText().toString().trim();
                 String feet = feetET.getText().toString().trim();
                 String inch = inchET.getText().toString().trim();
@@ -120,9 +121,6 @@ public class CalculateIBMFragment extends Fragment {
                         double heightValue = ((Double.parseDouble(feet)*12.0)+Double.parseDouble(inch));
 
                         bmiResult = (weightValue/(heightValue*heightValue))*703;
-
-
-
 
                     }
                     else
@@ -147,11 +145,33 @@ public class CalculateIBMFragment extends Fragment {
                         speedometer.speedTo((float) bmiResult);
                     }
 
+
+
                     //Add Load
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                     } else {
                         Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
+
+                    if (bmiResult<18.5)
+                    {
+                        Toast.makeText(getActivity(), "UnderWeight", Toast.LENGTH_LONG).show();
+                    }
+
+                    else if (  bmiResult>=18.5 && bmiResult<=24.9 )
+                    {
+                        Toast.makeText(getActivity(), "Normal Weight", Toast.LENGTH_LONG).show();
+
+                    } else if (bmiResult >= 25.0 && bmiResult <= 29.9) {
+                        Toast.makeText(getActivity(), "Over Weight", Toast.LENGTH_LONG).show();
+
+                    }else if (bmiResult >= 30.0 && bmiResult <= 34.9) {
+                        Toast.makeText(getActivity(), "OBESE", Toast.LENGTH_LONG).show();
+
+                    }else if (bmiResult >= 35.0) {
+                        Toast.makeText(getActivity(), "Extremely OBESE", Toast.LENGTH_LONG).show();
+
                     }
 
 

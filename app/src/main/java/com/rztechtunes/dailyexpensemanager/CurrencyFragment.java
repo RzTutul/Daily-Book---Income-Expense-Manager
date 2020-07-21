@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -191,6 +192,8 @@ public class CurrencyFragment extends Fragment {
                         currencyResultTV.setText("≈ " +(df2.format(convertValue))  + " CNY");
                         currencyTV.setText("1 USD to ≈7.94736 CNY");
                     }
+
+                    currencyResultTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
 
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();

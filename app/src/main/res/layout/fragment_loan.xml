@@ -10,11 +10,12 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/loanicon"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
@@ -38,99 +39,120 @@
             android:layout_marginBottom="55dp"
             android:orientation="vertical">
 
-            <soup.neumorphism.NeumorphCardView
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_margin="3dp"
-                android:padding="3dp"
-                app:neumorph_backgroundColor="#F8774F"
-                app:cardCornerRadius="4dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Total Pay"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
+
+                <com.robinhood.ticker.TickerView
+                    android:id="@+id/totalPayTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="00"
+                    android:textColor="#CDB5F6"
+                    android:textSize="30sp" />
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
 
-                    <TextView
-
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Monthly Pay"
-                        android:textColor="#333131"
-                        android:textSize="20sp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="Monthly Pay"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            />
 
-                    <com.robinhood.ticker.TickerView
-                        android:id="@+id/monthlyTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="0"
-                        android:textColor="#000"
-                        android:textSize="30sp" />
+                        <com.robinhood.ticker.TickerView
+                            android:id="@+id/monthlyTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="00"
+                            android:textColor="#CFB9F6"
+                            android:textSize="30sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Total Pay"
-                        android:textColor="#100F0F"
-                        android:textSize="20sp" />
 
-                    <com.robinhood.ticker.TickerView
-                        android:id="@+id/totalPayTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="0"
-                        android:textColor="#000"
-                        android:textSize="30sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Interest"
-                        android:textColor="#1B1A1A"
-                        android:textSize="20sp" />
+                    </LinearLayout>
 
-                    <com.robinhood.ticker.TickerView
-                        android:id="@+id/interestTV"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="0"
-                        android:textColor="#000"
-                        android:textSize="30sp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="Interest"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="15sp" />
+
+                        <com.robinhood.ticker.TickerView
+                            android:id="@+id/interestTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="00"
+                            android:textColor="#CDB5F6"
+                            android:textSize="30sp" />
+
+
+                    </LinearLayout>
 
 
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
+            </LinearLayout>
 
-            <soup.neumorphism.NeumorphCardView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="3dp"
-                android:padding="3dp"
-                app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#fff">
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-
+                    android:padding="10dp"
                     >
 
                     <com.google.android.material.textfield.TextInputLayout
+                       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -139,12 +161,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Loan amount"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/boder_edittext_color"
+                            android:gravity="center"
+                            android:textColorHint="#D4C3F3"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_marginTop="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -152,53 +182,65 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Rate %"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/boder_edittext_color"
+                            android:gravity="center"
+                            android:textColorHint="#D4C3F3"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:layout_weight="1.5">
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                           >
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/periodET"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Total Time/ Period"
-                                android:inputType="numberDecimal" />
+                                android:inputType="numberDecimal"
+                                android:background="@drawable/boder_edittext_color"
+                                android:gravity="center"
+                                android:textColorHint="#D4C3F3"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <Spinner
-                            android:id="@+id/monthYearSp"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/spinnerbag" />
 
 
-                    </LinearLayout>
+                    <Spinner
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/monthYearSp"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_height="55dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/spinnerbag_loan" />
+
 
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/loanbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="#4CE4D6"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:text="Calculate"
-                app:icon="@drawable/icons8_equal_sign_30px" />
+                />
 
             <TextView
                 android:id="@+id/detilsTV"

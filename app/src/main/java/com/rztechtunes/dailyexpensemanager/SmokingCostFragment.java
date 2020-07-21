@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -81,6 +82,9 @@ public class SmokingCostFragment extends Fragment {
 
 
 
+                    monthCostTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
+                    yearCostTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
+                    weekCostTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
 
                     //Add Load
                     if (mInterstitialAd.isLoaded()) {

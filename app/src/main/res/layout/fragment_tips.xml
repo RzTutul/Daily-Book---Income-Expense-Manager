@@ -10,11 +10,12 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/tipicon"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
@@ -38,13 +39,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <soup.neumorphism.NeumorphCardView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="3dp"
-                android:padding="3dp"
-                app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="@android:color/holo_blue_dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,20 +48,21 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:textColor="#fff"
+                        android:textColor="@color/colorPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
                         android:text="Tip Amount"
-                        android:textSize="20sp" />
+                        android:textSize="25sp" />
 
                     <com.robinhood.ticker.TickerView
+                        android:textStyle="bold"
                         android:id="@+id/amountTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-smallcaps"
-                        android:text="0"
-                        android:textColor="@android:color/background_dark"
+                        android:text="00"
+                        android:textColor="#C0A5EF"
                         android:textSize="30sp" />
 
                     <LinearLayout
@@ -78,20 +73,21 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:textColor="#fff"
+                            android:textColor="@color/colorPrimary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-smallcaps"
                             android:text="Per Person"
-                            android:textSize="20sp" />
+                            android:textSize="25sp" />
 
                         <com.robinhood.ticker.TickerView
+                            android:textStyle="bold"
                             android:id="@+id/perPersonTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-smallcaps"
-                            android:text="0"
-                            android:textColor="@android:color/background_dark"
+                            android:text="00"
+                            android:textColor="#CEBEEC"
                             android:textSize="30sp" />
 
 
@@ -102,24 +98,17 @@
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
-
-            <soup.neumorphism.NeumorphCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:padding="3dp"
-                app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#fff">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:padding="10dp"
 
                     >
 
                     <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -128,12 +117,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Total Amount"
-                            android:inputType="numberDecimal" />
+                            android:background="@drawable/boder_edittext_color"
+                            android:gravity="center"
+                            android:inputType="numberDecimal"
+                            android:textColorHint="#D4C3F3"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
                         android:layout_marginTop="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -141,12 +139,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Tip Percentage%"
-                            android:inputType="numberDecimal" />
+                            android:background="@drawable/boder_edittext_color"
+                            android:gravity="center"
+                            android:inputType="numberDecimal"
+                            android:textColorHint="#D4C3F3"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
                         android:layout_marginTop="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -154,18 +161,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Total Person"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/boder_edittext_color"
+                            android:gravity="center"
+                            android:textColorHint="#D4C3F3"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
 
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
 
             <com.google.android.material.button.MaterialButton
-                android:backgroundTint="#000"
-                app:icon="@drawable/icons8_equal_sign_30px"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:id="@+id/calculateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

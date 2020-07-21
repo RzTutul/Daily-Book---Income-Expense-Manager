@@ -9,18 +9,19 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/date_icon"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            app:title="Date Difference" />
+            app:title=" Date Difference" />
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -43,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#35658C">
+                app:neumorph_backgroundColor="#5D70DA"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"

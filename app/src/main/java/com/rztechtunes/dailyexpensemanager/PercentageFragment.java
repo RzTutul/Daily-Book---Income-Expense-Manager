@@ -1,9 +1,11 @@
 package com.rztechtunes.dailyexpensemanager;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
@@ -25,6 +28,7 @@ import java.text.DecimalFormat;
 public class PercentageFragment extends Fragment {
     private InterstitialAd mInterstitialAd;
 
+    TextInputLayout amountTI;
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
     TickerView amountTV;
     TextView detilsTV;
@@ -51,6 +55,7 @@ public class PercentageFragment extends Fragment {
         pecentageET = view.findViewById(R.id.percentageET);
         calculateBtn = view.findViewById(R.id.calculateBtn);
         detilsTV = view.findViewById(R.id.detilsTV);
+        amountTI = view.findViewById(R.id.amountTI);
 
         amountTV.setCharacterLists(TickerUtils.provideNumberList());
 
@@ -80,7 +85,7 @@ public class PercentageFragment extends Fragment {
 
                     amountTV.setText(decimalFormat.format(finalAmount));
                     detilsTV.setText(percentage+" percent of "+amount+" is "+decimalFormat.format(finalAmount));
-
+                    amountTV.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                     } else {

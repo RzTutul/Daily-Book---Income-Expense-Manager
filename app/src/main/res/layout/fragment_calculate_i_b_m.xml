@@ -8,10 +8,11 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/weighticon"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:title="BMI Calculator"
@@ -24,7 +25,6 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:background="#F9EBFA"
         android:id="@+id/nestedView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="Weight:"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -52,7 +52,7 @@
                 android:padding="10dp">
 
                 <EditText
-                    android:background="@drawable/spinner_background"
+                    android:background="@drawable/boder_edittext_color"
                     android:id="@+id/weightET"
                     android:layout_width="0dp"
                     android:layout_height="40sp"
@@ -64,7 +64,7 @@
 
                 <Spinner
                     android:layout_marginLeft="3dp"
-                    android:background="@drawable/spinnerbag"
+                    android:background="@drawable/spinnerbag_loan"
                     android:id="@+id/selectWeightSP"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -79,7 +79,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="0.5"
                 android:text="Height:"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -91,7 +91,7 @@
 
 
                 <EditText
-                    android:background="@drawable/spinner_background"
+                    android:background="@drawable/boder_edittext_color"
                     android:id="@+id/feetET"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
@@ -102,7 +102,7 @@
                     android:inputType="number" />
 
                 <EditText
-                    android:background="@drawable/spinner_background"
+                    android:background="@drawable/boder_edittext_color"
                     android:gravity="center"
                     android:id="@+id/inchET"
                     android:layout_width="0dp"
@@ -114,7 +114,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="@color/colorPrimary"
                 app:cornerRadius="10dp"
                 android:textColor="#FFFFFF"
                 android:id="@+id/bmiCalculateBtn"
@@ -135,7 +135,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
                 app:sv_maxSpeed="48"
-                app:sv_speedTextColor="@color/colorAccent"
+                app:sv_speedTextColor="@color/colorPrimaryDark"
                 app:sv_speedTextSize="30sp"
                 app:sv_unit=" BMI"
                 app:sv_withTremble="false"

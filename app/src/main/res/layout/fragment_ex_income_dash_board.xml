@@ -9,12 +9,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         >
         <androidx.appcompat.widget.Toolbar
+            app:logo="@drawable/icons8_combo_chart_48px"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:titleTextColor="#fff"
             app:title="DashBoard"
             app:subtitle="Expense &amp; Income"

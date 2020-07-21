@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -137,6 +138,10 @@ public class LoanFragment extends Fragment {
                         interestTV.setText(decimalFormat.format(totalInterest));
 
                     }
+
+                    monthlyTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
+                    totalPayTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
+                    interestTV.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimaryDark));
 
 
                     //Add Load

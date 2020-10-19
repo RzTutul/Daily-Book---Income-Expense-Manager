@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#8E20E0</color>
+    <color name="colorPrimaryDark">#8E20E0</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="cardBg">#5C01D0</color>
+    <color name="green">#51CF75</color>
+    <color name="drink_bar_color">#DA4836</color>
 </resources>

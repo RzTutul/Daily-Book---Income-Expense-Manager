@@ -1,4 +1,4 @@
-package com.rztechtunes.dailyexpensemanager;
+package com.rztechtunes.dailyexpensemanager.calculation_frag;
 
 import android.os.Bundle;
 
@@ -20,6 +20,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.textfield.TextInputEditText;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
+import com.rztechtunes.dailyexpensemanager.R;
 
 import java.text.DecimalFormat;
 

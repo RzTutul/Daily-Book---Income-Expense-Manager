@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PercentageFragment">
+    tools:context=".calculation_frag.PercentageFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            app:title="  Percentage Calculation" />
+            app:title=" Discount Calculation" />
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -45,9 +45,30 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-smallcaps"
-                android:text="Amount"
+                android:text="Discount"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
+
+            <com.robinhood.ticker.TickerView
+                android:id="@+id/discountTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="00"
+                android:textColor="#C8B7E8"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Total Amount"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <com.robinhood.ticker.TickerView
                 android:id="@+id/amountTV"
@@ -57,13 +78,13 @@
                 android:fontFamily="sans-serif-smallcaps"
                 android:text="00"
                 android:textColor="#C8B7E8"
-                android:textSize="50sp" />
+                android:textSize="30sp" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="30dp"
                 android:orientation="vertical"
                 android:padding="10dp"
 

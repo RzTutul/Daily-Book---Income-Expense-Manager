@@ -1,6 +1,10 @@
 package com.rztechtunes.dailyexpensemanager;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +19,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -44,15 +50,19 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
+import com.rztechtunes.dailyexpensemanager.helper.CSVWriter;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,17 +82,18 @@ public class ExpenseManagerFrag extends Fragment {
 
     LinearLayout pieCharBtnLL;
     CardView emptyCV;
-    CollapsingToolbarLayout title;
-    ExtendedFloatingActionButton addExpenseBtn;
+    ImageView fillterData;
     private String exCatagories;
     private String e_date;
     RecyclerView expenseRV;
     List<ExpenseIncomePojo> expenseIncomePojos = new ArrayList<>();
     List<String> categoriesPojoList = new ArrayList<>();
-
+    TextView monthNameTV;
     TickerView incomeTV, expenseTV, balanceTV;
     ExpenseIncomeAdapter expenseIncomeAdapter;
-
+    String select_month, select_year;
+    List<String> monthName = new ArrayList<>();
+    List<String> year = new ArrayList<>();
     public ExpenseManagerFrag() {
         // Required empty public constructor
     }
@@ -104,24 +115,28 @@ public class ExpenseManagerFrag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setTitle(" ");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        addExpenseBtn = view.findViewById(R.id.addexpenseBtn);
         expenseRV = view.findViewById(R.id.expenseRV);
         incomeTV = view.findViewById(R.id.incomeTV);
         expenseTV = view.findViewById(R.id.expenesTV);
         balanceTV = view.findViewById(R.id.balanceTV);
-        title = view.findViewById(R.id.monthTitle);
         emptyCV = view.findViewById(R.id.emptyCardView);
-        pieCharBtnLL = view.findViewById(R.id.pieCharBtnLL);
-
+        monthNameTV = view.findViewById(R.id.monthNameTV);
+        fillterData = view.findViewById(R.id.fillterData);
+       //   = view.findViewById(R.id.pieCharBtnLL);
 
         //For TextViewCountAnimation
         incomeTV.setCharacterLists(TickerUtils.provideNumberList());
         expenseTV.setCharacterLists(TickerUtils.provideNumberList());
         balanceTV.setCharacterLists(TickerUtils.provideNumberList());
 
+        select_month = Utils.getMonthName();
+        select_year = Utils.getYear();
+        monthNameTV.setText(select_month);
 
-        title.setTitle(Utils.getMonthName());
+
+//        title.setTitle(Utils.getMonthName());
 
         //Banner Add
         MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
@@ -134,53 +149,125 @@ public class ExpenseManagerFrag extends Fragment {
         mAdView.loadAd(adRequest);
 
 
-        //FloatingBtn Click Listener
+      /*  //FloatingBtn Click Listener
         addExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 showExpenseDilog();
             }
-        });
+        });*/
 
         emptyCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showExpenseDilog();
+               Navigation.findNavController(v).navigate(R.id.addTransactionFrag);
             }
         });
 
-        pieCharBtnLL.setOnClickListener(new View.OnClickListener() {
+ /*       pieCharBtnLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.expensePieChartFrag);
             }
-        });
+        });*/
 
-
-        ///featch Categories Data if it's empty then insert.
-        categoriesPojoList = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().getAllCatagories();
-
-        if (categoriesPojoList.isEmpty()) {
-            final String[] catagories = {"Select Categories", "Income", "Food&Drink", "Medicine", "Shopping", "Cell phone", "Rent", "Transport", "Hotel", "Other"};
-
-            for (int i = 0; i < catagories.length; i++) {
-                CategoriesPojo categoriesPojo = new CategoriesPojo(catagories[i]);
-                ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().InsertCatagoires(categoriesPojo);
-            }
-
-        }
 
         //Method for query all expense Data and show RV
         featchData();
+        fillterData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFillterData();
+            }
+        });
+
+    }
+
+    private void getFillterData() {
+        monthName = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDistinctMonthName();
+        year = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDistanctYear();
+
+        if (monthName.size()==0)
+        {
+            new SweetAlertDialog(getActivity())
+                    .setTitleText("Database is empty!")
+                    .setContentText("Firstly, Insert your transaction")
+                    .show();
+
+            Toast.makeText(getActivity(), "Year & Month is empty!", Toast.LENGTH_LONG).show();
+        }
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
+        View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_search_expense, (LinearLayout) getActivity().findViewById(R.id.bottomSheetContainer));
+
+        Spinner monthSP = bottomSheetView.findViewById(R.id.selectMonthSP);
+        Spinner yearSP = bottomSheetView.findViewById(R.id.selectYearSP);
+
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, monthName);
+        ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, year);
+        monthSP.setAdapter(monthAdapter);
+        yearSP.setAdapter(yearAdapter);
+        monthSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                select_month = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        yearSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                select_year = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
+        bottomSheetView.findViewById(R.id.searchBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    featchData();
+                    monthNameTV.setText(select_month);
+                    bottomSheetDialog.dismiss();
+
+
+
+            }
+        });
+        bottomSheetView.findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isStorageRequestAccepted())
+                {
+
+                    saveCSVfile();
+                }
+
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
     }
 
     private void featchData() {
         double t_income = 0.0, t_expense = 0.0, t_balance = 0.0;
 
-        expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(Utils.getMonthName(), Utils.getYear());
+        Log.i(TAG, "featchData: "+Utils.getMonthName()+" "+Utils.getYear());
+        expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(select_month, select_year);
 
         if (expenseIncomePojos.size() == 0) {
             emptyCV.setVisibility(View.VISIBLE);
@@ -190,9 +277,9 @@ public class ExpenseManagerFrag extends Fragment {
             expenseRV.setLayoutManager(llm);
             expenseRV.setAdapter(expenseIncomeAdapter);
 
-            incomeTV.setText(decimalFormat.format(t_income));
-            expenseTV.setText(decimalFormat.format(t_expense));
-            balanceTV.setText(decimalFormat.format(t_balance));
+            incomeTV.setText("$"+decimalFormat.format(t_income));
+            expenseTV.setText("-$"+decimalFormat.format(t_expense));
+            balanceTV.setText("$"+decimalFormat.format(t_balance));
 
 
         } else {
@@ -209,9 +296,10 @@ public class ExpenseManagerFrag extends Fragment {
             }
             t_balance = t_income - t_expense;
 
-            incomeTV.setText(decimalFormat.format(t_income));
-            expenseTV.setText(decimalFormat.format(t_expense));
-            balanceTV.setText(decimalFormat.format(t_balance));
+
+            incomeTV.setText("$"+decimalFormat.format(t_income));
+            expenseTV.setText("-$"+decimalFormat.format(t_expense));
+            balanceTV.setText("$"+decimalFormat.format(t_balance));
 
 
             expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);
@@ -219,22 +307,6 @@ public class ExpenseManagerFrag extends Fragment {
             expenseRV.setLayoutManager(llm);
             expenseRV.setAdapter(expenseIncomeAdapter);
 
-            //Scrolling RV Floating button hide/Show
-            expenseRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-
-                    switch (newState) {
-                        case RecyclerView.SCROLL_STATE_IDLE:
-                            addExpenseBtn.show();
-                            break;
-                        default:
-                            addExpenseBtn.hide();
-                            break;
-                    }
-                    super.onScrollStateChanged(recyclerView, newState);
-                }
-            });
 
 
             //Swipe To delete expenseRow
@@ -301,93 +373,99 @@ public class ExpenseManagerFrag extends Fragment {
         }
 
 
+
+
+    }
+
+    private void saveCSVfile() {
+
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "DailyBook");
+        if (!exportDir.exists()) {
+            exportDir.mkdirs();
+        }
+
+        File file = new File(exportDir, "expenseIncome"+select_month+"_"+select_year+".csv");
+        try {
+            file.createNewFile();
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
+            ExpenseIncomeDatabase db = ExpenseIncomeDatabase.getInstance(getContext());
+
+           // Cursor curCSV = db.query("SELECT * FROM " + "ExpenseIncomeTbl", null); use for when get all data from database
+
+            Cursor curCSV = db.query("SELECT * FROM ExpenseIncomeTbl Where e_month = ? and e_year = ?",new String[]{select_month,select_year});
+            csvWrite.writeNext(curCSV.getColumnNames());
+            while (curCSV.moveToNext()) {
+                //Which column you want to exprort
+                String arrStr[] = new String[curCSV.getColumnCount()];
+                for (int i = 0; i < curCSV.getColumnCount(); i++)
+                    arrStr[i] = curCSV.getString(i);
+                csvWrite.writeNext(arrStr);
+            }
+            csvWrite.close();
+            curCSV.close();
+            Toast.makeText(getActivity(), "Exported", Toast.LENGTH_SHORT).show();
+
+            // 1. Success message
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("CSV file generated!")
+                    .setContentText("Path: Internal Storage/DailyBook/expenseIncome.csv")
+                    .show();
+
+
+
+
+
+
+        } catch (Exception sqlEx) {
+            Log.e("MainActivity", sqlEx.getMessage(), sqlEx);
+        }
     }
 
 
-    private void showExpenseDilog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(" Add Your Income/Expense");
-        builder.setIcon(R.drawable.ic_baseline_add_circle_outline_24);
-        View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.add_expense_dialog, null);
-
-        builder.setView(view1);
-        final EditText expenseNameET = view1.findViewById(R.id.expenseNameET);
-        final EditText expenseAmoutET = view1.findViewById(R.id.expenseAmountET);
-        final Spinner expenseCatagoriesSP = view1.findViewById(R.id.expenseCatagories);
-
-        final Button canelbtn = view1.findViewById(R.id.cancelBtn);
-        final Button addexpenseBtn = view1.findViewById(R.id.addbtn);
-        List<String> catagories = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().getAllCatagories();
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, catagories);
-        expenseCatagoriesSP.setAdapter(arrayAdapter);
-
-
-        expenseCatagoriesSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                exCatagories = parent.getItemAtPosition(position).toString();
+    private boolean isStorageRequestAccepted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String[] permissionList = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(permissionList, 123);
+                return false;
             }
+        }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        return true;
+    }
 
 
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-        addexpenseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String ename = expenseNameET.getText().toString();
-                String amount = expenseAmoutET.getText().toString();
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-                if (ename.isEmpty()) {
-                    expenseNameET.setError("Provide name!");
-                } else if (amount.isEmpty()) {
-                    expenseAmoutET.setError("Provide amount!");
-                }
-                else if (exCatagories.equals("Select Categories")) {
-                    TextView errorText = (TextView) expenseCatagoriesSP.getSelectedView();
-                    errorText.setError("");
-                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                    errorText.setText("Select Categories");
+        switch (requestCode) {
+
+
+            case 123: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    saveCSVfile();
 
                 } else {
-                    ExpenseIncomePojo expensePojo = new ExpenseIncomePojo(ename, exCatagories, amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
-
-                    long insert = ExpenseIncomeDatabase.getInstance(getActivity()).getExpenseIncomeDao().InsertValue(expensePojo);
-
-                    if (insert > 0) {
-                        Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
-                        featchData();
-                    } else {
-                        Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
-
-                    }
-                    dialog.dismiss();
+                    Toast.makeText(getActivity(), "Permission deny", Toast.LENGTH_SHORT).show();
                 }
-
             }
-        });
-        canelbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
 
 
+        }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.menu_piechart:
-                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.expensePieChartFrag);
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.reportGraphFrag);
+                break;
+                case R.id.menu_history:
+                    getFillterData();
                 break;
 
         }

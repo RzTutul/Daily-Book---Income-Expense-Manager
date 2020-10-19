@@ -1,4 +1,4 @@
-package com.rztechtunes.dailyexpensemanager;
+package com.rztechtunes.dailyexpensemanager.calculation_frag;
 
 import android.os.Bundle;
 
@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.rztechtunes.dailyexpensemanager.R;
 import com.rztechtunes.dailyexpensemanager.adapter.CustomSpinnerAdapter;
 import com.rztechtunes.dailyexpensemanager.pojo.CounrtySPPojo;
 

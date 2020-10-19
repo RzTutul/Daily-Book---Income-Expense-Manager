@@ -1,4 +1,4 @@
-package com.rztechtunes.dailyexpensemanager;
+package com.rztechtunes.dailyexpensemanager.calculation_frag;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
+import com.rztechtunes.dailyexpensemanager.R;
 
 import java.text.DecimalFormat;
 
@@ -30,7 +31,7 @@ public class PercentageFragment extends Fragment {
 
     TextInputLayout amountTI;
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
-    TickerView amountTV;
+    TickerView amountTV,discountTV;
     TextView detilsTV;
     TextInputEditText amountET, pecentageET;
     Button calculateBtn;
@@ -51,6 +52,7 @@ public class PercentageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         amountTV = view.findViewById(R.id.amountTV);
+        discountTV = view.findViewById(R.id.discountTV);
         amountET = view.findViewById(R.id.amountET);
         pecentageET = view.findViewById(R.id.percentageET);
         calculateBtn = view.findViewById(R.id.calculateBtn);
@@ -58,6 +60,7 @@ public class PercentageFragment extends Fragment {
         amountTI = view.findViewById(R.id.amountTI);
 
         amountTV.setCharacterLists(TickerUtils.provideNumberList());
+        discountTV.setCharacterLists(TickerUtils.provideNumberList());
 
 
         MobileAds.initialize(getActivity(),getString(R.string.appid));
@@ -79,13 +82,15 @@ public class PercentageFragment extends Fragment {
                 }
                 else {
 
+                    double discountAmount = ((Double.valueOf(amount) / 100) * (Double.valueOf(percentage)/100)) * 100;
+                    double totalAmount =( Double.parseDouble(amount) - discountAmount);
 
-
-                    double finalAmount = ((Double.valueOf(amount) / 100) * (Double.valueOf(percentage)/100)) * 100;
-
-                    amountTV.setText(decimalFormat.format(finalAmount));
-                    detilsTV.setText(percentage+" percent of "+amount+" is "+decimalFormat.format(finalAmount));
+                    discountTV.setText(decimalFormat.format(discountAmount));
+                    amountTV.setText(decimalFormat.format(totalAmount));
+                    detilsTV.setText(percentage+" percent of "+amount+" is "+decimalFormat.format(discountAmount));
                     amountTV.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+                    discountTV.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                     } else {

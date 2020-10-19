@@ -22,7 +22,7 @@ public interface ExpenseIncomeDao {
     int deleteExIncome(ExpenseIncomePojo expenseIncomePojo);
 
     @Query("Select * from expenseincometbl where e_id like:id")
-    ExpenseIncomePojo getAllDatabyId(int id);
+    ExpenseIncomePojo getAllDatabyId(long id);
 
     @Query("Select * from expenseincometbl order by e_id desc")
     List<ExpenseIncomePojo> getAllData();

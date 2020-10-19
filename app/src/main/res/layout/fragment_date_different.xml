@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DateDifferentFragment">
+    tools:context=".calculation_frag.DateDifferentFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -191,6 +191,7 @@
                         android:textSize="17sp" />
 
                     <DatePicker
+                        android:theme="@style/NumberPickerStyle"
                         android:id="@+id/startpiker"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -207,6 +208,7 @@
                         android:textSize="17sp" />
 
                     <DatePicker
+                        android:theme="@style/NumberPickerStyle"
                         android:id="@+id/endPicker"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"

@@ -1,4 +1,4 @@
-package com.rztechtunes.dailyexpensemanager;
+package com.rztechtunes.dailyexpensemanager.diary_frag;
 
 import android.os.Bundle;
 
@@ -19,7 +19,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rztechtunes.dailyexpensemanager.R;
 import com.rztechtunes.dailyexpensemanager.adapter.DairyRVAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.DairyPojo;
@@ -34,7 +37,7 @@ public class DailyNoteFragment extends Fragment {
 
     CardView emptyCV;
     RecyclerView dairyRV;
-    ExtendedFloatingActionButton addDairyBtn;
+    FloatingActionButton addDairyBtn;
     List<DairyPojo> dairyPojoList = new ArrayList<>();
     DairyRVAdapter dairyRVAdapter;
 
@@ -56,6 +59,27 @@ public class DailyNoteFragment extends Fragment {
         dairyRV = view.findViewById(R.id.dairyRV);
         addDairyBtn = view.findViewById(R.id.addDairyBtn);
         emptyCV = view.findViewById(R.id.emptyCardView);
+
+        AppBarLayout mAppBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    isShow = true;
+                  //  showOption(R.id.action_info);
+                } else if (isShow) {
+                    isShow = false;
+                   // hideOption(R.id.action_info);
+                }
+            }
+        });
+
+
 
 
         emptyCV.setOnClickListener(new View.OnClickListener() {

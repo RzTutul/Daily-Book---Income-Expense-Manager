@@ -13,15 +13,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph"/>
+        app:navGraph="@navigation/nav_graph" />
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_menu"
-        android:background="?android:attr/windowBackground"/>
+        app:backgroundTint="@android:color/white"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        app:fabAlignmentMode="center">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:backgroundTint="@android:color/transparent"
+            app:elevation="0dp"
+            app:itemIconTint="@color/colorPrimary"
+            app:itemRippleColor="@color/message_color"
+            app:itemTextColor="@color/colorPrimary"
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:menu="@menu/bottom_menu"
+            android:background="?android:attr/windowBackground"/>
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addexpenseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="@android:color/white"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_anchor="@id/bottomBar" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,10 +8,6 @@
 
         />
     <item
-        android:id="@+id/dashBoard_menu"
-        android:icon="@drawable/icons8_combo_chart_48px"
-        android:title="@string/dashboard" />
-    <item
         android:id="@+id/calculate_menu"
         android:icon="@drawable/icons8_calculator_48px_1"
         android:title="@string/calculation" />

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/expenseManagerFrag">
 
     <fragment
         android:id="@+id/expenseManagerFrag"
@@ -17,12 +17,12 @@
         tools:layout="@layout/fragment_ex_income_dash_board" />
     <fragment
         android:id="@+id/allCalculationFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.AllCalculationFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.AllCalculationFragment"
         android:label="fragment_all_calculation"
         tools:layout="@layout/fragment_all_calculation" />
     <fragment
         android:id="@+id/dailyNoteFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.DailyNoteFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.diary_frag.DailyNoteFragment"
         android:label="fragment_daily_note"
         tools:layout="@layout/fragment_daily_note" />
     <fragment
@@ -32,67 +32,67 @@
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/addDairyFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.AddDairyFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.diary_frag.AddDairyFragment"
         android:label="fragment_add_dairy"
         tools:layout="@layout/fragment_add_dairy" />
     <fragment
         android:id="@+id/percentageFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.PercentageFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.PercentageFragment"
         android:label="fragment_percentage"
         tools:layout="@layout/fragment_percentage" />
     <fragment
         android:id="@+id/tipsFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.TipsFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.TipsFragment"
         android:label="fragment_tips"
         tools:layout="@layout/fragment_tips" />
     <fragment
         android:id="@+id/currencyFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.CurrencyFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.CurrencyFragment"
         android:label="fragment_currency"
         tools:layout="@layout/fragment_currency" />
     <fragment
         android:id="@+id/calculateIBMFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.CalculateIBMFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.CalculateIBMFragment"
         android:label="fragment_calculate_i_b_m"
         tools:layout="@layout/fragment_calculate_i_b_m" />
     <fragment
         android:id="@+id/perUnitFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.PerUnitFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.PerUnitFragment"
         android:label="fragment_per_unit"
         tools:layout="@layout/fragment_per_unit" />
     <fragment
         android:id="@+id/loanFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.LoanFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.LoanFragment"
         android:label="fragment_loan"
         tools:layout="@layout/fragment_loan" />
     <fragment
         android:id="@+id/interestFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.InterestFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.InterestFragment"
         android:label="fragment_interest"
         tools:layout="@layout/fragment_interest" />
     <fragment
         android:id="@+id/smokingCostFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.SmokingCostFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.SmokingCostFragment"
         android:label="fragment_smoking_cost"
         tools:layout="@layout/fragment_smoking_cost" />
     <fragment
         android:id="@+id/ageCalculationFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.AgeCalculationFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.AgeCalculationFragment"
         android:label="fragment_age_calculation"
         tools:layout="@layout/fragment_age_calculation" />
     <fragment
         android:id="@+id/dateDifferentFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.DateDifferentFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.DateDifferentFragment"
         android:label="fragment_date_different"
         tools:layout="@layout/fragment_date_different" />
     <fragment
         android:id="@+id/timeDifferenceFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.TimeDifferenceFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.TimeDifferenceFragment"
         android:label="fragment_time_difference"
         tools:layout="@layout/fragment_time_difference" />
     <fragment
         android:id="@+id/wagesCalculationFragment"
-        android:name="com.rztechtunes.dailyexpensemanager.WagesCalculationFragment"
+        android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.WagesCalculationFragment"
         android:label="fragment_wages_calculation"
         tools:layout="@layout/fragment_wages_calculation" />
     <fragment
@@ -105,5 +105,20 @@
         android:name="com.rztechtunes.dailyexpensemanager.ExpensePieChartFrag"
         android:label="fragment_expense_pie_chart"
         tools:layout="@layout/fragment_expense_pie_chart" />
+    <fragment
+        android:id="@+id/addTransactionFrag"
+        android:name="com.rztechtunes.dailyexpensemanager.AddTransactionFrag"
+        android:label="fragment_add_transaction"
+        tools:layout="@layout/fragment_add_transaction" />
+    <fragment
+        android:id="@+id/reportGraphFrag"
+        android:name="com.rztechtunes.dailyexpensemanager.ReportGraphFrag"
+        android:label="fragment_report_graph"
+        tools:layout="@layout/fragment_report_graph" />
+    <fragment
+        android:id="@+id/incomePieChartFrag"
+        android:name="com.rztechtunes.dailyexpensemanager.IncomePieChartFrag"
+        android:label="fragment_income_pie_chart"
+        tools:layout="@layout/fragment_income_pie_chart" />
 
 </navigation>

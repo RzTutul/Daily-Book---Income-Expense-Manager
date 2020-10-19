@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DailyNoteFragment">
+    tools:context=".diary_frag.DailyNoteFragment">
 
 
 
 
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:fitsSystemWindows="true"
@@ -57,14 +58,16 @@
 
 
             <androidx.cardview.widget.CardView
-                app:cardElevation="10dp"
-                app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="#B8D5E3"
-                android:visibility="gone"
+                android:layout_marginTop="150dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:id="@+id/emptyCardView"
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="100dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#F6F6F6"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -74,26 +77,28 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:textColor="@android:color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-light"
-                        android:text="Empty Diary 🥺"
+                        android:text="Empty Data"
+                        android:textColor="@android:color/black"
                         android:textSize="25sp" />
 
                     <TextView
-                        android:textColor="@android:color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif-condensed-light"
-                        android:text="Tap+ to Create one" />
+                        android:text="Tap+ to Create one"
+                        android:textColor="@android:color/black" />
 
 
                 </LinearLayout>
 
 
             </androidx.cardview.widget.CardView>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginBottom="60dp"
                 android:id="@+id/dairyRV"
@@ -112,16 +117,16 @@
 
 
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="10dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addDairyBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:text="Add"
-        app:icon="@drawable/dairy_title_icon"/>
-
+        app:layout_anchorGravity="bottom|end"
+        app:layout_anchor="@id/appbar"
+        android:layout_margin="20dp"
+        app:tint="@color/white"
+        android:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/dairy_title_icon"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

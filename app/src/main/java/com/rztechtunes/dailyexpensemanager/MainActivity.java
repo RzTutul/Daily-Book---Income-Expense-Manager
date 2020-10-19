@@ -29,7 +29,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.DairyPojo;
@@ -43,7 +45,10 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     BottomNavigationView bottomNav;
+    BottomAppBar bottomBar;
+    FloatingActionButton addExpenseBtn;
     NavController navController;
+
     boolean isExit = false, isBack = false;
 
     @Override
@@ -54,24 +59,35 @@ public class MainActivity extends AppCompatActivity {
 
         //For Bottom Nevigation
         bottomNav = findViewById(R.id.bottom_navigation);
+        bottomBar = findViewById(R.id.bottomBar);
+        addExpenseBtn = findViewById(R.id.addexpenseBtn);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
 
+        addExpenseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddTransactionFrag.positionupdate = -1;
+                Navigation.findNavController(MainActivity.this,R.id.nav_host_fragment).navigate(R.id.addTransactionFrag);
+            }
+        });
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 switch (destination.getId()) {
                     case R.id.splashScreenFragment:
-                        bottomNav.setVisibility(View.GONE);
+                        bottomBar.setVisibility(View.GONE);
+                        addExpenseBtn.setVisibility(View.GONE);
                         break;
                     case R.id.expenseManagerFrag:
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
                             @Override
                             public void run() {
-                                bottomNav.setVisibility(View.VISIBLE);
+                                bottomBar.setVisibility(View.VISIBLE);
+                                addExpenseBtn.setVisibility(View.VISIBLE);
                                 bottomNav.getMenu().findItem(R.id.home_menu).setChecked(true);
 
                             }
@@ -85,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.allCalculationFragment:
                         bottomNav.getMenu().findItem(R.id.calculate_menu).setChecked(true);
+                        isBack = true;
+                        isExit = false;
+                        break;
+                    case R.id.addTransactionFrag:
+                        bottomBar.setVisibility(View.GONE);
+                        addExpenseBtn.setVisibility(View.GONE);
                         isBack = true;
                         isExit = false;
                         break;
@@ -156,9 +178,7 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.home_menu:
                             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.expenseManagerFrag);
                             break;
-                        case R.id.dashBoard_menu:
-                            Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.exIncomeDashBoardFrag);
-                            break;
+
                         case R.id.calculate_menu:
                             Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment).navigate(R.id.allCalculationFragment);
                             break;

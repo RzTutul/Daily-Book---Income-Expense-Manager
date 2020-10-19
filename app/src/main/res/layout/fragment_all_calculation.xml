@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AllCalculationFragment">
+    tools:context=".calculation_frag.AllCalculationFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,7 +22,7 @@
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleGravity="bottom|center_horizontal"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="DashBoard">
+            app:title="Calculation">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="sans-serif-black"
-                                android:text="Percentage"
+                                android:text="Discount"
                                 android:textSize="16sp" />
 
                         </LinearLayout>

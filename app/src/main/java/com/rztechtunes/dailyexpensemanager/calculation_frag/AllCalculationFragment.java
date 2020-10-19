@@ -1,4 +1,4 @@
-package com.rztechtunes.dailyexpensemanager;
+package com.rztechtunes.dailyexpensemanager.calculation_frag;
 
 import android.os.Bundle;
 
@@ -11,6 +11,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.rztechtunes.dailyexpensemanager.R;
 
 
 public class AllCalculationFragment extends Fragment {

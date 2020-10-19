@@ -13,10 +13,16 @@ public class Utils {
     }
 
     public static String getMonthName() {
-        DateFormat dateFormat = new SimpleDateFormat("MMMM");
+        DateFormat dateFormat = new SimpleDateFormat("MMM");
+        Date date = new Date();
+        return dateFormat.format(date);
+    } public static String getMonthNumber() {
+        DateFormat dateFormat = new SimpleDateFormat("MM");
         Date date = new Date();
         return dateFormat.format(date);
     }
+
+
 
       public static String getYear() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy");

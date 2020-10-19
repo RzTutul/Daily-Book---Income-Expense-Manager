@@ -8,6 +8,19 @@
 
     </style>
 
+    //For datePicker Theam
+    <style name="NumberPickerStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/marlboro</item>
+    </style>
 
+
+    //ForBottomSheet
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="background">@android:color/transparent</item>
+    </style>
 
 </resources>

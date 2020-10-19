@@ -16,4 +16,6 @@ public interface CatagoriesDao {
 
     @Query("Select cata_name from cataTbl")
     List<String> getAllCatagories();
+
+
 }

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rztechtunes.dailyexpensemanager.AddTransactionFrag;
 import com.rztechtunes.dailyexpensemanager.R;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
@@ -64,24 +66,67 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
 
         if (eCata.equals("Income")) {
+       
+            holder.expenseCatagories.setTextColor(Color.parseColor("#8CEF35"));
+            holder.expenseAmount.setTextColor(Color.parseColor("#8CEF35"));
+            holder.row_lineColor.setBackgroundColor(Color.GREEN);
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_income);
+            holder.expenseAmount.setText("+ " + expensePojos.get(position).getE_amount() + " /=");
+        } else if (eCata.equals("Food&Drink")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_drinks);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#DA4836"));
+        }  else if (eCata.equals("Medicine")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_medicine);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#31cad0"));
 
-            holder.expenseCatagories.setTextColor(Color.RED);
-            holder.dayTV.setTextColor(Color.RED);
-            holder.expenseAmount.setText("+ " + expensePojos.get(position).getE_amount()+" /=");
-
-        } else {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount()+" /=");
+        } else if (eCata.equals("Shopping")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_shopping);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#FBAD4A"));
+        } else if (eCata.equals("Cell phone")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_mobile);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#EA348B"));
+        } else if (eCata.equals("Rent")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_rent);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#d38a5a"));
+        } else if (eCata.equals("Transport")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_transport);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#FFF7B733"));
+        } else if (eCata.equals("Hotel")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_hotel);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#79d8eb"));
+        } else if (eCata.equals("Other")) {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_expense);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#72c1e8"));
         }
+        else
+        {
+            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.iconImageView.setBackgroundResource(R.drawable.ic_expense);
+            holder.row_lineColor.setBackgroundColor(Color.parseColor("#72c1e8"));
+        }
+
+
         holder.expenseName.setText(expensePojos.get(position).getE_name());
         holder.expenseCatagories.setText(expensePojos.get(position).getE_catagories());
-        holder.expenseDate.setText(dayName[0] + " " + dayName[2] + " " + dayName[3]);
-        holder.dayTV.setText(day[1]);
-        holder.monthNameTV.setText(month);
+        holder.expenseDate.setText(expensePojos.get(position).getE_date()+" "+expensePojos.get(position).getE_month()+" "+expensePojos.get(position).getE_year());
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showUpdateAllertDialog(holder,position);
+
+                AddTransactionFrag.positionupdate = expensePojos.get(position).getE_id();
+                Navigation.findNavController(holder.itemView).navigate(R.id.addTransactionFrag);
+
+               // showUpdateAllertDialog(holder, position);
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -96,6 +141,7 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
+
 
                                 ExpenseIncomePojo expenseIncomePojo = expensePojos.get(position);
                                 ExpenseIncomeDatabase.getInstance(context).getExpenseIncomeDao().deleteExIncome(expenseIncomePojo);
@@ -128,6 +174,8 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
     public class ExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView expenseName, expenseAmount, expenseDate, expenseCatagories, dayTV, monthNameTV;
+        ImageView iconImageView;
+        View row_lineColor;
 
 
         public ExpenseViewHolder(@NonNull View itemView) {
@@ -136,9 +184,10 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
             expenseName = itemView.findViewById(R.id.row_expenseName);
             expenseAmount = itemView.findViewById(R.id.row_expenseAmount);
             expenseCatagories = itemView.findViewById(R.id.row_expense_catagories);
+            iconImageView = itemView.findViewById(R.id.iconImageView);
             expenseDate = itemView.findViewById(R.id.row_expense_date);
-            dayTV = itemView.findViewById(R.id.dayDateTV);
-            monthNameTV = itemView.findViewById(R.id.row_monthNameTV);
+            row_lineColor = itemView.findViewById(R.id.row_lineColor);
+
 
         }
 
@@ -197,38 +246,31 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
                 String ename = expenseNameET.getText().toString();
                 String amount = expenseAmoutET.getText().toString();
 
-               if (ename.equals(""))
-               {
-                   expenseNameET.setError("Empty Name");
-               }
-               else if (amount.equals(""))
-               {
-                   expenseAmoutET.setError("Empty Amount");
-               }
-               else if (Catagories.equals("Select Categories"))
-               {
-                   TextView errorText = (TextView) expenseCatagoriesSp.getSelectedView();
-                   errorText.setError("");
-                   errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                   errorText.setText("Select Valid Categories");
-               }
-               else
-               {
+                if (ename.equals("")) {
+                    expenseNameET.setError("Empty Name");
+                } else if (amount.equals("")) {
+                    expenseAmoutET.setError("Empty Amount");
+                } else if (Catagories.equals("Select Categories")) {
+                    TextView errorText = (TextView) expenseCatagoriesSp.getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                    errorText.setText("Select Valid Categories");
+                } else {
 
-                   ExpenseIncomePojo expenseIncomePojo = new ExpenseIncomePojo(expensePojos.get(position).getE_id(), ename, Catagories,amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
-                   int update = ExpenseIncomeDatabase.getInstance(context).getExpenseIncomeDao().updateValue(expenseIncomePojo);
+                    ExpenseIncomePojo expenseIncomePojo = new ExpenseIncomePojo(expensePojos.get(position).getE_id(), ename, Catagories, amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
+                    int update = ExpenseIncomeDatabase.getInstance(context).getExpenseIncomeDao().updateValue(expenseIncomePojo);
 
-                   if (update > 0) {
-                       Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
-                       Navigation.findNavController(holder.itemView).navigate(R.id.expenseManagerFrag);
+                    if (update > 0) {
+                        Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(holder.itemView).navigate(R.id.expenseManagerFrag);
 
 
-                   } else {
-                       Toast.makeText(context, "Updated fail", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Updated fail", Toast.LENGTH_SHORT).show();
 
-                   }
-                   dialog.dismiss();
-               }
+                    }
+                    dialog.dismiss();
+                }
 
             }
         });

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTransactionFrag">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="?android:homeAsUpIndicator"
+                app:title="Add Transaction" />
+
+
+            <TextView
+                android:id="@+id/tittleTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Tittle :"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+            <EditText
+                android:id="@+id/expenesTittleET"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/boder_edittext"
+                android:hint="Hospital medical kit"
+                android:inputType="textPersonName"
+                android:paddingLeft="15dp"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tittleTV" />
+
+            <TextView
+                android:id="@+id/categoiresET"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Category :"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/expenesTittleET" />
+
+            <Spinner
+                android:id="@+id/catagoriesSP"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/spinnerbag_catagories"
+                android:drawSelectorOnTop="true"
+                android:paddingLeft="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/categoiresET" />
+
+            <LinearLayout
+                android:id="@+id/amountTLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/catagoriesSP">
+
+                <TextView
+                    android:id="@+id/amountTexView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Amount :"
+                    android:textColor="@android:color/background_dark" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text="(Your Balance: :"
+                        android:textColor="@android:color/background_dark" />
+
+                    <TextView
+                        android:id="@+id/amountTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="$43"
+                        android:textColor="@color/colorPrimary" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:text=")"
+                        android:textColor="@android:color/background_dark" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/amountET"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/boder_edittext"
+                android:hint="Amount"
+                android:inputType="numberDecimal"
+                android:paddingLeft="15dp"
+                android:textColor="@android:color/background_dark"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/amountTLL" />
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/amountET"
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Date :"
+                android:textColor="@android:color/background_dark" />
+
+            <DatePicker
+                android:theme="@style/NumberPickerStyle"
+                app:layout_constraintTop_toBottomOf="@id/dateText"
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
+
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/startGuidLine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/endGuidLine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Save"
+                android:textAllCaps="false"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endGuidLine"
+                app:layout_constraintStart_toStartOf="@id/startGuidLine"
+                app:layout_constraintTop_toBottomOf="@id/amountET"
+                app:layout_constraintVertical_bias=".9" />
+
+            <com.google.android.material.button.MaterialButton
+                android:visibility="gone"
+                android:id="@+id/updateBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Update"
+                android:textAllCaps="false"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endGuidLine"
+                app:layout_constraintStart_toStartOf="@id/startGuidLine"
+                app:layout_constraintTop_toBottomOf="@id/amountET"
+                app:layout_constraintVertical_bias=".9" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

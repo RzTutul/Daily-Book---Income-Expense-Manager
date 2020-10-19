@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".IncomePieChartFrag">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/emptyTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableLeft="@drawable/icons8_refresh_30px"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:text="fdsafdsaf"
+                android:textColor="@android:color/holo_red_light" />
+
+
+            <ImageView
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/emptyTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/fillterData"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_slider"
+                />
+
+            <com.github.mikephil.charting.charts.PieChart
+                app:layout_constraintTop_toBottomOf="@id/emptyTV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/piechart_1"
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+
+            </com.github.mikephil.charting.charts.PieChart>
+
+
+            <TextView
+                android:id="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@id/piechart_1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Income Report:"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/monthNameTV"
+                app:layout_constraintTop_toBottomOf="@id/piechart_1"
+                app:layout_constraintStart_toEndOf="@id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Oct"
+                android:textSize="20dp" />
+
+            <androidx.cardview.widget.CardView
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="20dp">
+
+                <TextView
+                    android:id="@+id/exIncomeBoardTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:padding="20dp"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

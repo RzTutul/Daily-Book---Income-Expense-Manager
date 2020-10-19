@@ -5,6 +5,11 @@
     <item
         android:id="@+id/menu_piechart"
         android:orderInCategory="100"
-        android:title="Pie Chart"
+        android:title="Report"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_history"
+        android:orderInCategory="100"
+        android:title="History"
         app:showAsAction="never" />
 </menu>

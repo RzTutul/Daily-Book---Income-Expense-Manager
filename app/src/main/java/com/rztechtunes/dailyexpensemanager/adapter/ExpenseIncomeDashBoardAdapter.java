@@ -56,7 +56,6 @@ public class ExpenseIncomeDashBoardAdapter extends RecyclerView.Adapter<ExpenseI
         if (eCata.equals("Income")) {
 
             holder.expenseCatagories.setTextColor(Color.RED);
-            holder.dayTV.setTextColor(Color.RED);
             holder.expenseAmount.setText("+৳ " + String.valueOf(expensePojos.get(position).getE_amount()));
 
         } else {
@@ -64,9 +63,7 @@ public class ExpenseIncomeDashBoardAdapter extends RecyclerView.Adapter<ExpenseI
         }
         holder.expenseName.setText(expensePojos.get(position).getE_name());
         holder.expenseCatagories.setText(expensePojos.get(position).getE_catagories());
-        holder.expenseDate.setText(dayName[0] + " " + dayName[2] + " " + dayName[3]);
-        holder.dayTV.setText(day[1]);
-        holder.monthNameTV.setText(month);
+        holder.expenseDate.setText(expensePojos.get(position).getE_date()+" "+expensePojos.get(position).getE_month()+" "+expensePojos.get(position).getE_year());
 
 
 
@@ -91,8 +88,7 @@ public class ExpenseIncomeDashBoardAdapter extends RecyclerView.Adapter<ExpenseI
             expenseAmount = itemView.findViewById(R.id.row_expenseAmount);
             expenseCatagories = itemView.findViewById(R.id.row_expense_catagories);
             expenseDate = itemView.findViewById(R.id.row_expense_date);
-            dayTV = itemView.findViewById(R.id.dayDateTV);
-            monthNameTV = itemView.findViewById(R.id.row_monthNameTV);
+
 
         }
 

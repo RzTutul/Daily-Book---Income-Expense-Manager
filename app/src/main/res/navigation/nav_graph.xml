@@ -3,18 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/expenseManagerFrag">
+    app:startDestination="@id/dailyNoteFragment">
 
     <fragment
         android:id="@+id/expenseManagerFrag"
         android:name="com.rztechtunes.dailyexpensemanager.ExpenseManagerFrag"
         android:label="fragment_expense_manager"
         tools:layout="@layout/fragment_expense_manager" />
-    <fragment
-        android:id="@+id/exIncomeDashBoardFrag"
-        android:name="com.rztechtunes.dailyexpensemanager.ExIncomeDashBoardFrag"
-        android:label="fragment_ex_income_dash_board"
-        tools:layout="@layout/fragment_ex_income_dash_board" />
+
     <fragment
         android:id="@+id/allCalculationFragment"
         android:name="com.rztechtunes.dailyexpensemanager.calculation_frag.AllCalculationFragment"
@@ -120,5 +116,10 @@
         android:name="com.rztechtunes.dailyexpensemanager.IncomePieChartFrag"
         android:label="fragment_income_pie_chart"
         tools:layout="@layout/fragment_income_pie_chart" />
+    <fragment
+        android:id="@+id/diaryDetailsFrag"
+        android:name="com.rztechtunes.dailyexpensemanager.DiaryDetailsFrag"
+        android:label="fragment_diary_details"
+        tools:layout="@layout/fragment_diary_details" />
 
 </navigation>

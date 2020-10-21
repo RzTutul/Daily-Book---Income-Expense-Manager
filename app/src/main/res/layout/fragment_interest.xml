@@ -188,6 +188,9 @@
 
 
             <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/colorPrimary"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
                 android:id="@+id/interstBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -11,21 +11,31 @@ public class DairyPojo {
     String date;
     String title;
     String note;
-
+    String mood;
 
 
     @Ignore
-    public DairyPojo(long dairyid, String date, String title, String note) {
+    public DairyPojo(long dairyid, String date, String title, String note,String mood) {
         this.dairyid = dairyid;
         this.date = date;
         this.title = title;
         this.note = note;
+        this.mood = mood;
     }
 
-    public DairyPojo(String date, String title, String note) {
+    public DairyPojo(String date, String title, String note,String mood) {
         this.date = date;
         this.title = title;
         this.note = note;
+        this.mood = mood;
+    }
+
+    public String getMood() {
+        return mood;
+    }
+
+    public void setMood(String mood) {
+        this.mood = mood;
     }
 
     public long getDairyid() {

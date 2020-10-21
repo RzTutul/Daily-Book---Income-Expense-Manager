@@ -150,9 +150,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#7437E1"
+                android:backgroundTint="@color/colorPrimary"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
                 android:text="Calculate"
-                app:cornerRadius="10dp" />
+                 />
 
 
         </LinearLayout>

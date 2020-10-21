@@ -26,6 +26,7 @@ import com.rztechtunes.dailyexpensemanager.R;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
+import com.rztechtunes.dailyexpensemanager.pref.UserActivityStorePref;
 
 import java.util.List;
 
@@ -36,11 +37,14 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
     private Context context;
     private List<ExpenseIncomePojo> expensePojos;
     private String exCatagories, Catagories;
-
+    UserActivityStorePref userActivityStorePref;
+    String currencySymbol;
 
     public ExpenseIncomeAdapter(Context context, List<ExpenseIncomePojo> expensePojos) {
         this.context = context;
         this.expensePojos = expensePojos;
+        userActivityStorePref = new UserActivityStorePref(context);
+        currencySymbol=  userActivityStorePref.getCurrency();
     }
 
     @NonNull
@@ -71,44 +75,44 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
             holder.expenseAmount.setTextColor(Color.parseColor("#8CEF35"));
             holder.row_lineColor.setBackgroundColor(Color.GREEN);
             holder.iconImageView.setBackgroundResource(R.drawable.ic_income);
-            holder.expenseAmount.setText("+ " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("+ " +currencySymbol+ expensePojos.get(position).getE_amount());
         } else if (eCata.equals("Food&Drink")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_drinks);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#DA4836"));
         }  else if (eCata.equals("Medicine")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_medicine);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#31cad0"));
 
         } else if (eCata.equals("Shopping")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_shopping);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#FBAD4A"));
         } else if (eCata.equals("Cell phone")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_mobile);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#EA348B"));
         } else if (eCata.equals("Rent")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_rent);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#d38a5a"));
         } else if (eCata.equals("Transport")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_transport);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#FFF7B733"));
         } else if (eCata.equals("Hotel")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_hotel);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#79d8eb"));
         } else if (eCata.equals("Other")) {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_expense);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#72c1e8"));
         }
         else
         {
-            holder.expenseAmount.setText("- " + expensePojos.get(position).getE_amount() + " /=");
+            holder.expenseAmount.setText("- " +currencySymbol+ expensePojos.get(position).getE_amount());
             holder.iconImageView.setBackgroundResource(R.drawable.ic_expense);
             holder.row_lineColor.setBackgroundColor(Color.parseColor("#72c1e8"));
         }

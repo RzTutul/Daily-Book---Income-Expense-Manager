@@ -234,6 +234,8 @@
 
 
             <com.google.android.material.button.MaterialButton
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
                 android:id="@+id/loanbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

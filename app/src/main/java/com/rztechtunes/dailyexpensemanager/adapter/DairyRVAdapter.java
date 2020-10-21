@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,7 +47,7 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
         LayoutInflater inflatere = LayoutInflater.from(context);
 
         View view = inflatere.inflate(R.layout.dairy_row_layout, parent, false);
-        Animation animation = AnimationUtils.loadAnimation(context,R.anim.layout_animation);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.layout_animation);
         view.startAnimation(animation);
         return new DairyViewHolder(view);
     }
@@ -54,37 +55,41 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
     @Override
     public void onBindViewHolder(@NonNull final DairyViewHolder holder, final int position) {
         String date = dairyPojoList.get(position).getDate();
-        String dateSplit[] = date.split("\\.",4);
+        String dateSplit[] = date.split("\\.", 4);
 
 
         holder.titleTV.setText(dairyPojoList.get(position).getTitle());
         holder.noteTV.setText(dairyPojoList.get(position).getNote());
-       holder.dayTV.setText("On "+dateSplit[0]);
+        holder.dayTV.setText(dateSplit[0]);
         holder.dateTV.setText(dateSplit[1]);
-        holder.monthYearTV.setText("In "+dateSplit[2]+" "+dateSplit[3]);
-        final Bundle bundle = new Bundle();
-        bundle.putLong("dairyID", dairyPojoList.get(position).getDairyid());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        //holder.monthYearTV.setText("In "+dateSplit[2]+" "+dateSplit[3]);
+
+
+        DairyPojo dairyPojo = dairyPojoList.get(position);
+        if (("Happy").equals(dairyPojo.getMood())) {
+            holder.moodImageView.setImageResource(R.drawable.ic_happy);
+        } else if (("Sad").equals(dairyPojo.getMood())) {
+            holder.moodImageView.setImageResource(R.drawable.ic_unhappy);
+        } else if (("Love").equals(dairyPojo.getMood())) {
+            holder.moodImageView.setImageResource(R.drawable.ic_in_love);
+        } else if (("Sick").equals(dairyPojo.getMood())) {
+            holder.moodImageView.setImageResource(R.drawable.ic_ill);
+        } else if (("Surprised").equals(dairyPojo.getMood())) {
+            holder.moodImageView.setImageResource(R.drawable.ic_surprised);
+        } else if (("Angry").equals(dairyPojo.getMood())) {
+            holder.moodImageView.setImageResource(R.drawable.ic_mad);
+        } else if (("Funny").equals(dairyPojo.getMood())) {
+            holder.moodImageView.setImageResource(R.drawable.ic_tongue_out);
+        }
+
+    /*    holder.sharebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(holder.itemView).navigate(R.id.addDairyFragment, bundle);
-            }
-        });
 
-        holder.sharebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String title = dairyPojoList.get(position).getTitle();
-                String note = dairyPojoList.get(position).getNote();
-
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, title + "\n" + note);
-                context.startActivity(Intent.createChooser(shareIntent, "Share Dairy"));
 
             }
-        });
+        });*/
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -133,8 +138,9 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
 
     public class DairyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titleTV, noteTV,dateTV, dayTV,monthYearTV;
+        TextView titleTV, noteTV, dateTV, dayTV, monthYearTV;
         TextView sharebtn;
+        ImageView moodImageView;
 
         public DairyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -143,8 +149,8 @@ public class DairyRVAdapter extends RecyclerView.Adapter<DairyRVAdapter.DairyVie
             noteTV = itemView.findViewById(R.id.noteTV);
             dayTV = itemView.findViewById(R.id.dayNameTV);
             dateTV = itemView.findViewById(R.id.dateTV);
-            monthYearTV = itemView.findViewById(R.id.monthYearNameTV);
-            sharebtn = itemView.findViewById(R.id.sharebtn);
+            moodImageView = itemView.findViewById(R.id.moodImageView);
+
         }
     }
 }

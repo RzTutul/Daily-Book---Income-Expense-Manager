@@ -28,40 +28,36 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:background="#C9B5ED"
+        android:background="#E2D8F4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="55dp"
             android:orientation="vertical">
 
-            <soup.neumorphism.NeumorphCardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#5D70DA"
+
                 >
 
                 <LinearLayout
+                    android:background="@drawable/gradientcolor_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif-smallcaps"
-                        android:text="Difference"
-                        android:textColor="#FF5722"
-                        android:textSize="20sp" />
+
 
                     <LinearLayout
+                        android:layout_marginTop="20dp"
                         android:layout_marginBottom="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,17 +160,19 @@
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
+            </androidx.cardview.widget.CardView>
 
-            <soup.neumorphism.NeumorphCardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#E3C69B">
+                app:cardBackgroundColor="#D9CDED"
+               >
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -208,6 +206,7 @@
                         android:textSize="17sp" />
 
                     <DatePicker
+                        android:calendarTextColor="@color/white"
                         android:theme="@style/NumberPickerStyle"
                         android:id="@+id/endPicker"
                         android:layout_width="match_parent"
@@ -219,9 +218,13 @@
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
+            </androidx.cardview.widget.CardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/colorPrimary"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/dfBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

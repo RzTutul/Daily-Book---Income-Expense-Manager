@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -38,16 +40,21 @@ import java.util.concurrent.TimeUnit;
 
 public class SettingFragment extends Fragment {
 
-    SwitchCompat patternOnOfSW,splashOnOfSW;
-    LinearLayout addCatagoriesLL,addCataBOxLL,addPersonLL,addPersonBoxLL,inforLL,infoBoxLL;
-    Button saveCataBtn,savePersonBtn;
-    EditText personET,categoiresET;
+    SwitchCompat patternOnOfSW, splashOnOfSW;
+    LinearLayout addCatagoriesLL, addCataBOxLL, addPersonLL, addPersonBoxLL, inforLL, infoBoxLL;
+    Button saveCataBtn, savePersonBtn;
+    EditText personET, categoiresET;
     CardView shareCV;
+
+    LinearLayout addCurrencyLL, currencyLL;
+    RadioGroup currencyRadioGrp;
+    RadioButton usdRB,bdRB,euroRB,inrRB;
+    Button currencySaveBtn;
+    String selectedCurrency;
 
     public SettingFragment() {
         // Required empty public constructor
     }
-
     UserActivityStorePref userActivityStorePref;
 
     @Override
@@ -73,7 +80,15 @@ public class SettingFragment extends Fragment {
         inforLL = view.findViewById(R.id.infoLL);
         infoBoxLL = view.findViewById(R.id.infoBoxLL);
         shareCV = view.findViewById(R.id.shareCV);
-
+        addCurrencyLL = view.findViewById(R.id.AddCurrencyLL);
+        currencyLL = view.findViewById(R.id.CurrencyLL);
+        currencyLL = view.findViewById(R.id.CurrencyLL);
+        currencyRadioGrp = view.findViewById(R.id.currencyRadioGroup);
+        usdRB = view.findViewById(R.id.usdRadio);
+        bdRB = view.findViewById(R.id.bdRadio);
+        euroRB = view.findViewById(R.id.eurRadio);
+        inrRB = view.findViewById(R.id.inrRadio);
+        currencySaveBtn = view.findViewById(R.id.currencySaveBtn);
 
         shareCV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,11 +97,11 @@ public class SettingFragment extends Fragment {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "DailyBook");
-                    String shareMessage= "\nDailyBook\nInstall this cool App.\n\n";
-                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                    String shareMessage = "\nDailyBook\nInstall this cool App.\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     //e.toString();
                 }
             }
@@ -95,14 +110,9 @@ public class SettingFragment extends Fragment {
         boolean notificationStatus = userActivityStorePref.getNotification();
         boolean runNotificaiotn = userActivityStorePref.getNotificationStatus();
 
+        if (runNotificaiotn) {
 
-
-        if (runNotificaiotn)
-        {
-
-        }
-        else
-        {
+        } else {
             ///Send Notification
             Constraints constraints =
                     new Constraints.Builder()
@@ -120,45 +130,80 @@ public class SettingFragment extends Fragment {
 
         if (notificationStatus) {
             WorkManager.getInstance().cancelAllWorkByTag("notification");
-
         }
-
 
         addCatagoriesLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (addCataBOxLL.getVisibility()==View.VISIBLE)
-                {
+                if (addCataBOxLL.getVisibility() == View.VISIBLE) {
                     addCataBOxLL.setVisibility(View.GONE);
 
-                }
-                else
-                {
-                   addCataBOxLL.setVisibility(View.VISIBLE);
-                    Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.layout_animation);
+                } else {
+                    addCataBOxLL.setVisibility(View.VISIBLE);
+                    Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.layout_animation);
                     addCataBOxLL.startAnimation(animation);
                 }
             }
         });
 
+       String currencySymbol= userActivityStorePref.getCurrency();
+        if (("$").equals(currencySymbol)) {
+            usdRB.setChecked(true);
+        } else if (("৳").equals(currencySymbol)) {
+            bdRB.setChecked(true);
+        } else if (("₹").equals(currencySymbol)) {
+            inrRB.setChecked(true);
+        } else if (("€").equals(currencySymbol)) {
+            euroRB.setChecked(true);
+        }
+
+        currencySaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedID = currencyRadioGrp.getCheckedRadioButtonId();
+                RadioButton radioButton = view.findViewById(selectedID);
+                String selectedRadio = (String) radioButton.getText();
+                if (("USD - $").equals(selectedRadio)) {
+                    selectedCurrency = "$";
+                } else if (("BD - ৳").equals(selectedRadio)) {
+                    selectedCurrency = "৳";
+                } else if (("INR - ₹").equals(selectedRadio)) {
+                    selectedCurrency = "₹";
+                } else if (("EUR - €").equals(selectedRadio)) {
+                    selectedCurrency = "€";
+                }
+                userActivityStorePref.setCurrency(selectedCurrency);
+                Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        addCurrencyLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currencyLL.getVisibility() == View.VISIBLE) {
+                    currencyLL.setVisibility(View.GONE);
+
+                } else {
+                    currencyLL.setVisibility(View.VISIBLE);
+                    Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.layout_animation);
+                    currencyLL.startAnimation(animation);
+                }
+            }
+        });
+
+
         saveCataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String cataName = categoiresET.getText().toString();
-                if (cataName.equals(""))
-                {
+                if (cataName.equals("")) {
                     categoiresET.setError("Add New Categories");
-                }
-                else
-                {
+                } else {
                     CategoriesPojo categoriesPojo = new CategoriesPojo(cataName);
                     long insert = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().InsertCatagoires(categoriesPojo);
-                    if (insert>0)
-                    {
+                    if (insert > 0) {
                         Toast.makeText(getActivity(), "Added Successfully", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
 
                     }
@@ -170,27 +215,21 @@ public class SettingFragment extends Fragment {
         addPersonLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String name = userActivityStorePref.getName();
-               View parentView = view.findViewById(android.R.id.content);
-               if (name.equals("tutulxcvd"))
-               {
-                   Snackbar snackbar = Snackbar.make(view,"Firstly, Turn on Pattern Lock",Snackbar.LENGTH_SHORT);
-                   snackbar.setAnchorView(addCatagoriesLL);
-                   snackbar.show();
-               }
-               else
-               {
-                   if (addPersonBoxLL.getVisibility()==View.VISIBLE)
-                   {
-                       addPersonBoxLL.setVisibility(View.GONE);
-                   }
-                   else
-                   {
-                       addPersonBoxLL.setVisibility(View.VISIBLE);
-                       Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.layout_animation);
-                       addPersonBoxLL.startAnimation(animation);
-                   }
-               }
+                String name = userActivityStorePref.getName();
+                View parentView = view.findViewById(android.R.id.content);
+                if (name.equals("tutulxcvd")) {
+                    Snackbar snackbar = Snackbar.make(view, "Firstly, Turn on Pattern Lock", Snackbar.LENGTH_SHORT);
+                    snackbar.setAnchorView(addCatagoriesLL);
+                    snackbar.show();
+                } else {
+                    if (addPersonBoxLL.getVisibility() == View.VISIBLE) {
+                        addPersonBoxLL.setVisibility(View.GONE);
+                    } else {
+                        addPersonBoxLL.setVisibility(View.VISIBLE);
+                        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.layout_animation);
+                        addPersonBoxLL.startAnimation(animation);
+                    }
+                }
             }
         });
 
@@ -198,15 +237,12 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String name = personET.getText().toString();
-                if (name.equals(""))
-                {
+                if (name.equals("")) {
                     personET.setError("Favorite Person Name");
 
-                }
-                else
-                {
+                } else {
                     userActivityStorePref.setPersonName(name);
-                    Snackbar snackbar  =  Snackbar.make(view,"Saved Successfully",Snackbar.LENGTH_SHORT);
+                    Snackbar snackbar = Snackbar.make(view, "Saved Successfully", Snackbar.LENGTH_SHORT);
                     snackbar.setAnchorView(splashOnOfSW);
                     snackbar.show();
 
@@ -218,41 +254,34 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    if (infoBoxLL.getVisibility()==View.VISIBLE)
-                    {
-                        infoBoxLL.setVisibility(View.GONE);
-                    }
-                    else
-                    {
-                        infoBoxLL.setVisibility(View.VISIBLE);
-                        Animation animation = AnimationUtils.loadAnimation(getContext(),R.anim.layout_animation);
-                        infoBoxLL.startAnimation(animation);
+                if (infoBoxLL.getVisibility() == View.VISIBLE) {
+                    infoBoxLL.setVisibility(View.GONE);
+                } else {
+                    infoBoxLL.setVisibility(View.VISIBLE);
+                    Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.layout_animation);
+                    infoBoxLL.startAnimation(animation);
 
-                    }
-        }});
+                }
+            }
+        });
 
 
-       userActivityStorePref = new UserActivityStorePref(getContext());
+        userActivityStorePref = new UserActivityStorePref(getContext());
         boolean switchStatus = userActivityStorePref.getPatterSwithStatus();
         if (switchStatus) {
             patternOnOfSW.setChecked(true);
-        }
-        else
-        {
+        } else {
             patternOnOfSW.setChecked(false);
 
         }
 
 
         //FirstTime Turn ON Splash Screen
-       boolean splashStatus = userActivityStorePref.getNotification();
-        if (splashStatus)
-        {
+        boolean splashStatus = userActivityStorePref.getNotification();
+        if (splashStatus) {
             splashOnOfSW.setChecked(false);
 
-        }
-        else
-        {
+        } else {
             splashOnOfSW.setChecked(true);
 
         }
@@ -268,7 +297,7 @@ public class SettingFragment extends Fragment {
                     startActivity(intent);
 
                 } else {
-                    
+
                     userActivityStorePref.setPatterActivity(false);
                     userActivityStorePref.setPatternSwithStatus(false);
                     Toast.makeText(getContext(), "Pattern Lock is OFF", Toast.LENGTH_SHORT).show();
@@ -282,14 +311,11 @@ public class SettingFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (splashOnOfSW.isChecked())
-                {
+                if (splashOnOfSW.isChecked()) {
                     splashOnOfSW.setChecked(true);
                     userActivityStorePref.setNotfication(false);
 
-                }
-                else
-                {
+                } else {
                     splashOnOfSW.setChecked(false);
                     userActivityStorePref.setNotfication(true);
                     Toast.makeText(getActivity(), "Turn Off Notification", Toast.LENGTH_SHORT).show();

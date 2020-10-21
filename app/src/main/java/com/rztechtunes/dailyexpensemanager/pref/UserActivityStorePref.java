@@ -45,6 +45,16 @@ public class UserActivityStorePref {
         editor.commit();
     }
 
+    public String getCurrency() {
+        return sharedPreferences.getString("currency", "$");
+    }
+
+    public void setCurrency(String currency) {
+        editor.putString("currency", currency);
+        editor.commit();
+    }
+
+
     public boolean getPatterSwithStatus() {
         return sharedPreferences.getBoolean("status", false);
     }

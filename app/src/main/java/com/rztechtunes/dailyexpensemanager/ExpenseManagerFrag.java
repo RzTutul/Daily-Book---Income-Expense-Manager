@@ -60,6 +60,7 @@ import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
 import com.rztechtunes.dailyexpensemanager.helper.CSVWriter;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
+import com.rztechtunes.dailyexpensemanager.pref.UserActivityStorePref;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -94,6 +95,7 @@ public class ExpenseManagerFrag extends Fragment {
     String select_month, select_year;
     List<String> monthName = new ArrayList<>();
     List<String> year = new ArrayList<>();
+    UserActivityStorePref userActivityStorePref;
     public ExpenseManagerFrag() {
         // Required empty public constructor
     }
@@ -124,6 +126,7 @@ public class ExpenseManagerFrag extends Fragment {
         emptyCV = view.findViewById(R.id.emptyCardView);
         monthNameTV = view.findViewById(R.id.monthNameTV);
         fillterData = view.findViewById(R.id.fillterData);
+        userActivityStorePref = new UserActivityStorePref(getActivity());
        //   = view.findViewById(R.id.pieCharBtnLL);
 
         //For TextViewCountAnimation
@@ -149,14 +152,6 @@ public class ExpenseManagerFrag extends Fragment {
         mAdView.loadAd(adRequest);
 
 
-      /*  //FloatingBtn Click Listener
-        addExpenseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                showExpenseDilog();
-            }
-        });*/
 
         emptyCV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,12 +160,7 @@ public class ExpenseManagerFrag extends Fragment {
             }
         });
 
- /*       pieCharBtnLL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.expensePieChartFrag);
-            }
-        });*/
+
 
 
         //Method for query all expense Data and show RV
@@ -266,6 +256,8 @@ public class ExpenseManagerFrag extends Fragment {
     private void featchData() {
         double t_income = 0.0, t_expense = 0.0, t_balance = 0.0;
 
+        String currencySymbol = userActivityStorePref.getCurrency();
+
         Log.i(TAG, "featchData: "+Utils.getMonthName()+" "+Utils.getYear());
         expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(select_month, select_year);
 
@@ -277,9 +269,9 @@ public class ExpenseManagerFrag extends Fragment {
             expenseRV.setLayoutManager(llm);
             expenseRV.setAdapter(expenseIncomeAdapter);
 
-            incomeTV.setText("$"+decimalFormat.format(t_income));
-            expenseTV.setText("-$"+decimalFormat.format(t_expense));
-            balanceTV.setText("$"+decimalFormat.format(t_balance));
+            incomeTV.setText(currencySymbol+decimalFormat.format(t_income));
+            expenseTV.setText("-"+currencySymbol+decimalFormat.format(t_expense));
+            balanceTV.setText(currencySymbol+decimalFormat.format(t_balance));
 
 
         } else {
@@ -297,9 +289,9 @@ public class ExpenseManagerFrag extends Fragment {
             t_balance = t_income - t_expense;
 
 
-            incomeTV.setText("$"+decimalFormat.format(t_income));
-            expenseTV.setText("-$"+decimalFormat.format(t_expense));
-            balanceTV.setText("$"+decimalFormat.format(t_balance));
+            incomeTV.setText(currencySymbol+decimalFormat.format(t_income));
+            expenseTV.setText("-"+currencySymbol+decimalFormat.format(t_expense));
+            balanceTV.setText(currencySymbol+decimalFormat.format(t_balance));
 
 
             expenseIncomeAdapter = new ExpenseIncomeAdapter(getActivity(), expenseIncomePojos);

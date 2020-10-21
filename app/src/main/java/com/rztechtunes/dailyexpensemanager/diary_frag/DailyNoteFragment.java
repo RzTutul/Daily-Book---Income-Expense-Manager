@@ -16,17 +16,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rztechtunes.dailyexpensemanager.DiaryDetailsFrag;
 import com.rztechtunes.dailyexpensemanager.R;
 import com.rztechtunes.dailyexpensemanager.adapter.DairyRVAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.DairyPojo;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
+import com.rztechtunes.dailyexpensemanager.helper.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +67,7 @@ public class DailyNoteFragment extends Fragment {
         addDairyBtn = view.findViewById(R.id.addDairyBtn);
         emptyCV = view.findViewById(R.id.emptyCardView);
 
+
         AppBarLayout mAppBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
@@ -78,6 +86,10 @@ public class DailyNoteFragment extends Fragment {
                 }
             }
         });
+
+
+
+
 
 
 
@@ -107,21 +119,105 @@ public class DailyNoteFragment extends Fragment {
         }
 
 
-        dairyRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                switch (newState) {
-                    case RecyclerView.SCROLL_STATE_IDLE:
-                        addDairyBtn.show();
-                        break;
-                    default:
-                        addDairyBtn.hide();
-                        break;
-                }
 
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
+        dairyRV.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), dairyRV, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, final int position) {
+
+
+                        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
+                        View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_diary_operation, (LinearLayout) getActivity().findViewById(R.id.bottomSheetContainer));
+
+
+                        TextView titleTV = bottomSheetView.findViewById(R.id.titleTV);
+
+                        titleTV.setText(dairyPojoList.get(position).getTitle());
+
+                        bottomSheetView.findViewById(R.id.editLL).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                final Bundle bundle = new Bundle();
+                                bundle.putLong("dairyID", dairyPojoList.get(position).getDairyid());
+                                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.addDairyFragment, bundle);
+
+                                bottomSheetDialog.dismiss();
+
+
+                            }
+                        });
+                        bottomSheetView.findViewById(R.id.deleteLL).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                                        .setTitleText("Are you sure?")
+                                        .setContentText("Won't be able to recover this file!")
+                                        .setConfirmText("Yes,delete it!")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                try {
+                                                    try {
+                                                        // dairyPojos.remove(position);
+                                                        DairyPojo dairyPojo = dairyPojoList.get(position);
+                                                        ExpenseIncomeDatabase.getInstance(getContext()).getDairyDao().deleteDairy(dairyPojo);
+                                                        dairyRVAdapter.notifyDataSetChanged();
+                                                        featchData();
+
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+
+
+                                                sDialog.dismissWithAnimation();
+
+
+                                            }
+                                        })
+                                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                                dairyRVAdapter.notifyDataSetChanged();
+                                            }
+                                        })
+                                        .show();
+
+                                bottomSheetDialog.dismiss();
+                            }
+                        });
+                        bottomSheetView.findViewById(R.id.readLL).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                DiaryDetailsFrag.diaryID = dairyPojoList.get(position).getDairyid();
+                                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.diaryDetailsFrag);
+
+                                bottomSheetDialog.dismiss();
+                            }
+                        });
+
+
+                        bottomSheetDialog.setContentView(bottomSheetView);
+                        bottomSheetDialog.show();
+
+
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+
+
+
 
         //Swipe To delete expenseRow
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.DOWN | ItemTouchHelper.UP) {

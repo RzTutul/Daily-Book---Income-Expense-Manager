@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //For Bottom Nevigation
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomBar = findViewById(R.id.bottomBar);
@@ -95,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                         isExit = true;
                         break;
                     case R.id.dailyNoteFragment:
+                        bottomBar.setVisibility(View.VISIBLE);
+                        addExpenseBtn.setVisibility(View.VISIBLE);
                         bottomNav.getMenu().findItem(R.id.dairy_menu).setChecked(true);
                         isBack = true;
                         isExit = false;
@@ -104,12 +105,22 @@ public class MainActivity extends AppCompatActivity {
                         isBack = true;
                         isExit = false;
                         break;
-                    case R.id.addTransactionFrag:
+
+                    case R.id.addTransactionFrag :
                         bottomBar.setVisibility(View.GONE);
                         addExpenseBtn.setVisibility(View.GONE);
                         isBack = true;
                         isExit = false;
                         break;
+
+                    case R.id.addDairyFragment:
+                        bottomBar.setVisibility(View.GONE);
+                        addExpenseBtn.setVisibility(View.GONE);
+                        isExit = false;
+                    case R.id.diaryDetailsFrag:
+                        bottomBar.setVisibility(View.GONE);
+                        addExpenseBtn.setVisibility(View.GONE);
+                        isExit = false;
 
                     default:
                         isExit = false;

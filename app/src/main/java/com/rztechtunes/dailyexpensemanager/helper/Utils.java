@@ -32,10 +32,11 @@ public class Utils {
 
 
     public static String getCurrentDateWithDay() {
-        DateFormat dateFormat = new SimpleDateFormat("EEEE.dd.MMMM.yyyy hh:mm-aa");
+        DateFormat dateFormat = new SimpleDateFormat("EEE.dd.MMM.yyyy hh:mm-aa");
         Date date = new Date();
         return dateFormat.format(date);
     }
+
 
 
 

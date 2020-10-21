@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -14,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -30,7 +33,7 @@ import com.rztechtunes.dailyexpensemanager.helper.Utils;
 
 public class AddDairyFragment extends Fragment {
     NestedScrollView nestedScrollView;
-    TextView dateTV;
+    TextView dateTV,moodTV;
     EditText titleET;
     EditText dairyNoteET;
     Button saveBtn;
@@ -38,8 +41,10 @@ public class AddDairyFragment extends Fragment {
     String eventID;
     String date;
     long dairyID;
+    Toolbar toolbar;
+    ImageView happyImageView,sadImageView,loveImageView,owoImageView,sickImageVIew,angreyImageView,funnyImageView;
     private AdView mAdView;
-
+    String mood = "Happy";
 
     public AddDairyFragment() {
         // Required empty public constructor
@@ -73,8 +78,79 @@ public class AddDairyFragment extends Fragment {
         saveBtn = view.findViewById(R.id.d_savebtn);
         updateBtn = view.findViewById(R.id.d_updatebtn);
         nestedScrollView = view.findViewById(R.id.nestedView);
+        happyImageView = view.findViewById(R.id.happyImageView);
+        sadImageView = view.findViewById(R.id.sadImageView);
+        loveImageView = view.findViewById(R.id.loveImageVIew);
+        sickImageVIew = view.findViewById(R.id.sickImageView);
+        owoImageView = view.findViewById(R.id.owoImageView);
+        angreyImageView = view.findViewById(R.id.angreyImageView);
+        funnyImageView = view.findViewById(R.id.funnyImageView);
+        toolbar = view.findViewById(R.id.toolbar);
+        moodTV = view.findViewById(R.id.moodTV);
 
-        //Banner Add
+        nestedScrollView = view.findViewById(R.id.nestedView);
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.dailyNoteFragment);
+            }
+        });
+
+        happyImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mood = "Happy";
+                moodTV.setText(mood);
+            }
+        });
+            sadImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mood = "Sad";
+                moodTV.setText(mood);
+            }
+        });
+            loveImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mood = "Love";
+                moodTV.setText(mood);
+            }
+        });
+            sickImageVIew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mood = "Sick";
+                moodTV.setText(mood);
+            }
+        });
+            owoImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mood = "Surprised";
+                moodTV.setText(mood);
+            }
+        });
+            angreyImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mood = "Angry";
+                moodTV.setText(mood);
+            }
+        });
+            funnyImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mood = "Funny";
+                moodTV.setText(mood);
+            }
+        });
+
+
+
+      /*  //Banner Add
         MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -83,7 +159,7 @@ public class AddDairyFragment extends Fragment {
         mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
+*/
 
         dairyNoteET.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +187,8 @@ public class AddDairyFragment extends Fragment {
 
 
         date = Utils.getCurrentDateWithDay();
-        dateTV.setText(date);
+        String[] dateValue = date.split("\\s+");
+        dateTV.setText(dateValue[0]);
 
 
         if (dairyID > 0) {
@@ -124,29 +201,28 @@ public class AddDairyFragment extends Fragment {
             dateTV.setText(dairyPojo.getDate());
             titleET.setText(dairyPojo.getTitle());
             dairyNoteET.setText(dairyPojo.getNote());
+            moodTV.setText(dairyPojo.getMood());
         }
+
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String date = dateTV.getText().toString();
+                String date  = dateTV.getText().toString();
                 String title = titleET.getText().toString();
-                String note = dairyNoteET.getText().toString();
-
+                String note  = dairyNoteET.getText().toString();
                 if (title.equals("")) {
                     titleET.setError("Give Title");
                 } else if (note.isEmpty()) {
                     dairyNoteET.setError("Write Something!");
                 } else {
-                    DairyPojo dairyPojo = new DairyPojo(date, title, note);
-
+                    DairyPojo dairyPojo = new DairyPojo(date, title, note,mood);
                     long insert = ExpenseIncomeDatabase.getInstance(getContext()).getDairyDao().inserDairy(dairyPojo);
                     if (insert > 0) {
                         Bundle bundle = new Bundle();
                         bundle.putString("id", eventID);
                         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.dailyNoteFragment, bundle);
                         Toast.makeText(getActivity(), "Added Successfully", Toast.LENGTH_SHORT).show();
-
                     } else {
                         Toast.makeText(getActivity(), "Insert Fail", Toast.LENGTH_SHORT).show();
                     }
@@ -166,8 +242,8 @@ public class AddDairyFragment extends Fragment {
                 } else if (note.isEmpty()) {
                     dairyNoteET.setError("Write Something!");
                 } else {
-                    DairyPojo dairyPojo = new DairyPojo(dairyID, date, title, note);
-
+                    
+                    DairyPojo dairyPojo = new DairyPojo(dairyID, date, title, note,mood);
                     int update = ExpenseIncomeDatabase.getInstance(getContext()).getDairyDao().updateDairy(dairyPojo);
                     if (update > 0) {
                         Toast.makeText(getActivity(), "Updated", Toast.LENGTH_SHORT).show();

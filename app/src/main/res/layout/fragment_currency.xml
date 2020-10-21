@@ -114,6 +114,9 @@
                 android:background="@drawable/spinnerbag_loan" />
 
             <Button
+                android:backgroundTint="@color/colorPrimary"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/currencyCalcuateBtn"
                 android:layout_width="wrap_content"

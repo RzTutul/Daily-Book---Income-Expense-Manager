@@ -4,27 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".diary_frag.AddDairyFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="?android:homeAsUpIndicator"
+                app:title="Add Diary" />
+
 
             <androidx.cardview.widget.CardView
-                android:layout_marginTop="15dp"
+
+                android:id="@+id/dateCard"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -36,6 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/dairydateicon" />
 
                     <TextView
@@ -43,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:fontFamily="sans-serif-smallcaps"
+                        android:fontFamily="sans-serif-medium"
                         android:text="Saturday,12-May-2019"
                         android:textSize="18sp"
 
@@ -55,13 +71,17 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/titleCard"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateCard">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -73,21 +93,23 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/dairy_title_icon" />
 
                     <EditText
-                        android:background="@android:color/transparent"
-                        android:textColor="#009688"
+                        android:paddingLeft="20dp"
                         android:id="@+id/d_titleET"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="17dp"
-                        android:hint="  Title:"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:hint="Title:"
                         android:maxLength="45"
                         android:maxLines="1"
-                        android:fontFamily="sans-serif-condensed-medium"
                         android:singleLine="true"
+                        android:textColor="#009688"
                         android:textSize="18sp" />
 
 
@@ -96,13 +118,17 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/noteCard"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleCard">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -114,88 +140,186 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/dairy_write_icon" />
 
-    <com.google.android.material.textfield.TextInputLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-
-        app:counterEnabled="true"
-        app:counterMaxLength="1000">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="1000">
 
 
-            <EditText
-                android:singleLine="false"
-                android:overScrollMode="always"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:id="@+id/d_noteET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/transparent"
-                android:hint=" Dear Diary,"
-                android:gravity="start"
-                android:isScrollContainer="true"
-                android:maxHeight="300dp"
-                android:maxLength="1000"
-                android:minHeight="150dp"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-condensed"
-                />
+                        <EditText
+                            android:id="@+id/d_noteET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="sans-serif-condensed"
+                            android:gravity="start"
+                            android:hint=" Dear Diary,"
+                            android:isScrollContainer="true"
+                            android:maxHeight="300dp"
+                            android:maxLength="1000"
+                            android:minHeight="120dp"
+                            android:overScrollMode="always"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:singleLine="false"
+                            android:textSize="18sp" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
                 </RelativeLayout>
-
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:backgroundTint="@color/colorAccent"
-                app:cornerRadius="20sp"
-                app:elevation="5dp"
-                android:id="@+id/d_savebtn"
-                android:layout_width="200dp"
-                app:icon="@drawable/icons8_checkmark_30px"
+            <TextView
+                android:id="@+id/texView1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="9dp"
-                android:text="Save" />
+                android:layout_margin="10dp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="How You felt?"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/noteCard" />
+
+            <TextView
+                android:id="@+id/moodTV"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:text="Happy!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/texView1"
+                app:layout_constraintTop_toBottomOf="@+id/noteCard" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/emojiCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texView1">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/happyImageView"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:src="@drawable/ic_happy" />
+
+                        <ImageView
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:id="@+id/loveImageVIew"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_in_love" />
+
+                        <ImageView
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:id="@+id/owoImageView"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_surprised" />
+
+                        <ImageView
+                            android:id="@+id/sadImageView"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_unhappy" />
+
+                        <ImageView
+                            android:id="@+id/sickImageView"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_ill" />
+
+                        <ImageView
+                            android:id="@+id/angreyImageView"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_mad" />
+
+                        <ImageView
+                            android:id="@+id/funnyImageView"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_tongue_out" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <com.google.android.material.button.MaterialButton
-                app:icon="@drawable/icons8_checkmark_30px"
+                android:id="@+id/d_savebtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:backgroundTint="@color/colorAccent"
+                android:text="Save"
+                app:cornerRadius="20sp"
+                app:elevation="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emojiCardView" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/d_updatebtn"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                app:cornerRadius="20sp"
                 android:text="Update"
-                android:visibility="gone" />
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:layout_marginBottom="60dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/adView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-5271939163637049/3952499010">
-            </com.google.android.gms.ads.AdView>
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emojiCardView" />
 
 
-
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.core.widget.NestedScrollView>

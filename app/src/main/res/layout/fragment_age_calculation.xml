@@ -39,24 +39,25 @@
             android:layout_marginBottom="55dp"
             android:orientation="vertical">
 
-            <soup.neumorphism.NeumorphCardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#5D70DA"
+                app:cardBackgroundColor="#5D70DA"
                 >
 
                 <LinearLayout
+                    android:background="@drawable/gradientcolor_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-N
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="sans-serif-smallcaps"
+                        android:fontFamily="sans-serif-condensed-medium"
                         android:text="Your Age"
                         android:textColor="#FFC107"
                         android:textSize="20sp" />
@@ -163,7 +164,7 @@ N
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="sans-serif-smallcaps"
+                        android:fontFamily="sans-serif-condensed-medium"
                         android:text="Next BirthDay"
                         android:textColor="#FF9800"
                         android:textSize="20sp" />
@@ -241,17 +242,18 @@ N
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
+            </androidx.cardview.widget.CardView>
 
-            <soup.neumorphism.NeumorphCardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:padding="3dp"
                 app:cardCornerRadius="4dp"
-                app:neumorph_backgroundColor="#E3C69B">
+                >
 
                 <LinearLayout
+                    android:background="#E2D8F4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -261,7 +263,7 @@ N
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-smallcaps"
+                        android:fontFamily="sans-serif-condensed-medium"
                         android:gravity="center"
                         android:text="Birthday"
                         android:textColor="@color/colorPrimaryDark"
@@ -269,6 +271,7 @@ N
 
                     <DatePicker
 
+                        android:theme="@style/NumberPickerStyle"
                         android:id="@+id/dobpiker"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -276,15 +279,17 @@ N
                         android:datePickerMode="spinner" />
 
                     <TextView
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-smallcaps"
+                        android:fontFamily="sans-serif-condensed-medium"
                         android:gravity="center"
                         android:text="Current Date"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="17sp" />
 
                     <DatePicker
+                        android:theme="@style/NumberPickerStyle"
                         android:id="@+id/currentPicker"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
@@ -295,9 +300,13 @@ N
                 </LinearLayout>
 
 
-            </soup.neumorphism.NeumorphCardView>
+            </androidx.cardview.widget.CardView>
 
             <Button
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
                 android:id="@+id/ageBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -32,6 +32,7 @@ import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.pojo.CatagoriesSPPojo;
+import com.rztechtunes.dailyexpensemanager.pref.UserActivityStorePref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,9 @@ public class AddTransactionFrag extends Fragment {
             }
         });
 
-        amountTV.setText("$"+(getCurrentBalance()));
+        UserActivityStorePref userActivityStorePref = new UserActivityStorePref(getContext());
+
+        amountTV.setText(String.format("%s%s", userActivityStorePref.getCurrency(), getCurrentBalance()));
 
         ///featch Categories Data if it's empty then insert.
         catagoriesList = ExpenseIncomeDatabase.getInstance(getContext()).getCataDao().getAllCatagories();

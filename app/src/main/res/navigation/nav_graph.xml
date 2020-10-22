@@ -3,13 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/dailyNoteFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/expenseManagerFrag"
         android:name="com.rztechtunes.dailyexpensemanager.ExpenseManagerFrag"
         android:label="fragment_expense_manager"
-        tools:layout="@layout/fragment_expense_manager" />
+        tools:layout="@layout/fragment_expense_manager" >
+        <action
+            android:id="@+id/action_expenseManagerFrag_to_reportGraphFrag"
+            app:destination="@id/reportGraphFrag"
+            app:enterAnim="@anim/layout_animation" />
+    </fragment>
 
     <fragment
         android:id="@+id/allCalculationFragment"
@@ -20,7 +25,16 @@
         android:id="@+id/dailyNoteFragment"
         android:name="com.rztechtunes.dailyexpensemanager.diary_frag.DailyNoteFragment"
         android:label="fragment_daily_note"
-        tools:layout="@layout/fragment_daily_note" />
+        tools:layout="@layout/fragment_daily_note" >
+        <action
+            android:id="@+id/action_dailyNoteFragment_to_diaryDetailsFrag"
+            app:destination="@id/diaryDetailsFrag"
+            app:enterAnim="@anim/layout_animation" />
+        <action
+            android:id="@+id/action_dailyNoteFragment_to_addDairyFragment"
+            app:destination="@id/addDairyFragment"
+            app:enterAnim="@anim/layout_animation" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.rztechtunes.dailyexpensemanager.SettingFragment"

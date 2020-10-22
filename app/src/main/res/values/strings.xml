@@ -8,9 +8,29 @@
     <string name="diarynote">DiaryNote</string>
     <string name="setting">Setting</string>
     <string name="dailybook">DailyBook</string>
-    <string name="appid">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="interstitalUnitId">ca-app-pub-5271939163637049/8080264522</string>
-    <string name="percentageUnitId">ca-app-pub-5271939163637049/7317028956</string>
-    <string name="bmiUnitID">ca-app-pub-5271939163637049/2499267808</string>
-    <string name="searchUnitID">ca-app-pub-5271939163637049/1310023807</string>
+    <string name="rztechtunes">RzTechTunes</string>
+
+    <string name="appid">ca-app-pub-3940256099942544~3347511714</string>
+    <string name="dashboard_banner">000000</string>
+    <string name="expense_banner">000000</string>
+    <string name="income_banner">000000</string>
+    <string name="export_interstitial">000000</string>
+    <string name="search_interstitial">000000</string>
+    <string name="percentage">000000</string>
+    <string name="percentage_interstials">000000</string>
+    <string name="loan_interstitial">000000</string>
+    <string name="interest_interstitial">000000</string>
+    <string name="date_interstials">000000</string>
+    <string name="currency_interstials">000000</string>
+    <string name="age_interstials">000000</string>
+    <string name="perUnit_interstitial">000000</string>
+    <string name="smoking_interstitial">000000</string>
+    <string name="time_differ_interstitial">000000</string>
+    <string name="tips_interstitial">000000</string>
+    <string name="wages_interstials">000000</string>
+    <string name="add_transaction_banner">000000</string>
+    <string name="add_dairy_banner">000000</string>
+    <string name="dairy_note_banner">000000</string>
+    <string name="dairy_detials_interstitial">000000</string>
+
 </resources>

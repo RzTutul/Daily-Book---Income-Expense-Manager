@@ -97,7 +97,7 @@ public class SettingFragment extends Fragment {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "DailyBook");
-                    String shareMessage = "\nDailyBook\nInstall this cool App.\n\n";
+                    String shareMessage = "\nDailyBook\nDaily,Monthly,Yearly expense-income tracker\nDaily Calculation\nDiary Note\nInstall this cool App.\n\n";
                     shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));

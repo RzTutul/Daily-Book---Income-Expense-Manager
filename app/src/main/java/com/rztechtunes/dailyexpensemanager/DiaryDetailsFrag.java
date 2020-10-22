@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
@@ -30,7 +34,7 @@ public class DiaryDetailsFrag extends Fragment {
     TextView tittleTV, noteTV, dateTV, moodTV;
     FloatingActionButton shareBtn;
     String mood;
-
+    private InterstitialAd mInterstitialAd;
     public DiaryDetailsFrag() {
         // Required empty public constructor
     }
@@ -56,6 +60,13 @@ public class DiaryDetailsFrag extends Fragment {
         moodTV = view.findViewById(R.id.moodTV);
         dateTV = view.findViewById(R.id.dateTV);
         shareBtn = view.findViewById(R.id.shareBtn);
+
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.dairy_detials_interstitial));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
         backIV.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +123,14 @@ public class DiaryDetailsFrag extends Fragment {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+
+
+
                 String title = dairyPojo.getTitle();
                 String note = dairyPojo.getNote();
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);

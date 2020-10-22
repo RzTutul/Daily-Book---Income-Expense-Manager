@@ -23,6 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -47,7 +52,7 @@ public class DailyNoteFragment extends Fragment {
     FloatingActionButton addDairyBtn;
     List<DairyPojo> dairyPojoList = new ArrayList<>();
     DairyRVAdapter dairyRVAdapter;
-
+    AdView mAdView;
     public DailyNoteFragment() {
         // Required empty public constructor
     }
@@ -88,9 +93,15 @@ public class DailyNoteFragment extends Fragment {
         });
 
 
-
-
-
+        //Banner Add
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
 
@@ -104,7 +115,7 @@ public class DailyNoteFragment extends Fragment {
         addDairyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.addDairyFragment);
+                Navigation.findNavController(view).navigate(R.id.action_dailyNoteFragment_to_addDairyFragment);
             }
         });
 
@@ -195,7 +206,7 @@ public class DailyNoteFragment extends Fragment {
                             public void onClick(View v) {
 
                                 DiaryDetailsFrag.diaryID = dairyPojoList.get(position).getDairyid();
-                                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.diaryDetailsFrag);
+                                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_dailyNoteFragment_to_diaryDetailsFrag);
 
                                 bottomSheetDialog.dismiss();
                             }

@@ -31,6 +31,11 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
@@ -51,6 +56,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class IncomePieChartFrag extends Fragment {
 
+    AdView mAdView;
     String statusText = " Spin below PieCart";
     List<ExpenseIncomePojo> expenseIncomePojos;
     TextView exIncomeBoardTV;
@@ -83,6 +89,15 @@ public class IncomePieChartFrag extends Fragment {
         monthNameTV = view.findViewById(R.id.monthNameTV);
         statusTV.setText(statusText);
 
+        //Banner Add
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         select_month = Utils.getMonthName();
         select_year = Utils.getYear();
@@ -174,7 +189,6 @@ public class IncomePieChartFrag extends Fragment {
 
     private void featchData() {
 
-
         pieChart.getDescription().setEnabled(true);
         pieChart.setExtraOffsets(5, 10, 5, 5);
         pieChart.setDragDecelerationFrictionCoef(0.9f);
@@ -188,7 +202,7 @@ public class IncomePieChartFrag extends Fragment {
 
 
         List<String> IncomeSource = new ArrayList<>();
-        expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(Utils.getMonthName(), Utils.getYear());
+        expenseIncomePojos = ExpenseIncomeDatabase.getInstance(getContext()).getExpenseIncomeDao().getDataByMonthYear(select_month ,select_year);
 
         if (expenseIncomePojos.size() == 0) {
             statusText = "Empty data insert income";

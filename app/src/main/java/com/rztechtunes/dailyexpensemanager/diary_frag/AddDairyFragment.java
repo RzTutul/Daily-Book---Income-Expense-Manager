@@ -150,7 +150,7 @@ public class AddDairyFragment extends Fragment {
 
 
 
-      /*  //Banner Add
+        //Banner Add
         MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -159,7 +159,6 @@ public class AddDairyFragment extends Fragment {
         mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-*/
 
         dairyNoteET.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +201,7 @@ public class AddDairyFragment extends Fragment {
             titleET.setText(dairyPojo.getTitle());
             dairyNoteET.setText(dairyPojo.getNote());
             moodTV.setText(dairyPojo.getMood());
+            mood = dairyPojo.getMood();
         }
 
 
@@ -209,8 +209,8 @@ public class AddDairyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String date  = dateTV.getText().toString();
-                String title = titleET.getText().toString();
-                String note  = dairyNoteET.getText().toString();
+                String title = titleET.getText().toString().trim();
+                String note  = dairyNoteET.getText().toString() ;
                 if (title.equals("")) {
                     titleET.setError("Give Title");
                 } else if (note.isEmpty()) {

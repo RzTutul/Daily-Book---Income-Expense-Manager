@@ -29,6 +29,21 @@
                 app:title="Add Transaction" />
 
 
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintTop_toBottomOf="@id/toolbar"
+                android:layout_marginTop="10dp"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/add_transaction_banner">
+            </com.google.android.gms.ads.AdView>
+
+
+
             <TextView
                 android:id="@+id/tittleTV"
                 android:layout_width="wrap_content"
@@ -38,7 +53,7 @@
                 android:text="Tittle :"
                 android:textColor="@android:color/background_dark"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+                app:layout_constraintTop_toBottomOf="@id/adView" />
 
             <EditText
                 android:id="@+id/expenesTittleET"

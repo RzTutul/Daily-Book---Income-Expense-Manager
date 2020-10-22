@@ -30,7 +30,7 @@ import static com.airbnb.lottie.L.TAG;
 
 
 public class CalculateIBMFragment extends Fragment {
-    private InterstitialAd mInterstitialAd;
+
 
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
     NestedScrollView nestedScrollView;
@@ -66,14 +66,6 @@ public class CalculateIBMFragment extends Fragment {
         calculateBtn = view.findViewById(R.id.bmiCalculateBtn);
         weightSP = view.findViewById(R.id.selectWeightSP);
         nestedScrollView = view.findViewById(R.id.nestedView);
-
-
-
-        //Interstitial Add Run
-        MobileAds.initialize(getActivity(),getString(R.string.appid));
-        mInterstitialAd = new InterstitialAd(getActivity());
-        mInterstitialAd.setAdUnitId(getString(R.string.bmiUnitID));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
 
@@ -148,12 +140,6 @@ public class CalculateIBMFragment extends Fragment {
 
 
 
-                    //Add Load
-                    if (mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
-                    } else {
-                        Log.d("TAG", "The interstitial wasn't loaded yet.");
-                    }
 
                     if (bmiResult<18.5)
                     {

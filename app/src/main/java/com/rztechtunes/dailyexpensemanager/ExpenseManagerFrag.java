@@ -27,6 +27,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,25 +40,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
-import com.rztechtunes.dailyexpensemanager.entites.CategoriesPojo;
 import com.rztechtunes.dailyexpensemanager.helper.CSVWriter;
 import com.rztechtunes.dailyexpensemanager.helper.Utils;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
@@ -66,12 +61,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -80,15 +72,12 @@ import static android.content.ContentValues.TAG;
 public class ExpenseManagerFrag extends Fragment {
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
     private AdView mAdView;
-
-    LinearLayout pieCharBtnLL;
+    private InterstitialAd mInterstitialAd;
+    private InterstitialAd exportInterstitial;
     CardView emptyCV;
     ImageView fillterData;
-    private String exCatagories;
-    private String e_date;
     RecyclerView expenseRV;
     List<ExpenseIncomePojo> expenseIncomePojos = new ArrayList<>();
-    List<String> categoriesPojoList = new ArrayList<>();
     TextView monthNameTV;
     TickerView incomeTV, expenseTV, balanceTV;
     ExpenseIncomeAdapter expenseIncomeAdapter;
@@ -116,6 +105,9 @@ public class ExpenseManagerFrag extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         toolbar.setTitle(" ");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -150,6 +142,23 @@ public class ExpenseManagerFrag extends Fragment {
         mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.search_interstitial));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+
+ //Interstitial Add Run
+        MobileAds.initialize(getActivity(),getString(R.string.appid));
+        exportInterstitial = new InterstitialAd(getActivity());
+        exportInterstitial.setAdUnitId(getString(R.string.export_interstitial));
+        exportInterstitial.loadAd(new AdRequest.Builder().build());
+
+
+
 
 
 
@@ -225,6 +234,12 @@ public class ExpenseManagerFrag extends Fragment {
         bottomSheetView.findViewById(R.id.searchBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Add Load
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
 
                     featchData();
                     monthNameTV.setText(select_month);
@@ -237,6 +252,7 @@ public class ExpenseManagerFrag extends Fragment {
         bottomSheetView.findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 if (isStorageRequestAccepted())
                 {
@@ -403,8 +419,12 @@ public class ExpenseManagerFrag extends Fragment {
                     .setContentText("Path: Internal Storage/DailyBook/expenseIncome.csv")
                     .show();
 
-
-
+            //Add Load
+            if (exportInterstitial.isLoaded()) {
+                exportInterstitial.show();
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
 
 
 
@@ -454,7 +474,7 @@ public class ExpenseManagerFrag extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_piechart:
-                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.reportGraphFrag);
+                Navigation.findNavController(getActivity(),R.id.nav_host_fragment).navigate(R.id.action_expenseManagerFrag_to_reportGraphFrag);
                 break;
                 case R.id.menu_history:
                     getFillterData();

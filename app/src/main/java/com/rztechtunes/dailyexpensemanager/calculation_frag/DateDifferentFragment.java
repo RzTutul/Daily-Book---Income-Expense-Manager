@@ -59,7 +59,7 @@ public class DateDifferentFragment extends Fragment {
         //Interstitial Add Run
         MobileAds.initialize(getActivity(),getString(R.string.appid));
         mInterstitialAd = new InterstitialAd(getActivity());
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitalUnitId));
+        mInterstitialAd.setAdUnitId(getString(R.string.date_interstials));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 

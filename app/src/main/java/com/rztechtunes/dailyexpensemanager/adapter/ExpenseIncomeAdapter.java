@@ -36,7 +36,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdapter.ExpenseViewHolder> {
     private Context context;
     private List<ExpenseIncomePojo> expensePojos;
-    private String exCatagories, Catagories;
     UserActivityStorePref userActivityStorePref;
     String currencySymbol;
 
@@ -198,95 +197,6 @@ public class ExpenseIncomeAdapter extends RecyclerView.Adapter<ExpenseIncomeAdap
 
     }
 
-    private void showUpdateAllertDialog(final ExpenseViewHolder holder, final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Update Data");
-        builder.setIcon(R.drawable.icons8_checkmark_30px);
-        final View view1 = LayoutInflater.from(context).inflate(R.layout.add_expense_dialog, null);
-
-        builder.setView(view1);
-        final EditText expenseNameET = view1.findViewById(R.id.expenseNameET);
-        final EditText expenseAmoutET = view1.findViewById(R.id.expenseAmountET);
-        final Spinner expenseCatagoriesSp = view1.findViewById(R.id.expenseCatagories);
-
-
-        Button updatebtn = view1.findViewById(R.id.addbtn);
-        Button cancelbtn = view1.findViewById(R.id.cancelBtn);
-
-        exCatagories = expensePojos.get(position).getE_catagories();
-
-        List<String> catagories = ExpenseIncomeDatabase.getInstance(context).getCataDao().getAllCatagories();
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, catagories);
-        expenseCatagoriesSp.setAdapter(arrayAdapter);
-        int spinnerPosition = arrayAdapter.getPosition(exCatagories);
-        expenseCatagoriesSp.setSelection(spinnerPosition);
-
-        updatebtn.setText("Update");
-        expenseNameET.setText(expensePojos.get(position).getE_name());
-        expenseAmoutET.setText(String.valueOf(expensePojos.get(position).getE_amount()));
-
-        expenseCatagoriesSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Catagories = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-        final AlertDialog dialog = builder.create();
-
-        dialog.show();
-
-        updatebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String ename = expenseNameET.getText().toString();
-                String amount = expenseAmoutET.getText().toString();
-
-                if (ename.equals("")) {
-                    expenseNameET.setError("Empty Name");
-                } else if (amount.equals("")) {
-                    expenseAmoutET.setError("Empty Amount");
-                } else if (Catagories.equals("Select Categories")) {
-                    TextView errorText = (TextView) expenseCatagoriesSp.getSelectedView();
-                    errorText.setError("");
-                    errorText.setTextColor(Color.RED);//just to highlight that this is an error
-                    errorText.setText("Select Valid Categories");
-                } else {
-
-                    ExpenseIncomePojo expenseIncomePojo = new ExpenseIncomePojo(expensePojos.get(position).getE_id(), ename, Catagories, amount, Utils.getDateWithTime(), Utils.getMonthName(), Utils.getYear());
-                    int update = ExpenseIncomeDatabase.getInstance(context).getExpenseIncomeDao().updateValue(expenseIncomePojo);
-
-                    if (update > 0) {
-                        Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(holder.itemView).navigate(R.id.expenseManagerFrag);
-
-
-                    } else {
-                        Toast.makeText(context, "Updated fail", Toast.LENGTH_SHORT).show();
-
-                    }
-                    dialog.dismiss();
-                }
-
-            }
-        });
-        cancelbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-
-    }
 
 
 }

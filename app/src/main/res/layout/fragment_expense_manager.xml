@@ -7,18 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".ExpenseManagerFrag">
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:layout_marginBottom="60dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center|bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-5271939163637049/1821977938">
-    </com.google.android.gms.ads.AdView>
+
 
 
 
@@ -49,10 +38,10 @@
                     android:fontFamily="sans-serif-condensed-medium"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Welcome Back"
+                    android:text="DailyBook"
                     android:elevation="10dp"
                     android:textColor="@android:color/white"
                     />
@@ -267,6 +256,18 @@
                 android:layout_height="wrap_content"
                 />
 
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintTop_toBottomOf="@id/texview"
+                android:layout_marginTop="10dp"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/dashboard_banner">
+            </com.google.android.gms.ads.AdView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/expenseRV"
@@ -279,7 +280,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/texview"
+                app:layout_constraintTop_toBottomOf="@id/adView"
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.cardview.widget.CardView

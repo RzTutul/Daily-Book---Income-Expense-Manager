@@ -43,6 +43,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -320,11 +321,11 @@
                         android:id="@+id/AddCurrencyLL"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_weight="2"
                         android:orientation="horizontal">
 
                         <TextView
+                            android:padding="4dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -453,6 +454,8 @@
                 android:layout_marginTop="10dp">
 
                 <LinearLayout
+                    android:padding="10dp"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -461,7 +464,6 @@
                         android:id="@+id/infoLL"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="2"
                         android:orientation="horizontal">
 
@@ -525,7 +527,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
+                            android:layout_marginTop="5dp"
                             android:src="@drawable/teamicon" />
 
                         <TextView
@@ -538,11 +540,12 @@
                             android:textSize="15sp" />
 
                         <TextView
+                            android:layout_marginBottom="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:fontFamily="sans-serif"
-                            android:text="RzTechTunes"
+                            android:text="@string/rztechtunes"
                             android:textColor="@color/colorAccent"
                             android:textSize="15sp" />
 

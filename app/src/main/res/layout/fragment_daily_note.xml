@@ -52,6 +52,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/dairy_note_banner">
+            </com.google.android.gms.ads.AdView>
+
+
 
 
             <androidx.cardview.widget.CardView

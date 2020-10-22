@@ -37,6 +37,11 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
 import com.rztechtunes.dailyexpensemanager.entites.ExpenseIncomePojo;
@@ -65,7 +70,7 @@ public class ExpensePieChartFrag extends Fragment {
     List<String> monthName = new ArrayList<>();
     List<String> year = new ArrayList<>();
     ImageView fillterData;
-
+    private AdView mAdView;
     public ExpensePieChartFrag() {
         // Required empty public constructor
     }
@@ -87,6 +92,18 @@ public class ExpensePieChartFrag extends Fragment {
         fillterData = view.findViewById(R.id.fillterData);
         monthNameTV = view.findViewById(R.id.monthNameTV);
         statusTV.setText(statusText);
+
+        //Banner Add
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
 
         select_month = Utils.getMonthName();
         select_year = Utils.getYear();

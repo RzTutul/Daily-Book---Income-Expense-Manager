@@ -52,8 +52,22 @@
                 android:src="@drawable/ic_slider"
                 />
 
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintTop_toBottomOf="@id/fillterData"
+                android:layout_marginTop="10dp"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/expense_banner">
+            </com.google.android.gms.ads.AdView>
+
+
             <com.github.mikephil.charting.charts.PieChart
-                app:layout_constraintTop_toBottomOf="@id/emptyTV"
+                app:layout_constraintTop_toBottomOf="@id/adView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/piechart_1"

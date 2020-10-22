@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +27,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.rztechtunes.dailyexpensemanager.adapter.CatagoriesSpinnerAdapter;
 import com.rztechtunes.dailyexpensemanager.adapter.ExpenseIncomeAdapter;
 import com.rztechtunes.dailyexpensemanager.db.ExpenseIncomeDatabase;
@@ -42,7 +49,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import static android.content.ContentValues.TAG;
 
 public class AddTransactionFrag extends Fragment {
-
+    private AdView mAdView;
     public static long positionupdate=0;
     Toolbar toolbar;
     Spinner catagoriesSp;
@@ -72,6 +79,8 @@ public class AddTransactionFrag extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Animation animation = AnimationUtils.loadAnimation(getActivity(),R.anim.push_down_in);
+        view.startAnimation(animation);
 
         toolbar = view.findViewById(R.id.toolbar);
         saveBtn = view.findViewById(R.id.saveBtn);
@@ -89,6 +98,19 @@ public class AddTransactionFrag extends Fragment {
             }
         });
 
+        //Banner Add
+        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
+
         UserActivityStorePref userActivityStorePref = new UserActivityStorePref(getContext());
 
         amountTV.setText(String.format("%s%s", userActivityStorePref.getCurrency(), getCurrentBalance()));
@@ -102,6 +124,8 @@ public class AddTransactionFrag extends Fragment {
             }
 
         }
+
+
 
 
         /// Add Categories with images

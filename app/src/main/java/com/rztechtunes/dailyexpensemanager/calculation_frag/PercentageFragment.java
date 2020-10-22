@@ -65,7 +65,7 @@ public class PercentageFragment extends Fragment {
 
         MobileAds.initialize(getActivity(),getString(R.string.appid));
         mInterstitialAd = new InterstitialAd(getActivity());
-        mInterstitialAd.setAdUnitId(getString(R.string.percentageUnitId));
+        mInterstitialAd.setAdUnitId(getString(R.string.percentage_interstials));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
